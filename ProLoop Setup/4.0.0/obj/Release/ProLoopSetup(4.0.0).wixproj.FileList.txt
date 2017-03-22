@@ -1,0 +1,8 @@
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop Setup\3.0.0\bin\Release\ProLoopSetup(4.0.0).msi
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop Setup\3.0.0\bin\Release\ProLoopSetup(4.0.0).wixpdb
+obj\\Release\Product.wixobj
+obj\\Release\StandardUI.wixobj
+obj\\Release\pth29D74C9730A81D4BF38B911187183031\_ProLoop.wixobj
+obj\\Release\ProLoopSetup(4.0.0).wixproj.BindContentsFileListnull.txt
+obj\\Release\ProLoopSetup(4.0.0).wixproj.BindOutputsFileListnull.txt
+obj\\Release\ProLoopSetup(4.0.0).wixproj.BindBuiltOutputsFileListnull.txt

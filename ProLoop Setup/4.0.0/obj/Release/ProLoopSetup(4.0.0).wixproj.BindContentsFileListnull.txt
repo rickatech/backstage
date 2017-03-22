@@ -1,0 +1,17 @@
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\AddinExpress.ToolbarControls.2005.xml
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Office.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Serilog.Sinks.File.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Microsoft.Office.Interop.Word.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Serilog.Sinks.RollingFile.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Serilog.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Serilog.xml
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Serilog.Sinks.RollingFile.xml
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\AddinExpress.ToolbarControls.2005.dll
+C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.MSO.2005.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Serilog.Sinks.File.xml
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\stdole.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\Loader\adxloader64.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\Microsoft.Vbe.Interop.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\Loader\adxloader.dll.manifest
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\Loader\adxloader.dll
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\bin\Release\\ProLoop.dll

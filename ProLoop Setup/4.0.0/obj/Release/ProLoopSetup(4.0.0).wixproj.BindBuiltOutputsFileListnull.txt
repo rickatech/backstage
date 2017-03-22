@@ -1,0 +1,2 @@
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop Setup\3.0.0\bin\Release\ProLoopSetup(4.0.0).msi
+C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop Setup\3.0.0\bin\Release\ProLoopSetup(4.0.0).wixpdb

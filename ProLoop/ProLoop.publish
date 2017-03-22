@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishConfiguration version="1.2" activeTab="1" lastOpenedMSI="">
+  <application version="3.0.0.0">
+    <signingOptions>
+      <sha1>true</sha1>
+      <sha256>true</sha256>
+    </signingOptions>
+    <deploymentOptions>
+      <providerURL>http://localhost/proloop/proloop.application</providerURL>
+      <runAfterInstalling>false</runAfterInstalling>
+    </deploymentOptions>
+    <preferences>
+      <showErrors>true</showErrors>
+      <showGUI>true</showGUI>
+      <generateLogFile>false</generateLogFile>
+      <showRegMsg>true</showRegMsg>
+      <showRunningApplicationsWarning>true<generateConfig>false<separateConfigDirs>true<configsDir /></separateConfigDirs><prerequisites createSetupProgram="true" installFromVendor="false" /></generateConfig></showRunningApplicationsWarning>
+    </preferences>
+  </application>
+</publishConfiguration>
