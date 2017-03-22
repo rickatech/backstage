@@ -1,4 +1,5 @@
 ﻿#define NETFX35
+#define AUTH_HARDCODED
 
 using System;
 using System.Collections.Generic;
@@ -159,19 +160,32 @@ namespace WebDAVSaveAsEntry
             networkResource.lpRemoteName = WebDAVFolderURL;
             networkResource.lpProvider = null;
 
+#if AUTH_HARDCODED
+            //Authenticate using username and password
+            string usernameProLoopWebDAV = "sn";
+            string passwordProLoopWebDAV = "p@ssw0rd";
+            var result = Utility.WNetAddConnection2(ref networkResource, passwordProLoopWebDAV, usernameProLoopWebDAV, 0);            //var result = Utility.WNetAddConnection2(ref networkResource, null, null, 0);
+#else
             var result = Utility.WNetAddConnection2(ref networkResource, null, null, 0);
+#endif
 
             //TODO: Task 3: Handle exceptions when WebDAV folder is not accessible (access denied, permission errors, user account disabled, etc)
             if (result == 0)
             {
             }
-            else if (result == 67) //No network situation
+            if (result == 1244) //ERROR_NOT_AUTHENTICATED 
+            {
+                MessageBox.Show(
+                    "Unable to connect to the ProLoop WebDAV folder. Please verify the username and/or password.",
+                    "Authentication error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (result == 67) //ERROR_BAD_NET_NAME -- No network situation
             {
                 MessageBox.Show(
                     "Unable to connect to the ProLoop WebDAV folder. Please verify the network connectivity",
                     "Network error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (result == 85) //Drive is already mapped
+            else if (result == 85) //ERROR_ALREADY_ASSIGNED -- Drive is already mapped
             {
                 //Unmap the existing drive & remap
                 UnMapWebDAVFolderToDriveLetter(true);
