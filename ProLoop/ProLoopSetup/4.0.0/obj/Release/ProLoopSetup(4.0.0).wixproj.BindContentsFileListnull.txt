@@ -1,0 +1,19 @@
+C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.WD.2005.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Newtonsoft.Json.xml
+E:\Githubs\backstage\ProLoop\bin\Release\stdole.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Serilog.Sinks.File.dll
+E:\Githubs\backstage\ProLoop\Loader\adxloader.dll.manifest
+E:\Githubs\backstage\ProLoop\bin\Release\Serilog.Sinks.RollingFile.xml
+E:\Githubs\backstage\ProLoop\bin\Release\Serilog.Sinks.File.xml
+E:\Githubs\backstage\ProLoop\bin\Release\Microsoft.Office.Interop.Word.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Serilog.Sinks.RollingFile.dll
+E:\Githubs\backstage\ProLoop\bin\Release\AddinExpress.ToolbarControls.2005.dll
+C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.MSO.2005.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Office.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Microsoft.Vbe.Interop.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Serilog.dll
+E:\Githubs\backstage\ProLoop\Loader\adxloader64.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Newtonsoft.Json.dll
+E:\Githubs\backstage\ProLoop\bin\Release\Serilog.xml
+E:\Githubs\backstage\ProLoop\Loader\adxloader.dll
+E:\Githubs\backstage\ProLoop\bin\Release\\ProLoop.dll

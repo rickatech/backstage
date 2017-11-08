@@ -1,2 +1,0 @@
-C:\_Dev\Projects\LRN\CS_AddinExpress\ProLoop\ProLoop Setup\3.0.0\bin\Release\ProLoopSetup(3.0.0).msi
-C:\_Dev\Projects\LRN\CS_AddinExpress\ProLoop\ProLoop Setup\3.0.0\bin\Release\ProLoopSetup(3.0.0).wixpdb

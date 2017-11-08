@@ -2,21 +2,18 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 //using stdole;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
 using AddinExpress.MSO;
 using Microsoft.Win32;
-using ProLoop.WordAddin.Properties;
 using Win32;
 using Word = Microsoft.Office.Interop.Word;
+using ProLoop.WordAddin.Forms;
 
 #if NETFX45
 using System.Threading.Tasks;
@@ -40,9 +37,18 @@ namespace ProLoop.WordAddin
     {
         private Word.Application WordApplication;
         private string WebDAVFolderMappedDriveLetter;
-        private string WebDAVFolderURL;
-        private string WebDAVUsername;
-        private string WebDAVPassword;
+        public Operation Mode { get; set; } = Operation.Open;       
+        public bool WebDAVValuesUpdated = false;
+
+        public string ProLoopUrl { get; set; }     
+
+        public string ProLoopPassword { get; set; }
+
+        public string ProLoopUsername { get; set; }
+        public string WebDAVUrl => this.ProLoopUrl + "/dav";
+        public string WebDAVMappedDriveLetter { get; set; }
+        public bool IsProLoopDocument { get; set; }
+        public string ProLoopToken { get; set; }
 
         public AddinModule()
         {
@@ -55,28 +61,27 @@ namespace ProLoop.WordAddin
 
         private void OnAddinStartupComplete(object sender, EventArgs eventArgs)
         {
-            Log.Verbose("Addin_OnStartupComplete() -- Begin");
-            Log.Verbose("Addin started in Word Version {0}", this.HostVersion);
+            //            Log.Verbose("Addin_OnStartupComplete() -- Begin");
+            //            Log.Verbose("Addin started in Word Version {0}", this.HostVersion);
 
-            WebDAVFolderMappedDriveLetter = string.Empty;
+            //            WebDAVFolderMappedDriveLetter = string.Empty;          
 
-            // Hard coded path
-            //WebDAVFolderURL = @"http://newui.proloop.com/dav/";
+            //#if NETFX45
+            //            Task.Factory.StartNew(MapWebDAVFolderToDriveLetter);
+            //#elif NETFX35
+            //            ThreadPool.QueueUserWorkItem(obj => { MapWebDAVFolderToDriveLetter(); });
+            //#endif
 
-            // Path values stored in settings file (app.config)
-            //LoadValuesFromSettingsFile(out WebDAVFolderURL, out WebDAVUsername, out WebDAVPassword);
+            //            Log.Verbose("Addin_OnStartupComplete() -- End");
+            MakeInitAPIHelper();
+        }
 
-            // Path values stored in the Registry (HKCU\Software\ProLoop\)
-            LoadValuesFromRegistry(out WebDAVFolderURL, out WebDAVUsername, out WebDAVPassword);
-
-            //Map the WebDAV folder to a drive letter
-#if NETFX45
-            Task.Factory.StartNew(MapWebDAVFolderToDriveLetter);
-#elif NETFX35
-            ThreadPool.QueueUserWorkItem(obj => { MapWebDAVFolderToDriveLetter(); });
-#endif
-
-            Log.Verbose("Addin_OnStartupComplete() -- End");
+        private void MakeInitAPIHelper()
+        {
+            if (!String.IsNullOrEmpty(ProLoopUrl)|| !String.IsNullOrEmpty(ProLoopPassword)||
+                !String.IsNullOrEmpty(ProLoopUsername)){
+                Service.APIHelper.InitClient(new Uri(ProLoopUrl));
+            }
         }
 
         private void OnAddinInitialize(object sender, EventArgs eventArgs)
@@ -88,32 +93,136 @@ namespace ProLoop.WordAddin
             }
             catch (Exception exception)
             {
-                Log.Verbose("Exception during Addin_OnConnection(): {0}", exception.Message);
+                Log.Error("Exception during Addin_OnConnection(): {0}", exception.Message);
 #if DEBUG
                 MessageBox.Show("Exception during Addin_OnConnection: " + exception.Message);
-                MessageBox.Show("Inner Exception: " + exception.InnerException);
+                if (exception.InnerException != null)
+                    MessageBox.Show("Inner Exception: " + exception.InnerException.Message);
 #endif
             }
 
-            Log.Verbose("Addin_OnConnection() -- Begin (after Logging setup)");
+            Log.Debug("OnAddinInitialize() -- Begin (after Logging setup)");
 
             AddinFinalize += OnAddinFinalize;
 
-            WordApplication = this.WordApp.Application;
+            // Load ProLoop values from registry and map a drive letter to WebDAV path
+#if NETFX45
+            Task.Factory.StartNew(LoadRegValuesAndMapDriveLetter);
+#elif NETFX35
+            ThreadPool.QueueUserWorkItem(obj => { LoadRegValuesMapDriveLetter(); });
+#endif
 
-            Log.Verbose("Addin_OnConnection() -- End");
+            Log.Debug("OnAddinInitialize() -- End");
+        }
+
+        public void LoadRegValuesAndMapDriveLetter()
+        {
+            this.LoadValuesFromRegistry();
+            this.MapWebDAVFolderToDriveLetter();
         }
 
         private void OnAddinFinalize(object sender, EventArgs eventArgs)
         {
-            Log.Verbose("Application_OnQuit()");
+            Log.Debug("OnAddinFinalize() -- Begin");
 
             UnMapWebDAVFolderToDriveLetter(true);
+
+            Log.Debug("OnAddinFinalize() -- End");
 
             //Stop logging
             if (Log.Logger != null)
                 Logger.CloseLogging();
         }
+
+        public void LoadValuesFromRegistry()
+        {
+            Log.Debug("LoadValuesFromRegistry() -- Begin");
+            this.ProLoopUrl = null;
+            this.ProLoopUsername = null;
+            this.ProLoopPassword = null;
+            try
+            {
+                using (RegistryKey currentUser = Registry.CurrentUser)
+                {
+                    RegistryKey registryKey = currentUser.OpenSubKey("Software\\ProLoop", RegistryKeyPermissionCheck.ReadSubTree, RegistryRights.ExecuteKey);
+                    object obj = (registryKey != null) ? registryKey.GetValue("URL") : null;
+                    bool flag = obj != null;
+                    if (flag)
+                    {
+                        this.ProLoopUrl = obj.ToString();
+                        bool flag2 = this.ProLoopUrl.EndsWith("/");
+                        if (flag2)
+                        {
+                            this.ProLoopUrl = this.ProLoopUrl.Substring(0, this.ProLoopUrl.Length - 1);
+                        }
+                        Log.Debug<string>("Registry URL value: {0}", this.ProLoopUrl);
+                    }
+                    object obj2 = (registryKey != null) ? registryKey.GetValue("Username") : null;
+                    bool flag3 = obj2 != null;
+                    if (flag3)
+                    {
+                        this.ProLoopUsername = obj2.ToString();
+                        Log.Debug<string>("Registry Username value: {0}", this.ProLoopUsername);
+                    }
+                    object obj3 = (registryKey != null) ? registryKey.GetValue("Password") : null;
+                    bool flag4 = obj3 != null;
+                    if (flag4)
+                    {
+                        this.ProLoopPassword = obj3.ToString();
+                        Log.Debug<string>("Registry Password value: {0}", this.ProLoopPassword);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception while loading the WebDAV settings from registry.");
+                Log.Error(ex.Message);
+            }
+            Log.Debug("LoadValuesFromRegistry() -- End");
+        }
+
+        public bool SaveValuesToRegistry(string webDavFolderUrl, string webDavUsername, string webDavPassword)
+        {
+            Log.Debug("SaveValuesToRegistry() -- Begin");
+            bool result = false;
+            try
+            {
+                using (RegistryKey currentUser = Registry.CurrentUser)
+                {
+                    RegistryKey registryKey = currentUser.OpenSubKey("Software\\ProLoop", RegistryKeyPermissionCheck.ReadWriteSubTree, RegistryRights.SetValue);
+                    bool flag = registryKey == null;
+                    if (flag)
+                    {
+                        registryKey = currentUser.CreateSubKey("Software\\ProLoop", RegistryKeyPermissionCheck.ReadWriteSubTree);
+                    }
+                    if (registryKey != null)
+                    {
+                        registryKey.SetValue("URL", webDavFolderUrl, RegistryValueKind.String);
+                    }
+                    Log.Debug<string>("Registry URL value set to {0}", webDavFolderUrl);
+                    if (registryKey != null)
+                    {
+                        registryKey.SetValue("Username", webDavUsername, RegistryValueKind.String);
+                    }
+                    Log.Debug<string>("Registry Username value set to {0}", webDavUsername);
+                    if (registryKey != null)
+                    {
+                        registryKey.SetValue("Password", webDavPassword, RegistryValueKind.String);
+                    }
+                    Log.Debug<string>("Registry Password value set to {0}", webDavPassword);
+                    result = true;
+                    Log.Debug("SaveValuesToRegistry() -- End");
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+                Log.Verbose("Exception while saving the WebDAV settings to registry.");
+                Log.Verbose(ex.Message);
+            }
+            return result;
+        }
+
 
         private void UnMapWebDAVFolderToDriveLetter(bool forceUnmap)
         {
@@ -140,216 +249,177 @@ namespace ProLoop.WordAddin
             Log.Verbose("UnMapWebDAVFolderToDriveLetter() -- End");
         }
 
-        private void LoadValuesFromRegistry(out string webDavFolderUrl, out string webDavUsername, out string webDavPassword)
+       
+
+        private string GetUncFromUrl(string url)
         {
-            webDavFolderUrl = null;
-            webDavUsername = null;
-            webDavPassword = null;
-
-            try
+            Log.Debug("GetUncFromUrl() -- Begin");
+            string str = string.Empty;
+            string text = this.ProLoopUrl.ToUpper();           
+            if (text.Contains("HTTPS://"))
             {
-                using (RegistryKey regCurrentUserRootKey = Registry.CurrentUser)
-                {
-                    var regProLoopSubKey =
-                        regCurrentUserRootKey.OpenSubKey(
-                            @"Software\ProLoop",
-                            RegistryKeyPermissionCheck.ReadSubTree,
-                            RegistryRights.ReadKey);
-
-                    var urlValue = regProLoopSubKey?.GetValue("URL");
-                    if (urlValue != null)
-                    {
-                        webDavFolderUrl = urlValue.ToString();
-                        Log.Verbose("Registry URL value: {0}", webDavFolderUrl);
-                    }
-
-                    var usernameValue = regProLoopSubKey?.GetValue("Username");
-                    if (usernameValue != null)
-                    {
-                        webDavUsername = usernameValue.ToString();
-                        Log.Verbose("Registry Username value: {0}", webDavUsername);
-                    }
-
-                    var passwordValue = regProLoopSubKey?.GetValue("Password");
-                    if (passwordValue != null)
-                    {
-                        webDavPassword = passwordValue.ToString();
-                        Log.Verbose("Registry Password value: {0}", webDavPassword);
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                Log.Verbose("Exception while loading the WebDAV settings from registry.");
-                Log.Verbose(exception.Message);
-            }
-        }
-
-        private void MapWebDAVFolderToDriveLetter()
-        {
-            Log.Verbose("MapWebDAVFolderToDriveLetter() -- Begin");
-
-            //Verify if a driver letter is unmapped and available for mapping
-
-            var driveLetters = new List<string>
-            {
-                @"W:\",
-                @"Z:\",
-                @"Y:\",
-                @"X:\",
-                @"V:\",
-                @"U:\",
-                @"T:\",
-                @"S:\",
-                @"R:\",
-                @"Q:\",
-                @"P:\",
-                @"O:\",
-                @"N:\",
-                @"M:\",
-                @"L:\",
-                @"K:\",
-                @"J:\",
-                @"I:\",
-                @"H:\",
-                @"G:\",
-                @"F:\",
-                @"E:\",
-                @"D:\",
-                @"B:\"
-            };
-
-            // Remove the drive letters which are already being used, from the available drive letter list
-            var usedDrives = DriveInfo.GetDrives();
-            foreach (var usedDrive in usedDrives)
-            {
-                var driveName = usedDrive.Name; // C:\, E:\, etc:\
-                var driveType = usedDrive.DriveType;
-                Log.Verbose("Used drive letter: {0}, Type: {1}", driveName, driveType);
-
-                //Remove this drive letter from the unused drive letter list
-                driveLetters.Remove(driveName);
-            }
-
-            //Verify if any used drive letter is already mapped to the WebDAV folder
-            try
-            {
-                var searcher = new ManagementObjectSearcher("select * from Win32_MappedLogicalDisk");
-                foreach (var resultItem in searcher.Get())
-                {
-                    var drive = (ManagementObject)resultItem;
-                    Log.Verbose("Drive letter {0} is mapped to {1}", drive["Name"].ToString(), drive["ProviderName"].ToString());
-
-                    var mappedDrivePath = drive["ProviderName"].ToString();
-
-                    //if (mappedDrivePath.ToUpper().StartsWith(@"\\NEWUI.PROLOOP.COM\DAVWWWROOT"))
-
-                    // Conver the URL to UNC: 
-                    // From http://newui.proloop.com/dav/ to \\NEWUI.PROLOOP.COM\DAV
-                    string mappedFolderPathAsUnc = WebDAVFolderURL.ToUpper()
-                        .Replace(@"HTTP://", @"\\")
-                        .Replace(@"/", @"\");
-                    if (mappedFolderPathAsUnc.EndsWith(@"\")) // Remove the trailing \
-                    {
-                        mappedFolderPathAsUnc = mappedDrivePath.Substring(0, mappedFolderPathAsUnc.Length - 2);
-                    }
-
-                    if (mappedDrivePath.ToUpper().StartsWith(mappedFolderPathAsUnc))
-                    {
-                        //A drive letter is already mapped to WebDAV folder
-                        WebDAVFolderMappedDriveLetter = drive["Name"].ToString();
-                        //Log.Information("WebDAV folder {0} is already mapped to drive {1}", 
-                        //  @"\\NEWUI.PROLOOP.COM\DAVWWWROOT", WebDAVFolderMappedDriveLetter);
-                        Log.Information("WebDAV folder {0} is already mapped to drive {1}",
-                            mappedFolderPathAsUnc, WebDAVFolderMappedDriveLetter);
-
-                        return;
-                    }
-                    //Console.WriteLine(Regex.Match(drive["ProviderName"].ToString(), @"\\\\([^\\]+)").Groups[1]);
-                }
-            }
-            catch (Exception exception)
-            {
-                Log.Error("Exception while iterating over drive letters and their mapped path.");
-                Log.Error(exception.Message);
-            }
-
-            //Map the WebDAV folder to the drive letter -- WebDAVFolderMappedDriveLetter
-            //Get the first unused drive letter
-            WebDAVFolderMappedDriveLetter = driveLetters.First().Replace("\\", "");
-
-            var networkResource = new Utility.NETRESOURCE
-            {
-                dwType = Utility.RESOURCETYPE_DISK,
-                lpLocalName = WebDAVFolderMappedDriveLetter,
-                lpRemoteName = WebDAVFolderURL,
-                lpProvider = null
-            };
-
-            // Hard coded: Authenticate using username and password
-            //string usernameProLoopWebDAV = "sn";
-            //string passwordProLoopWebDAV = "p@ssw0rd";
-            //var result = Utility.WNetAddConnection2(ref networkResource, passwordProLoopWebDAV, usernameProLoopWebDAV, 0);
-            //var result = Utility.WNetAddConnection2(ref networkResource, null, null, 0);
-
-            var result = Utility.WNetAddConnection2(ref networkResource, WebDAVPassword, WebDAVUsername, 0);
-
-            // TODO: Task 3: Handle exceptions when WebDAV folder is not accessible 
-            // (access denied, permission errors, user account disabled, etc)
-            if (result == 0)  // No Error
-            {
-                Log.Verbose("Successfully mapped the WebDAV folder to drive letter {0}", WebDAVFolderMappedDriveLetter);
-            }
-            else if (result == 1244) //ERROR_NOT_AUTHENTICATED 
-            {
-                Log.Verbose("Unable to connect to the ProLoop WebDAV folder. \nPlease verify the username and/or password.");
-                MessageBox.Show(
-                    "Unable to connect to the ProLoop WebDAV folder. \nPlease verify the username and/or password.",
-                    "Authentication error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (result == 67) //ERROR_BAD_NET_NAME -- No network situation
-            {
-                Log.Verbose("Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.");
-                MessageBox.Show(
-                    "Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.",
-                    "Network error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (result == 487) //ERROR_INVALID_ADDRESS -- No URL or invalid address
-            {
-                Log.Verbose("Unable to connect to the ProLoop WebDAV folder. \nPlease verify the URL.");
-                MessageBox.Show(
-                    "Unable to connect to the ProLoop WebDAV folder. \nPlease verify the URL.",
-                    "Invalid Address", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (result == 85) //ERROR_ALREADY_ASSIGNED -- Drive is already mapped
-            {
-                //Unmap the existing drive & remap
-                Log.Verbose("The drive letter is already assigned to another network resource. \nWill attempt to unmap and remap");
-                UnMapWebDAVFolderToDriveLetter(true);
-
-                var resultNew = Utility.WNetAddConnection2(ref networkResource, null, null, 0);
-                if (resultNew == 0)
-                {
-                    WebDAVFolderMappedDriveLetter = driveLetters.First().Replace("\\", "");
-                    Log.Verbose("Successfully mapped the WebDAV folder to drive letter {0}", WebDAVFolderMappedDriveLetter);
-                }
-                else
-                {
-                    Log.Verbose("Unable to open the WebDAV folder. \nPlease verify the access permissions to WebDAV folder");
-                    MessageBox.Show(
-                        "Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.",
-                        "Network error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                text = text.Replace("HTTPS://", "");
+                str = "@SSL";
             }
             else
             {
-                Log.Verbose("Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.");
-                MessageBox.Show(
-                    "Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.",
-                    "Network error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
+                if (text.Contains("HTTP://"))
+                {
+                    text = text.Replace("HTTP://", "");
+                }
             }
-            //MessageBox.Show(result.ToString());
+           
+            if (text.EndsWith("/"))
+            {
+                text = text.Substring(0, text.Length - 1);
+            }
+            string result = "\\\\" + text + str + "\\DavWWWRoot\\dav";
+            Log.Debug("GetUncFromUrl() -- End");
+            return result;
+        }
 
+        public void MapWebDAVFolderToDriveLetter()
+        {
+            Log.Debug("MapWebDAVFolderToDriveLetter() -- Begin");
+            List<string> list = new List<string>
+            {
+                "W:\\",
+                "Z:\\",
+                "Y:\\",
+                "X:\\",
+                "V:\\",
+                "U:\\",
+                "T:\\",
+                "S:\\",
+                "R:\\",
+                "Q:\\",
+                "P:\\",
+                "O:\\",
+                "N:\\",
+                "M:\\",
+                "L:\\",
+                "K:\\",
+                "J:\\",
+                "I:\\",
+                "H:\\",
+                "G:\\",
+                "F:\\",
+                "E:\\",
+                "D:\\",
+                "B:\\"
+            };
+            DriveInfo[] drives = DriveInfo.GetDrives();
+            DriveInfo[] array = drives;
+            for (int i = 0; i < array.Length; i++)
+            {
+                DriveInfo driveInfo = array[i];
+                string name = driveInfo.Name;
+                DriveType driveType = driveInfo.DriveType;
+                Log.Debug<string, DriveType>("Drive letter in use: {0}, Drive type: {1}", name, driveType);
+                list.Remove(name);
+            }
+            try
+            {
+                ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("select * from Win32_MappedLogicalDisk");
+                foreach (ManagementBaseObject current in managementObjectSearcher.Get())
+                {
+                    ManagementObject managementObject = (ManagementObject)current;
+                    Log.Debug<string, string>("Drive letter {0} is mapped to {1}", managementObject["Name"].ToString(), managementObject["ProviderName"].ToString());
+                    string text = managementObject["ProviderName"].ToString();
+                    string uncFromUrl = this.GetUncFromUrl(this.WebDAVUrl);
+                    bool flag = text.ToUpper().StartsWith(uncFromUrl.ToUpper());
+                    if (flag)
+                    {
+                        this.WebDAVMappedDriveLetter = managementObject["Name"].ToString();
+                        Log.Information<string, string>("WebDAV folder {0} is already mapped to drive {1}", uncFromUrl, this.WebDAVMappedDriveLetter);
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception while iterating over drive letters and their mapped path.");
+                Log.Error(ex.Message);
+                MessageBox.Show("Error while iterating over drive letters and their mapped path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                return;
+            }
+            this.WebDAVMappedDriveLetter = list.First<string>().Replace("\\", "");
+            Utility.NETRESOURCE nETRESOURCE = new Utility.NETRESOURCE
+            {
+                dwType = 1u,
+                lpLocalName = this.WebDAVMappedDriveLetter,
+                lpRemoteName = this.GetUncFromUrl(this.WebDAVUrl),
+                lpProvider = null
+            };
+            uint num = Utility.WNetAddConnection2(ref nETRESOURCE, this.ProLoopPassword, this.ProLoopUsername, 0u);
+            bool flag2 = num == 0u;
+            if (flag2)
+            {
+                Log.Verbose<string>("Successfully mapped the WebDAV folder to drive letter {0}", this.WebDAVMappedDriveLetter);
+            }
+            else
+            {
+                bool flag3 = num == 1244u;
+                if (flag3)
+                {
+                    Log.Verbose("Unable to connect to the ProLoop server. Please verify the username and/or password.");
+                    MessageBox.Show("Unable to connect to the ProLoop server. Please verify the username and/or password.", "Authentication error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                }
+                else
+                {
+                    bool flag4 = num == 53u;
+                    if (flag4)
+                    {
+                        Log.Verbose("Unable to connect to the ProLoop server. Please verify the ProLoop URL in Settings.");
+                        MessageBox.Show("Unable to connect to the ProLoop server. Please verify the ProLoop URL in Settings.", "Settings error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    }
+                    else
+                    {
+                        bool flag5 = num == 67u;
+                        if (flag5)
+                        {
+                            Log.Verbose("Unable to connect to the ProLoop server. Please verify the network connectivity.");
+                            MessageBox.Show("Unable to connect to the ProLoop server. Please verify the network connectivity.", "Network error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        }
+                        else
+                        {
+                            bool flag6 = num == 487u;
+                            if (flag6)
+                            {
+                                Log.Verbose("Unable to connect to the ProLoop server. Please verify the URL.");
+                                MessageBox.Show("Unable to connect to the ProLoop server. Please verify the URL.", "Invalid Address", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                            }
+                            else
+                            {
+                                bool flag7 = num == 85u;
+                                if (flag7)
+                                {
+                                    Log.Verbose("The drive letter is already assigned to another network resource. \nWill attempt to unmap and remap");
+                                    this.UnMapWebDAVFolderToDriveLetter(true);
+                                    uint num2 = Utility.WNetAddConnection2(ref nETRESOURCE, null, null, 0u);
+                                    bool flag8 = num2 == 0u;
+                                    if (flag8)
+                                    {
+                                        this.WebDAVMappedDriveLetter = list.First<string>().Replace("\\", "");
+                                        Log.Verbose<string>("Successfully mapped the WebDAV folder to drive letter {0}", this.WebDAVMappedDriveLetter);
+                                    }
+                                    else
+                                    {
+                                        Log.Verbose("Unable to open the WebDAV folder. \nPlease verify the access permissions to WebDAV folder");
+                                        MessageBox.Show("Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.", "Network error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                                    }
+                                }
+                                else
+                                {
+                                    Log.Verbose("Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.");
+                                    MessageBox.Show("Unable to connect to the ProLoop WebDAV folder. \nPlease verify the network connectivity.", "Network error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             Log.Verbose("MapWebDAVFolderToDriveLetter() -- End");
         }
 
@@ -466,52 +536,7 @@ namespace ProLoop.WordAddin
             Log.Verbose("Save_Document() -- End");
         }
 
-        //        public IPictureDisp GetButtonImage(Office.IRibbonControl control)
-        //        {
-        //            IPictureDisp tempIPictureDisp = null;
-
-        //            Log.Verbose("GetButtonImage() -- Begin");
-        //            try
-        //            {
-        //                //var logoBitmap = (Bitmap) Image.FromFile(@"Images\proloop.bmp");
-        //#if NETFX45
-
-        //                var logoBitmap = Resources.ProLoopLogo;
-        //                Log.Verbose("Bitmap Height: {0}", logoBitmap.PhysicalDimension.Height);
-        //                Log.Verbose("Bitmap Width: {0}", logoBitmap.PhysicalDimension.Width);
-
-        //                tempIPictureDisp = ImageConverter.Convert(logoBitmap);
-        //#elif NETFX35
-        //                //var logoBitmap = Resources.proloop;
-
-        //                var thisExe = Assembly.GetExecutingAssembly();
-        //                //string[] resourceNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-        //                //Stream file = WebDAVSaveAsEntry.Properties.Resources.proloop;
-        //                //Stream file = thisExe.GetManifestResourceStream("WebDAVSaveAsEntry.Properties.Resources.proloop");
-        //                var file = Resources.ProLoopLogo;
-        //                //var logoBitmap = Image.FromStream(file);
-
-        //                tempIPictureDisp = ImageConverter.Convert(file);
-        //#endif				
-
-
-        //            }
-        //            catch (Exception exception)
-        //            {
-        //                Log.Error(exception.Message);
-        //#if DEBUG
-        //                MessageBox.Show(exception.Message);
-        //#endif
-        //            }
-
-        //            return tempIPictureDisp;
-        //            //var stdoleIPictureDisp = OleCreateConverter.ImageToPictureDisp(logoBitmap);
-        //            //Log.Verbose("stdoleIPictureDisp Height: {0}", stdoleIPictureDisp.Height);
-        //            //Log.Verbose("stdoleIPictureDisp Width: {0}", stdoleIPictureDisp.Width);
-
-        //            //Log.Verbose("GetButtonImage() -- End (before return)");
-        //            //return stdoleIPictureDisp;
-        //        }
+        
 
         #region Add-in Express automatic code
 
@@ -559,18 +584,35 @@ namespace ProLoop.WordAddin
                 return (HostApplication as Word._Application);
             }
         }
-    }
 
-    internal class ImageConverter : AxHost
-    {
-        public ImageConverter() : base(null)
+        private void adxRibbonButtonSetting_OnClick(object sender, IRibbonControl control, bool pressed)
         {
+            Log.Debug("rbtnSettings_OnClick() -- Begin");
+            var settingForm = new SettingsForm(); 
+            this.LoadValuesFromRegistry();            
+            if (settingForm.ShowDialog() == DialogResult.OK)
+            {        
+                
+                if (SaveValuesToRegistry(this.ProLoopUrl, this.ProLoopUsername, this.ProLoopPassword))
+                {
+                    MessageBox.Show("Successfully saved the values.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    this.UnmapAndMapWebDavFolderToDrive();
+                }
+                else
+                {
+                    MessageBox.Show("Error while saving the values.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                }
+            }
+            Log.Debug("rbtnSettings_OnClick() -- End");
         }
-
-        public static IPictureDisp Convert(Image image)
+        public void UnmapAndMapWebDavFolderToDrive()
         {
-            return (IPictureDisp)GetIPictureDispFromPicture(image);
+            Log.Debug("UnmapAndMapWebDavFolderToDrive() -- Begin");
+            this.UnMapWebDAVFolderToDriveLetter(false);
+            this.MapWebDAVFolderToDriveLetter();
+            Log.Debug("UnmapAndMapWebDavFolderToDrive() -- End");
         }
     }
+    
 }
 

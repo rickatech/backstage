@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Product Id="*" Name="ProLoop" Language="1033" Version="4.0.0" Manufacturer="ZapTech" UpgradeCode="{4B264A8D-0722-4CCA-BD7A-4D893BDFA2A2}" Codepage="1252">
+    <Package AdminImage="no" Comments="ProLoop" Compressed="yes" Description="Adds the ProLooop MS Word Backstage entry to Open and Save As menu items" InstallerVersion="200" InstallScope="perUser" Languages="1033" Manufacturer="ZapTech" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
+    <Media Id="1" Cabinet="ProLoop.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
+    <Property Id="DiskPrompt" Value="ProLoop Installation [1]" />
+    <Property Id="ARPCOMMENTS" Value="ProLoop" />
+    <Property Id="ARPCONTACT" Value="ZapTech" />
+    <!-- The ".NET Framework" launch condition. -->
+    <PropertyRef Id="NETFRAMEWORK45"/>
+    <Condition Message="This setup requires the .NET Framework 4.5.  Please install the .NET Framework and run this setup again."><![CDATA[Installed OR NETFRAMEWORK45]]></Condition>
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <Binary Id="adxregistrator_exe" SourceFile="$(var.ADX_PATH)\Redistributables\adxregistrator.exe" />
+    <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_C9FA27FE_4BC0_4866_A5F0_2A68515FB4EF" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/install=&quot;[TARGETDIR]$(var.ProLoop.TargetFileName)&quot; /privileges=user" Impersonate="yes" />
+    <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_46A46E47_33F7_4885_927C_E670B6B33D5C" BinaryKey="adxregistrator_exe" Execute="rollback" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.ProLoop.TargetFileName)&quot; /privileges=user /generateLogFile=false" Impersonate="yes" />
+    <!-- The "adxregistrator.exe" custom action. -->
+    <CustomAction Id="_567B8041_8DC3_4670_B617_3C065CEA09D1" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/uninstall=&quot;[TARGETDIR]$(var.ProLoop.TargetFileName)&quot; /privileges=user" Impersonate="yes" />
+    <!-- Initialize the "TARGETDIR" directory property. -->
+    <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[LocalAppDataFolder][Manufacturer]\[ProductName]" Execute="firstSequence" />
+    <Property Id="PREVIOUSINSTALLFOLDER">
+      <RegistrySearch Id="_3FA05B17_ED15_420B_BDEE_A70FA00E3BAB" Root="HKCU" Key="Software\[Manufacturer]\[ProductName]" Name="Installed" Type="raw" />
+    </Property>
+    <CustomAction Id="DIRCA_TARGETDIR_UNINSTALL" Property="TARGETDIR" Value="[PREVIOUSINSTALLFOLDER]" Execute="firstSequence" />
+    <UIRef Id="WixUI_InstallDir" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <Property Id="WIXUI_INSTALLDIR" Value="TARGETDIR" />
+    <!-- The directory tree of the installation package. -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- The "ProLoop" project output. -->
+      <Directory Id="ProLoop.Binaries" />
+      <!-- The "ProLoop" project output. -->
+      <Directory Id="ProLoop.Satellites" />
+      <Component Id="comp_A1C6D66D_70B3_4ED3_964E_F59D516E7F90" Guid="211AF184-10B4-4020-8CAF-01AF9CF362CD" Permanent="no" SharedDllRefCount="no" Transitive="no">
+        <RegistryKey Root="HKCU" Key="Software\[Manufacturer]\[ProductName]">
+          <RegistryValue Type="string" Name="Installed" Value="[TARGETDIR]" KeyPath="yes" />
+        </RegistryKey>
+        <File Id="_E7F255E2_85DC_4AE9_BB59_B2F1B4B93DB1" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="adxloader64.dll" Source="$(var.ProLoop.ProjectDir)Loader\adxloader64.dll" />
+        <File Id="_66487FDA_9521_4816_9545_25C4E1C9CA21" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="adxloader.dll.manifest" Source="$(var.ProLoop.ProjectDir)Loader\adxloader.dll.manifest" />
+        <File Id="_FE85849D_0D3E_43CD_AFEB_70ABA8823255" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="adxloader.dll" Source="$(var.ProLoop.ProjectDir)Loader\adxloader.dll" />
+      </Component>
+      <Component Id="comp_BD5C4CD4_2ABA_4DD5_AB2E_0EFEA616D5A7" Guid="901FA45B-F66D-404A-BCAC-15E461F4ABE9" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_BD5C4CD4_2ABA_4DD5_AB2E_0EFEA616D5A7" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="AddinExpress.MSO.2005.dll" Source="C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.MSO.2005.dll" />
+			</Component>
+				<Component Id="comp_07A08DE8_71F0_4432_9B39_DBBA6A0C297E" Guid="A9167553-D332-4DFE-9842-3F8EC08AC50C" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_07A08DE8_71F0_4432_9B39_DBBA6A0C297E" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="AddinExpress.WD.2005.dll" Source="C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.WD.2005.dll" />
+			</Component>
+				<Component Id="comp_A332544D_0BB6_4BA3_8309_0A335D93E9E0" Guid="02D60ADB-1769-42AC-8F71-5D9C364720BE" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_A332544D_0BB6_4BA3_8309_0A335D93E9E0" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Microsoft.Office.Interop.Word.dll" Source="$(var.ProLoop.TargetDir)Microsoft.Office.Interop.Word.dll" />
+			</Component>
+				<Component Id="comp_F9A71F0B_6608_4D32_AAB5_CF91AF93BF20" Guid="06C93534-58CD-4F8C-927F-3C1743BD15E9" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_F9A71F0B_6608_4D32_AAB5_CF91AF93BF20" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Newtonsoft.Json.dll" Source="$(var.ProLoop.TargetDir)Newtonsoft.Json.dll" />
+			</Component>
+				<Component Id="comp_DA5B4C74_ED9C_4C98_A6CD_60D482926113" Guid="DFFE2DF7-9DE7-4748-90EC-96F7D899E0E9" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_DA5B4C74_ED9C_4C98_A6CD_60D482926113" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Serilog.dll" Source="$(var.ProLoop.TargetDir)Serilog.dll" />
+			</Component>
+				<Component Id="comp_A516CC59_9B27_4730_A518_49F1CEABE596" Guid="518F478B-469B-4E86-B1C3-7CC449603669" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_A516CC59_9B27_4730_A518_49F1CEABE596" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Serilog.Sinks.RollingFile.dll" Source="$(var.ProLoop.TargetDir)Serilog.Sinks.RollingFile.dll" />
+			</Component>
+				<Component Id="comp_BB1581AA_2307_4B5A_855E_8C5C4D3D6C29" Guid="3B41291F-1DBB-4D55-8FA8-6AD49E216536" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_BB1581AA_2307_4B5A_855E_8C5C4D3D6C29" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="AddinExpress.ToolbarControls.2005.dll" Source="$(var.ProLoop.TargetDir)AddinExpress.ToolbarControls.2005.dll" />
+			</Component>
+				<Component Id="comp_C6566BE0_42A9_4877_81D2_F0C1737E0E50" Guid="93A1940C-8FE6-4F77-9F0E-C9DCDD894FCC" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_C6566BE0_42A9_4877_81D2_F0C1737E0E50" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Microsoft.Vbe.Interop.dll" Source="$(var.ProLoop.TargetDir)Microsoft.Vbe.Interop.dll" />
+			</Component>
+				<Component Id="comp_07DBF922_9C1B_4873_9246_FA7663BEA97A" Guid="C3798663-D032-418C-9DDF-AD2A3B49E57C" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_07DBF922_9C1B_4873_9246_FA7663BEA97A" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Newtonsoft.Json.xml" Source="$(var.ProLoop.TargetDir)Newtonsoft.Json.xml" />
+			</Component>
+				<Component Id="comp_C35C211E_78C1_4E7E_B9FF_E4FF4DEB56FD" Guid="DD003831-7F5B-4B4C-93EB-B401FEFD7101" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_C35C211E_78C1_4E7E_B9FF_E4FF4DEB56FD" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Office.dll" Source="$(var.ProLoop.TargetDir)Office.dll" />
+			</Component>
+				<Component Id="comp_4197B3BB_126B_49D2_8A83_E1E3B08445FD" Guid="B3A5D686-29E7-4357-808B-EA289C0A3817" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_4197B3BB_126B_49D2_8A83_E1E3B08445FD" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Serilog.Sinks.File.dll" Source="$(var.ProLoop.TargetDir)Serilog.Sinks.File.dll" />
+			</Component>
+				<Component Id="comp_9F2A01D2_DF40_4E24_99A3_9EBC867B3249" Guid="DC60BE85-E0BE-4DC1-9DDC-81E0E21FBF9A" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_9F2A01D2_DF40_4E24_99A3_9EBC867B3249" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Serilog.Sinks.File.xml" Source="$(var.ProLoop.TargetDir)Serilog.Sinks.File.xml" />
+			</Component>
+				<Component Id="comp_8709F245_A886_453A_A193_8B180BE57A3B" Guid="396244BD-DD62-440C-8886-F4B4885933DA" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_8709F245_A886_453A_A193_8B180BE57A3B" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Serilog.Sinks.RollingFile.xml" Source="$(var.ProLoop.TargetDir)Serilog.Sinks.RollingFile.xml" />
+			</Component>
+				<Component Id="comp_FA1C068C_1725_43A2_B6F8_A91BEA4B91E4" Guid="BF633B15-AA90-4ED5-8B29-121F75CDD649" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_FA1C068C_1725_43A2_B6F8_A91BEA4B91E4" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Serilog.xml" Source="$(var.ProLoop.TargetDir)Serilog.xml" />
+			</Component>
+				<Component Id="comp_139818F1_B437_4639_A37A_B5E97153CCCA" Guid="A5F8C46D-9538-4E6C-8536-55DA268AD229" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_139818F1_B437_4639_A37A_B5E97153CCCA" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="stdole.dll" Source="$(var.ProLoop.TargetDir)stdole.dll" />
+			</Component>   
+    </Directory>
+    <!-- The FileSystem group of the installation package. -->
+    <ComponentGroup Id="FileSystemGroup">
+      <ComponentGroupRef Id="ProLoop.Binaries" />
+      <ComponentGroupRef Id="ProLoop.Satellites" />
+      <ComponentRef Id="comp_A1C6D66D_70B3_4ED3_964E_F59D516E7F90" />
+			<ComponentRef Id="comp_BD5C4CD4_2ABA_4DD5_AB2E_0EFEA616D5A7" />
+			<ComponentRef Id="comp_07A08DE8_71F0_4432_9B39_DBBA6A0C297E" />
+			<ComponentRef Id="comp_A332544D_0BB6_4BA3_8309_0A335D93E9E0" />
+			<ComponentRef Id="comp_F9A71F0B_6608_4D32_AAB5_CF91AF93BF20" />
+			<ComponentRef Id="comp_DA5B4C74_ED9C_4C98_A6CD_60D482926113" />
+			<ComponentRef Id="comp_A516CC59_9B27_4730_A518_49F1CEABE596" />
+			<ComponentRef Id="comp_BB1581AA_2307_4B5A_855E_8C5C4D3D6C29" />
+			<ComponentRef Id="comp_C6566BE0_42A9_4877_81D2_F0C1737E0E50" />
+			<ComponentRef Id="comp_07DBF922_9C1B_4873_9246_FA7663BEA97A" />
+			<ComponentRef Id="comp_C35C211E_78C1_4E7E_B9FF_E4FF4DEB56FD" />
+			<ComponentRef Id="comp_4197B3BB_126B_49D2_8A83_E1E3B08445FD" />
+			<ComponentRef Id="comp_9F2A01D2_DF40_4E24_99A3_9EBC867B3249" />
+			<ComponentRef Id="comp_8709F245_A886_453A_A193_8B180BE57A3B" />
+			<ComponentRef Id="comp_FA1C068C_1725_43A2_B6F8_A91BEA4B91E4" />
+			<ComponentRef Id="comp_139818F1_B437_4639_A37A_B5E97153CCCA" />
+    </ComponentGroup>
+    <!-- The composite feature of the installation package. -->
+    <Feature Id="CompleteInstall" Title="All Files" Level="1" ConfigurableDirectory="TARGETDIR">
+      <ComponentGroupRef Id="FileSystemGroup" />
+    </Feature>
+    <InstallExecuteSequence>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR_UNINSTALL" After="AppSearch"><![CDATA[PREVIOUSINSTALLFOLDER]]></Custom>
+      <Custom Action="_C9FA27FE_4BC0_4866_A5F0_2A68515FB4EF" After="StartServices"><![CDATA[$comp_A1C6D66D_70B3_4ED3_964E_F59D516E7F90>2]]></Custom>
+      <Custom Action="_46A46E47_33F7_4885_927C_E670B6B33D5C" After="_C9FA27FE_4BC0_4866_A5F0_2A68515FB4EF"><![CDATA[$comp_A1C6D66D_70B3_4ED3_964E_F59D516E7F90>2]]></Custom>
+      <Custom Action="_567B8041_8DC3_4670_B617_3C065CEA09D1" After="MsiUnpublishAssemblies"><![CDATA[$comp_A1C6D66D_70B3_4ED3_964E_F59D516E7F90=2]]></Custom>
+    </InstallExecuteSequence>
+    <InstallUISequence>
+      <FindRelatedProducts Sequence="200" />
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR_UNINSTALL" After="AppSearch"><![CDATA[PREVIOUSINSTALLFOLDER]]></Custom>
+    </InstallUISequence>
+    <AdminUISequence>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+    </AdminUISequence>
+  </Product>
+</Wix>

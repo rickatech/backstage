@@ -1,0 +1,7 @@
+E:\Githubs\backstage\ProLoop\ProLoopSetup\4.0.0\bin\Release\ProLoopSetup(4.0.0).msi
+E:\Githubs\backstage\ProLoop\ProLoopSetup\4.0.0\bin\Release\ProLoopSetup(4.0.0).wixpdb
+obj\\Release\Product.wixobj
+obj\\Release\pthDD81F2E0DA20DAB54FFE32C6D0F3DC22\_ProLoop.wixobj
+obj\\Release\ProLoopSetup(4.0.0).wixproj.BindContentsFileListnull.txt
+obj\\Release\ProLoopSetup(4.0.0).wixproj.BindOutputsFileListnull.txt
+obj\\Release\ProLoopSetup(4.0.0).wixproj.BindBuiltOutputsFileListnull.txt
