@@ -196,7 +196,7 @@ namespace ProLoop.WordAddin.Service
             Log.Debug("GetOrganizations() -- End");
             return null;
         }
-        private static void GetSignInToken()
+        private static bool GetSignInToken()
         {
             Log.Debug("GetSignInToken() -- Begin");
             Dictionary<string, string> nameValueCollection = new Dictionary<string, string>
@@ -222,6 +222,7 @@ namespace ProLoop.WordAddin.Service
                     var profile = JsonConvert.DeserializeObject<Profile>(jsonResp);
                     AddinModule.CurrentInstance.ProLoopToken = profile.Token; //Extensions.Value<string>(jObject.SelectToken("token"));
                     Log.Debug("Acquired ProLoop Token: {0}", AddinModule.CurrentInstance.ProLoopToken);
+                    return true;
                 }
                 else
                 {
@@ -247,6 +248,7 @@ namespace ProLoop.WordAddin.Service
                 }
             }
             Log.Debug("GetSignInToken() -- End");
+            return false;
         }
         private static bool IsTokenValid()
         {
@@ -298,11 +300,11 @@ namespace ProLoop.WordAddin.Service
 
         }
 
-        public static void InitClient( Uri url)
+        public static bool InitClient(Uri url)
         {
-            if(localHttpClient==null)
+            if (localHttpClient == null)
             {
-               
+
                 localHttpClient = new HttpClient
                 {
                     BaseAddress = url,
@@ -312,9 +314,18 @@ namespace ProLoop.WordAddin.Service
             }
             else
             {
-                localHttpClient.BaseAddress = url;
+                if (localHttpClient.BaseAddress != url)
+                {
+                    localHttpClient = new HttpClient
+                    {
+                        BaseAddress = url,
+                        Timeout = TimeSpan.FromSeconds(30.0)
+                    };
+                    localHttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                }
             }
-            GetSignInToken();
+            bool result = GetSignInToken();
+            return result;
         }
     }
     

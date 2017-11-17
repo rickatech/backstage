@@ -59,6 +59,8 @@
             this.adxProloopWordTaskPanesManager = new AddinExpress.WD.ADXWordTaskPanesManager(this.components);
             this.adxWordTaskPanesCollectionItem1 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
             this.adxWordTaskPanesCollectionItem2 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
+            this.adxWordTaskPanesCollectionItem3 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
+            this.adxWordTaskPanesCollectionItem4 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
             this.adxRibbonTab1 = new AddinExpress.MSO.ADXRibbonTab(this.components);
             this.adxRibbonGroup1 = new AddinExpress.MSO.ADXRibbonGroup(this.components);
             this.adxRibbonButtonNew = new AddinExpress.MSO.ADXRibbonButton(this.components);
@@ -294,6 +296,8 @@
             // 
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem1);
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem2);
+            this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem3);
+            this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem4);
             this.adxProloopWordTaskPanesManager.SetOwner(this);
             // 
             // adxWordTaskPanesCollectionItem1
@@ -310,6 +314,22 @@
             this.adxWordTaskPanesCollectionItem2.IsHiddenStateAllowed = false;
             this.adxWordTaskPanesCollectionItem2.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
             this.adxWordTaskPanesCollectionItem2.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordSaveTaskPane";
+            // 
+            // adxWordTaskPanesCollectionItem3
+            // 
+            this.adxWordTaskPanesCollectionItem3.AlwaysShowHeader = true;
+            this.adxWordTaskPanesCollectionItem3.Enabled = false;
+            this.adxWordTaskPanesCollectionItem3.IsHiddenStateAllowed = false;
+            this.adxWordTaskPanesCollectionItem3.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
+            this.adxWordTaskPanesCollectionItem3.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordInfoTaskPane";
+            // 
+            // adxWordTaskPanesCollectionItem4
+            // 
+            this.adxWordTaskPanesCollectionItem4.AlwaysShowHeader = true;
+            this.adxWordTaskPanesCollectionItem4.Enabled = false;
+            this.adxWordTaskPanesCollectionItem4.IsHiddenStateAllowed = false;
+            this.adxWordTaskPanesCollectionItem4.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
+            this.adxWordTaskPanesCollectionItem4.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordAltTaskPane";
             // 
             // adxRibbonTab1
             // 
@@ -413,6 +433,8 @@
         private AddinExpress.MSO.ADXRibbonButton adxRibbonButtonSetting;
         private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem1;
         private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem2;
+        private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem3;
+        private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem4;
     }
 }
 

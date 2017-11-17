@@ -44,7 +44,6 @@ namespace ProLoop.WordAddin.Forms
             this.cboDocName = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.tvwFolder = new System.Windows.Forms.TreeView();
@@ -55,7 +54,7 @@ namespace ProLoop.WordAddin.Forms
             // rbOrganizations
             // 
             this.rbOrganizations.AutoSize = true;
-            this.rbOrganizations.Location = new System.Drawing.Point(24, 24);
+            this.rbOrganizations.Location = new System.Drawing.Point(9, 12);
             this.rbOrganizations.Name = "rbOrganizations";
             this.rbOrganizations.Size = new System.Drawing.Size(89, 17);
             this.rbOrganizations.TabIndex = 0;
@@ -67,7 +66,7 @@ namespace ProLoop.WordAddin.Forms
             // rbProjects
             // 
             this.rbProjects.AutoSize = true;
-            this.rbProjects.Location = new System.Drawing.Point(24, 47);
+            this.rbProjects.Location = new System.Drawing.Point(9, 35);
             this.rbProjects.Name = "rbProjects";
             this.rbProjects.Size = new System.Drawing.Size(58, 17);
             this.rbProjects.TabIndex = 1;
@@ -79,7 +78,7 @@ namespace ProLoop.WordAddin.Forms
             // lblOrgsProjects
             // 
             this.lblOrgsProjects.AutoSize = true;
-            this.lblOrgsProjects.Location = new System.Drawing.Point(24, 71);
+            this.lblOrgsProjects.Location = new System.Drawing.Point(9, 56);
             this.lblOrgsProjects.Name = "lblOrgsProjects";
             this.lblOrgsProjects.Size = new System.Drawing.Size(107, 13);
             this.lblOrgsProjects.TabIndex = 2;
@@ -87,28 +86,34 @@ namespace ProLoop.WordAddin.Forms
             // 
             // cboOrgProject
             // 
+            this.cboOrgProject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboOrgProject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboOrgProject.FormattingEnabled = true;
-            this.cboOrgProject.Location = new System.Drawing.Point(24, 87);
+            this.cboOrgProject.Location = new System.Drawing.Point(9, 73);
+            this.cboOrgProject.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboOrgProject.Name = "cboOrgProject";
-            this.cboOrgProject.Size = new System.Drawing.Size(208, 21);
+            this.cboOrgProject.Size = new System.Drawing.Size(320, 21);
             this.cboOrgProject.TabIndex = 3;
             this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
             // 
             // cboClient
             // 
+            this.cboClient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboClient.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboClient.FormattingEnabled = true;
-            this.cboClient.Location = new System.Drawing.Point(24, 128);
+            this.cboClient.Location = new System.Drawing.Point(9, 117);
+            this.cboClient.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboClient.Name = "cboClient";
-            this.cboClient.Size = new System.Drawing.Size(208, 21);
+            this.cboClient.Size = new System.Drawing.Size(320, 21);
             this.cboClient.TabIndex = 5;
             this.cboClient.SelectedIndexChanged += new System.EventHandler(this.cboClient_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 113);
+            this.label1.Location = new System.Drawing.Point(9, 101);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 4;
@@ -116,18 +121,21 @@ namespace ProLoop.WordAddin.Forms
             // 
             // cboMatter
             // 
+            this.cboMatter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboMatter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboMatter.FormattingEnabled = true;
-            this.cboMatter.Location = new System.Drawing.Point(21, 172);
+            this.cboMatter.Location = new System.Drawing.Point(11, 160);
+            this.cboMatter.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboMatter.Name = "cboMatter";
-            this.cboMatter.Size = new System.Drawing.Size(208, 21);
+            this.cboMatter.Size = new System.Drawing.Size(320, 21);
             this.cboMatter.TabIndex = 7;
             this.cboMatter.SelectedIndexChanged += new System.EventHandler(this.cboMatter_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 156);
+            this.label2.Location = new System.Drawing.Point(9, 144);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 6;
@@ -135,18 +143,21 @@ namespace ProLoop.WordAddin.Forms
             // 
             // cboEditor
             // 
+            this.cboEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboEditor.Enabled = false;
             this.cboEditor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboEditor.FormattingEnabled = true;
-            this.cboEditor.Location = new System.Drawing.Point(20, 372);
+            this.cboEditor.Location = new System.Drawing.Point(9, 350);
+            this.cboEditor.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboEditor.Name = "cboEditor";
-            this.cboEditor.Size = new System.Drawing.Size(208, 21);
+            this.cboEditor.Size = new System.Drawing.Size(320, 21);
             this.cboEditor.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 356);
+            this.label3.Location = new System.Drawing.Point(9, 334);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 8;
@@ -154,18 +165,21 @@ namespace ProLoop.WordAddin.Forms
             // 
             // cboContent
             // 
+            this.cboContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboContent.Enabled = false;
             this.cboContent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboContent.FormattingEnabled = true;
-            this.cboContent.Location = new System.Drawing.Point(18, 415);
+            this.cboContent.Location = new System.Drawing.Point(9, 393);
+            this.cboContent.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboContent.Name = "cboContent";
-            this.cboContent.Size = new System.Drawing.Size(208, 21);
+            this.cboContent.Size = new System.Drawing.Size(320, 21);
             this.cboContent.TabIndex = 11;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 399);
+            this.label4.Location = new System.Drawing.Point(9, 377);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 10;
@@ -173,18 +187,20 @@ namespace ProLoop.WordAddin.Forms
             // 
             // cboDocName
             // 
+            this.cboDocName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboDocName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboDocName.FormattingEnabled = true;
-            this.cboDocName.Location = new System.Drawing.Point(18, 458);
+            this.cboDocName.Location = new System.Drawing.Point(9, 436);
             this.cboDocName.Name = "cboDocName";
-            this.cboDocName.Size = new System.Drawing.Size(208, 21);
+            this.cboDocName.Size = new System.Drawing.Size(320, 21);
             this.cboDocName.TabIndex = 13;
             this.cboDocName.SelectedIndexChanged += new System.EventHandler(this.cboDocName_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 442);
+            this.label5.Location = new System.Drawing.Point(9, 420);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 13);
             this.label5.TabIndex = 12;
@@ -193,7 +209,7 @@ namespace ProLoop.WordAddin.Forms
             // btnOpen
             // 
             this.btnOpen.Enabled = false;
-            this.btnOpen.Location = new System.Drawing.Point(12, 506);
+            this.btnOpen.Location = new System.Drawing.Point(15, 475);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 14;
@@ -201,28 +217,22 @@ namespace ProLoop.WordAddin.Forms
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(129, 506);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Location = new System.Drawing.Point(20, 204);
+            this.panel1.Location = new System.Drawing.Point(9, 189);
+            this.panel1.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(208, 24);
+            this.panel1.Size = new System.Drawing.Size(320, 24);
             this.panel1.TabIndex = 17;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 6);
+            this.label6.Location = new System.Drawing.Point(1, 2);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 0;
@@ -230,9 +240,12 @@ namespace ProLoop.WordAddin.Forms
             // 
             // tvwFolder
             // 
-            this.tvwFolder.Location = new System.Drawing.Point(20, 227);
+            this.tvwFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvwFolder.Location = new System.Drawing.Point(9, 213);
+            this.tvwFolder.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.tvwFolder.Name = "tvwFolder";
-            this.tvwFolder.Size = new System.Drawing.Size(208, 126);
+            this.tvwFolder.Size = new System.Drawing.Size(320, 118);
             this.tvwFolder.TabIndex = 18;
             this.tvwFolder.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwFolder_AfterSelect);
             // 
@@ -241,7 +254,7 @@ namespace ProLoop.WordAddin.Forms
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Image = global::ProLoop.WordAddin.Properties.Resources.opSetting;
-            this.btnSettings.Location = new System.Drawing.Point(192, 20);
+            this.btnSettings.Location = new System.Drawing.Point(218, 15);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(42, 30);
             this.btnSettings.TabIndex = 19;
@@ -250,11 +263,10 @@ namespace ProLoop.WordAddin.Forms
             // 
             // ADXWordOpenTaskPane
             // 
-            this.ClientSize = new System.Drawing.Size(264, 541);
+            this.ClientSize = new System.Drawing.Size(350, 535);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.tvwFolder);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cboDocName);
             this.Controls.Add(this.label5);
@@ -273,8 +285,8 @@ namespace ProLoop.WordAddin.Forms
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordOpenTaskPane";
             this.Text = "Open";
-            this.Activated += new System.EventHandler(this.ADXWordOpenTaskPane_Activated);
-            this.Load += new System.EventHandler(this.ADXWordOpenTaskPane_Load);
+            //this.Activated += new System.EventHandler(this.ADXWordOpenTaskPane_Activated);
+            //this.Load += new System.EventHandler(this.ADXWordOpenTaskPane_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -298,7 +310,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.ComboBox cboDocName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TreeView tvwFolder;

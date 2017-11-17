@@ -1,15 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="ProLoop" Language="1033" Version="4.0.0" Manufacturer="ZapTech" UpgradeCode="{4B264A8D-0722-4CCA-BD7A-4D893BDFA2A2}" Codepage="1252">
+  <Product Id="*" Name="ProLoop" Language="1033" Version="4.3.0" Manufacturer="ZapTech" UpgradeCode="{4B264A8D-0722-4CCA-BD7A-4D893BDFA2A2}" Codepage="1252">
     <Package AdminImage="no" Comments="ProLoop" Compressed="yes" Description="Adds the ProLooop MS Word Backstage entry to Open and Save As menu items" InstallerVersion="200" InstallScope="perUser" Languages="1033" Manufacturer="ZapTech" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Media Id="1" Cabinet="ProLoop.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
+    <Icon Id="ProLoopLogo.ico" SourceFile="ProLoopLogo.ico" />
     <Property Id="DiskPrompt" Value="ProLoop Installation [1]" />
     <Property Id="ARPCOMMENTS" Value="ProLoop" />
     <Property Id="ARPCONTACT" Value="ZapTech" />
+    
+    <!--Extra metadata-->
+    <Property Id="ALLUSERS" Secure="yes" Value="2" />
+    <Property Id="MSIINSTALLPERUSER" Secure="yes" Value="1" />
+    <Property Id="ISRUNASADMIN" Secure="yes" Value="0" />
+    <Property Id="USEIMPERSONATE" Secure="yes" Value="1" />
+    <!--End of Extrametadata-->
+    
     <!-- The ".NET Framework" launch condition. -->
     <PropertyRef Id="NETFRAMEWORK45"/>
     <Condition Message="This setup requires the .NET Framework 4.5.  Please install the .NET Framework and run this setup again."><![CDATA[Installed OR NETFRAMEWORK45]]></Condition>
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."  AllowSameVersionUpgrades="yes"/>
     <Binary Id="adxregistrator_exe" SourceFile="$(var.ADX_PATH)\Redistributables\adxregistrator.exe" />
     <!-- The "adxregistrator.exe" custom action. -->
     <CustomAction Id="_C9FA27FE_4BC0_4866_A5F0_2A68515FB4EF" BinaryKey="adxregistrator_exe" Execute="deferred" ExeCommand="/install=&quot;[TARGETDIR]$(var.ProLoop.TargetFileName)&quot; /privileges=user" Impersonate="yes" />

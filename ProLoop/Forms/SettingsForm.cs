@@ -31,37 +31,46 @@ namespace ProLoop.WordAddin.Forms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            string text = this.txtUrl.Text.Trim().ToLower();
-            
-            if (!text.StartsWith("http://")|| !text.StartsWith("https://"))
+
+            if (string.IsNullOrEmpty(txtUsername.Text) ||
+                string.IsNullOrEmpty(txtPassword.Text) ||
+                string.IsNullOrEmpty(txtUrl.Text))
             {
-                Log.Debug<string>("URL doesn't start with http:// or https:// : {0}", text);
-                Log.Debug("Prefixing the URL with https://");
-                text = "https://" + text;
-                Log.Debug<string>("Updated URL: {0}", text);
+                MessageBox.Show("Please enter username and password with server address", "Sign in error", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+
+                return;
             }
-           
-            if (text.StartsWith("http://"))
+            else if (!txtUrl.Text.Contains("https:"))
             {
-                Log.Debug<string>("URL starts with http:// : {0}", text);
-                Log.Debug("Replacing the prefix from http:// to https://");
-                text = text.Replace("http://", "https://");
-                Log.Debug<string>("Updated URL: {0}", text);
+                MessageBox.Show("URL should be https enable", "Sign in error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-            APIHelper.InitClient(new Uri(text));
-            if (!text.EndsWith("/"))
+            else
             {
-                Log.Debug<string>("URL doesn't end with / : {0}", text);
-                Log.Debug("Adding the trailing / to the URL");
-                text += "/";
-                Log.Debug<string>("Updated URL: {0}", text);
+                string text = txtUrl.Text.Trim();
+                this.AddinModuleCurrentInstance.ProLoopUsername = this.txtUsername.Text.Trim();
+                this.AddinModuleCurrentInstance.ProLoopPassword = this.txtPassword.Text.Trim();
+               var result= APIHelper.InitClient(new Uri(text));
+                if (result)
+                {
+                    if (!text.EndsWith("/"))
+                    {
+                        Log.Debug<string>("URL doesn't end with / : {0}", text);
+                        Log.Debug("Adding the trailing / to the URL");
+                        text += "/";
+                        Log.Debug<string>("Updated URL: {0}", text);
+                    }
+                    this.AddinModuleCurrentInstance.ProLoopUrl = text;
+
+                    this.AddinModuleCurrentInstance.WebDAVValuesUpdated = true;
+                    // APIHelper.InitClient(new Uri(AddinModuleCurrentInstance.ProLoopUrl));
+                    base.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    MessageBox.Show("Unable to sign in to the ProLoop. Please check the username and password.", "Sign in error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            this.AddinModuleCurrentInstance.ProLoopUrl = text;
-            this.AddinModuleCurrentInstance.ProLoopUsername = this.txtUsername.Text.Trim();
-            this.AddinModuleCurrentInstance.ProLoopPassword = this.txtPassword.Text.Trim();
-            this.AddinModuleCurrentInstance.WebDAVValuesUpdated = true;
-            APIHelper.InitClient(new Uri(AddinModuleCurrentInstance.ProLoopUrl));
-            base.DialogResult = DialogResult.OK;
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)

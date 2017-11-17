@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.Office.Interop.Word;
 using System.Linq;
 
+
 namespace ProLoop.WordAddin.Forms
 {
     public partial class ADXWordOpenTaskPane : AddinExpress.WD.ADXWordTaskPane
@@ -122,7 +123,7 @@ namespace ProLoop.WordAddin.Forms
                 cboOrgProject.AutoCompleteCustomSource = OrgsAutoCompleteCollection;
 
                 cboOrgProject.SelectedIndex = -1;
-                cboOrgProject.SelectedText = "Select:";
+                cboOrgProject.Text = "Select:";
             }
         }
 
@@ -650,6 +651,7 @@ namespace ProLoop.WordAddin.Forms
                 }              
 
                 _Application WordApp = AddinCurrentInstance.WordApp;
+                WordApp.DisplayAlerts = WdAlertLevel.wdAlertsNone;
                 Documents documents = null;
                 Document document = null;
                 try
@@ -717,14 +719,14 @@ namespace ProLoop.WordAddin.Forms
             Log.Debug("ShowSettingsForm() -- End");
         }
 
-        private void ADXWordOpenTaskPane_Load(object sender, EventArgs e)
-        {
-            AddinCurrentInstance.Mode = Operation.Open;
-        }
+        //private void ADXWordOpenTaskPane_Load(object sender, EventArgs e)
+        //{
+        //    AddinCurrentInstance.Mode = Operation.Open;
+        //}
 
-        private void ADXWordOpenTaskPane_Activated(object sender, EventArgs e)
-        {
+        //private void ADXWordOpenTaskPane_Activated(object sender, EventArgs e)
+        //{
 
-        }
+        //}
     }
 }
