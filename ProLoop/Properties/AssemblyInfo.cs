@@ -9,9 +9,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ProLoop MS Word Add-in")]
 [assembly: AssemblyDescription("Adds the ProLooop MS Word Backstage entry to Open and Save As menu items")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ZapTech")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ProLoop")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("2017@ProLoop")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
  
@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 // You can specify all the value or you can default the Revision and Build Numbers
 // by using the * as shown below:
  
-[assembly: AssemblyVersion("4.0.0.0")]
+[assembly: AssemblyVersion("4.4.0.0")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the

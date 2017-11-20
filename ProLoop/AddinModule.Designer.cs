@@ -67,6 +67,7 @@
             this.adxRibbonOpen = new AddinExpress.MSO.ADXRibbonButton(this.components);
             this.adxRibbonButtonSave = new AddinExpress.MSO.ADXRibbonButton(this.components);
             this.adxRibbonButtonSetting = new AddinExpress.MSO.ADXRibbonButton(this.components);
+            this.adxRibbonButtonInfo = new AddinExpress.MSO.ADXRibbonButton(this.components);
             // 
             // adxBackstageView1
             // 
@@ -346,6 +347,7 @@
             this.adxRibbonGroup1.Controls.Add(this.adxRibbonOpen);
             this.adxRibbonGroup1.Controls.Add(this.adxRibbonButtonSave);
             this.adxRibbonGroup1.Controls.Add(this.adxRibbonButtonSetting);
+            this.adxRibbonGroup1.Controls.Add(this.adxRibbonButtonInfo);
             this.adxRibbonGroup1.Id = "adxRibbonGroup_69af6b98dee749cca1aff6d67efbde08";
             this.adxRibbonGroup1.ImageTransparentColor = System.Drawing.Color.Transparent;
             this.adxRibbonGroup1.Ribbons = AddinExpress.MSO.ADXRibbons.msrWordDocument;
@@ -386,6 +388,16 @@
             this.adxRibbonButtonSetting.Ribbons = AddinExpress.MSO.ADXRibbons.msrWordDocument;
             this.adxRibbonButtonSetting.Size = AddinExpress.MSO.ADXRibbonXControlSize.Large;
             this.adxRibbonButtonSetting.OnClick += new AddinExpress.MSO.ADXRibbonOnAction_EventHandler(this.adxRibbonButtonSetting_OnClick);
+            // 
+            // adxRibbonButtonInfo
+            // 
+            this.adxRibbonButtonInfo.Caption = "Info";
+            this.adxRibbonButtonInfo.Id = "adxRibbonButton_bc7a375c48de4945bf0c8868b6a66b82";
+            this.adxRibbonButtonInfo.ImageMso = "Info";
+            this.adxRibbonButtonInfo.ImageTransparentColor = System.Drawing.Color.Transparent;
+            this.adxRibbonButtonInfo.Ribbons = AddinExpress.MSO.ADXRibbons.msrWordDocument;
+            this.adxRibbonButtonInfo.Size = AddinExpress.MSO.ADXRibbonXControlSize.Large;
+            this.adxRibbonButtonInfo.OnClick += new AddinExpress.MSO.ADXRibbonOnAction_EventHandler(this.adxRibbonButtonInfo_OnClick);
             // 
             // AddinModule
             // 
@@ -435,6 +447,7 @@
         private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem2;
         private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem3;
         private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem4;
+        private AddinExpress.MSO.ADXRibbonButton adxRibbonButtonInfo;
     }
 }
 

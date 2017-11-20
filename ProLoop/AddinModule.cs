@@ -253,6 +253,7 @@ namespace ProLoop.WordAddin
 
         private string GetUncFromUrl(string url)
         {
+           
             Log.Debug("GetUncFromUrl() -- Begin");
             string str = string.Empty;
             string text = this.ProLoopUrl.ToUpper();           
@@ -379,6 +380,8 @@ namespace ProLoop.WordAddin
 
                 return;
             }
+            if (string.IsNullOrEmpty(ProLoopUrl))
+                return;
 
             //Map the WebDAV folder to the drive letter -- WebDAVFolderMappedDriveLetter
             //Get the first unused drive letter
@@ -662,6 +665,11 @@ namespace ProLoop.WordAddin
             this.UnMapWebDAVFolderToDriveLetter(false);
             this.MapWebDAVFolderToDriveLetter();
             Log.Debug("UnmapAndMapWebDavFolderToDrive() -- End");
+        }
+
+        private void adxRibbonButtonInfo_OnClick(object sender, IRibbonControl control, bool pressed)
+        {
+            new AboutUs().ShowDialog();
         }
     }
     

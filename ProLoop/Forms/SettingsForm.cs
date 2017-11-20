@@ -24,9 +24,12 @@ namespace ProLoop.WordAddin.Forms
         private static extern int SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         private void btnClear_Click(object sender, EventArgs e)
         {
-            this.txtUrl.Clear();
-            this.txtUsername.Clear();
-            this.txtPassword.Clear();
+            if (!String.IsNullOrEmpty(txtUrl.Text))
+                txtUrl.Clear();
+            if (!String.IsNullOrEmpty(txtUsername.Text))
+                txtUsername.Clear();
+            if (!String.IsNullOrEmpty(txtPassword.Text))
+                txtPassword.Clear();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

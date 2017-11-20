@@ -197,9 +197,9 @@ namespace ProLoop.WordAddin.Forms
             {
                 this.AddinCurrentInstance.LoadValuesFromRegistry();
             }
-            if (string.IsNullOrEmpty(this.AddinCurrentInstance.ProLoopUrl) ||
-                string.IsNullOrEmpty(this.AddinCurrentInstance.ProLoopUsername) ||
-                string.IsNullOrEmpty(this.AddinCurrentInstance.ProLoopPassword))
+            if (string.IsNullOrEmpty(AddinCurrentInstance.ProLoopUrl) ||
+                string.IsNullOrEmpty(AddinCurrentInstance.ProLoopUsername) ||
+                string.IsNullOrEmpty(AddinCurrentInstance.ProLoopPassword))
 
             {
                 //MessageBox.Show("Please update the ProLoop settings (URL, Username, and Password) to proceed.", "Missing/Invalid Settings", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -210,9 +210,8 @@ namespace ProLoop.WordAddin.Forms
                     radioButton.Checked = false;
                     return;
                 }
-            }
-            bool flag4 = !string.IsNullOrEmpty(this.AddinCurrentInstance.ProLoopUrl);
-            if (flag4)
+            }            
+            if (!string.IsNullOrEmpty(this.AddinCurrentInstance.ProLoopUrl))
             {
                 //    Uri uri = new Uri(this.AddinCurrentInstance.ProLoopUrl);
                 //    bool flag5 = this.localHttpClient != null;
