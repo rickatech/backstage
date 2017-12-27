@@ -41,6 +41,7 @@ namespace ProLoop.WordAddin.Forms
         private Organization ObjOrganization { get; set; } = new Organization();
         private Matter ObjMatter { get; set; } = new Matter();
 
+        private string selectedPath = string.Empty;
         private string FolderPath
         {
             get;
@@ -74,7 +75,9 @@ namespace ProLoop.WordAddin.Forms
 
             // Disable the Open button
             btnOpen.Enabled = false;
-
+            cboDocName.Text = string.Empty;
+            cboClient.Text = string.Empty;
+            cboMatter.Text = string.Empty;
             RadioButton rbOrgs = sender as RadioButton;
             CheckProLoopSettings(rbOrgs);
             if (rbOrganizations.Checked)
@@ -130,7 +133,9 @@ namespace ProLoop.WordAddin.Forms
         private void radioButtonProject_CheckedChanged(object sender, EventArgs e)
         {
             Log.Debug("rbProjects_CheckedChanged() -- Begin");
-
+            cboDocName.Text = string.Empty;
+            cboClient.Text = string.Empty;
+            cboMatter.Text = string.Empty;
             // Disable the Open button
             btnOpen.Enabled = false;
 
@@ -611,70 +616,78 @@ namespace ProLoop.WordAddin.Forms
         private void btnOpen_Click(object sender, EventArgs e)
         {
 
-            Log.Debug("btnOpen_Click() -- Begin");            
+            Log.Debug("btnOpen_Click() -- Begin");
 
             if (string.IsNullOrEmpty(AddinCurrentInstance.WebDAVMappedDriveLetter))
                 AddinCurrentInstance.MapWebDAVFolderToDriveLetter();
-
-            if (!string.IsNullOrEmpty(DocumentName)) // Open the document
+            string filePath = AddinCurrentInstance.WebDAVMappedDriveLetter;
+            if (!string.IsNullOrEmpty(selectedPath))
             {
-                string filePath = AddinCurrentInstance.WebDAVMappedDriveLetter;
-                //string filePath = AddinCurrentInstance.ProLoopUrl;
-                if (ObjProject!=null &&!string.IsNullOrEmpty(ObjProject.Title))
-                {
-                    if (!string.IsNullOrEmpty(FolderPath))
-                        filePath += "\\Projects\\" + ObjProject.Title + "\\" + FolderPath + "\\" + DocumentName; // + "?token=" + AddinCurrentInstance.ProLoopToken;
-                    else
-                        filePath += "\\Projects\\" + ObjProject.Title + "\\" + DocumentName;
-                }
-                else
-                {
-                    if ( ObjMatter!=null&&!string.IsNullOrEmpty(ObjMatter.Name))
-                    {
-                        if (!string.IsNullOrEmpty(FolderPath))
-                            filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + ObjMatter.Name + "\\" +
-                                        FolderPath + "\\" + DocumentName; 
-                        else
-                            filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + ObjMatter.Name + "\\" +
-                                        DocumentName; // + "?token=" + AddinCurrentInstance.ProLoopToken;
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(FolderPath))
-                            filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + FolderPath + "\\" +
-                                        DocumentName; // + "?token=" + AddinCurrentInstance.ProLoopToken;
-                        else
-                            filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + DocumentName;
-                        // + "?token=" + AddinCurrentInstance.ProLoopToken;
-                    }
-                }              
-
-                _Application WordApp = AddinCurrentInstance.WordApp;
-                WordApp.DisplayAlerts = WdAlertLevel.wdAlertsNone;
-                Documents documents = null;
-                Document document = null;
-                try
-                {
-                    documents = WordApp.Documents;
-
-                    // If a document is already open in the active Window, close it
-                    if (documents.Count > 0)
-                    {
-                        document = WordApp.ActiveDocument;
-                        document.Close();
-                    }
-
-                    // Open the selected document
-                    document = documents.Open(filePath, AddToRecentFiles: false);
-                }
-                catch (Exception exception)
-                {
-                    Log.Error("Error while opening the selected document file using File->Open.");
-                    Log.Error(exception.Message);
-                }
-
-                //if (documents != null) Marshal.ReleaseComObject(documents);
+                filePath =filePath+"\\"+ selectedPath;
+                selectedPath = string.Empty;
             }
+            else
+            {
+                if (!string.IsNullOrEmpty(DocumentName)) // Open the document
+                {
+
+                    //string filePath = AddinCurrentInstance.ProLoopUrl;
+                    if (ObjProject != null && !string.IsNullOrEmpty(ObjProject.Title))
+                    {
+                        if (!string.IsNullOrEmpty(FolderPath))
+                            filePath += "\\Projects\\" + ObjProject.Title + "\\" + FolderPath + "\\" + DocumentName; // + "?token=" + AddinCurrentInstance.ProLoopToken;
+                        else
+                            filePath += "\\Projects\\" + ObjProject.Title + "\\" + DocumentName;
+                    }
+                    else
+                    {
+                        if (ObjMatter != null && !string.IsNullOrEmpty(ObjMatter.Name))
+                        {
+                            if (!string.IsNullOrEmpty(FolderPath))
+                                filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + ObjMatter.Name + "\\" +
+                                            FolderPath + "\\" + DocumentName;
+                            else
+                                filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + ObjMatter.Name + "\\" +
+                                            DocumentName; // + "?token=" + AddinCurrentInstance.ProLoopToken;
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty(FolderPath))
+                                filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + FolderPath + "\\" +
+                                            DocumentName; // + "?token=" + AddinCurrentInstance.ProLoopToken;
+                            else
+                                filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + DocumentName;
+                            // + "?token=" + AddinCurrentInstance.ProLoopToken;
+                        }
+                    }
+                }
+            }
+            _Application WordApp = AddinCurrentInstance.WordApp;
+            WordApp.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+            Documents documents = null;
+            Document document = null;
+            try
+            {
+                documents = WordApp.Documents;
+
+                // If a document is already open in the active Window, close it
+                if (documents.Count > 0)
+                {
+                    document = WordApp.ActiveDocument;
+                    document.Close();
+                }
+
+                // Open the selected document
+                document = documents.Open(filePath, AddToRecentFiles: false);
+            }
+            catch (Exception exception)
+            {
+                Log.Error("Error while opening the selected document file using File->Open.");
+                Log.Error(exception.Message);
+            }
+
+            //if (documents != null) Marshal.ReleaseComObject(documents);
+
             Log.Debug("btnOpen_Click() -- End");
         }
 
@@ -718,6 +731,69 @@ namespace ProLoop.WordAddin.Forms
             Log.Debug("ShowSettingsForm() -- End");
         }
 
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            using (var search = new AheadSearchForm())
+            {
+                var dialogResult = search.ShowDialog();
+                if(dialogResult==DialogResult.OK)
+                {
+                    selectedPath =search.FilePath;
+                    if(!string.IsNullOrEmpty(selectedPath))
+                    {
+                        
+                        FillFromSearchWindow();
+                        btnOpen.Enabled = true;
+                    }
+                }
+            }
+        }
+        private void FillFromSearchWindow()
+        {
+            string[] PathCollection = selectedPath.Split('/');
+            if(selectedPath.StartsWith("Organizations"))
+            {
+                cboOrgProject.Text = string.Empty;
+                rbOrganizations.Checked = true;
+                cboOrgProject.SelectedText = PathCollection[1];
+                cboClient.Enabled = true;
+                cboMatter.Enabled = true;
+
+                //Handle Client
+                cboClient.Text = string.Empty;
+                cboClient.SelectedText = PathCollection[2];
+
+                //Handle Matter
+                cboMatter.Text = string.Empty;
+                cboMatter.SelectedText = PathCollection[3];
+
+                // Handle FolderName
+                tvwFolder.Nodes.Clear();
+                for (int i=4;i<PathCollection.Length-1;i++)
+                {
+                    this.tvwFolder.Nodes.Add(PathCollection[i]);
+                }
+                //Handle FileName
+                cboDocName.Text = string.Empty;
+                cboDocName.SelectedText = PathCollection[PathCollection.Length - 1];
+            }
+            else
+            {
+                rbProjects.Checked = true;
+                cboOrgProject.Text = string.Empty;
+                cboOrgProject.SelectedText = PathCollection[1];
+                cboClient.Enabled = false;
+                cboMatter.Enabled = false;
+                // Handle FolderName
+                tvwFolder.Nodes.Clear();
+                for (int i = 2; i < PathCollection.Length - 1; i++)
+                {
+                    this.tvwFolder.Nodes.Add(PathCollection[i]);
+                }
+                cboDocName.Text = string.Empty;
+                cboDocName.SelectedText = PathCollection[PathCollection.Length-1];
+            }
+        }
         //private void ADXWordOpenTaskPane_Load(object sender, EventArgs e)
         //{
         //    AddinCurrentInstance.Mode = Operation.Open;

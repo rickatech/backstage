@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label6 = new System.Windows.Forms.Label();
-            this.tvwFolder = new System.Windows.Forms.TreeView();
-            this.panel1 = new System.Windows.Forms.Panel();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnOpen = new System.Windows.Forms.Button();
             this.cboDocName = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -47,43 +48,17 @@
             this.rbProjects = new System.Windows.Forms.RadioButton();
             this.rbOrganizations = new System.Windows.Forms.RadioButton();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.dgvFolders = new System.Windows.Forms.DataGridView();
+            this.ColumnFolder = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnFiles = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonSearch = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFolders)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(0, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Folders";
-            // 
-            // tvwFolder
-            // 
-            this.tvwFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvwFolder.Location = new System.Drawing.Point(18, 210);
-            this.tvwFolder.Name = "tvwFolder";
-            this.tvwFolder.Size = new System.Drawing.Size(301, 126);
-            this.tvwFolder.TabIndex = 37;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Location = new System.Drawing.Point(18, 187);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(301, 24);
-            this.panel1.TabIndex = 36;
             // 
             // btnOpen
             // 
             this.btnOpen.Enabled = false;
-            this.btnOpen.Location = new System.Drawing.Point(117, 483);
+            this.btnOpen.Location = new System.Drawing.Point(29, 485);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 34;
@@ -116,13 +91,18 @@
             // 
             this.cboContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboContent.Enabled = false;
             this.cboContent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboContent.FormattingEnabled = true;
+            this.cboContent.Items.AddRange(new object[] {
+            "Merger",
+            "Info",
+            "Error",
+            "Important"});
             this.cboContent.Location = new System.Drawing.Point(14, 403);
             this.cboContent.Name = "cboContent";
             this.cboContent.Size = new System.Drawing.Size(304, 21);
             this.cboContent.TabIndex = 31;
+            this.cboContent.SelectedIndexChanged += new System.EventHandler(this.cboContent_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -139,13 +119,17 @@
             // 
             this.cboEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboEditor.Enabled = false;
             this.cboEditor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboEditor.FormattingEnabled = true;
+            this.cboEditor.Items.AddRange(new object[] {
+            "Julie",
+            "Client",
+            "ZTech"});
             this.cboEditor.Location = new System.Drawing.Point(16, 360);
             this.cboEditor.Name = "cboEditor";
             this.cboEditor.Size = new System.Drawing.Size(302, 21);
             this.cboEditor.TabIndex = 29;
+            this.cboEditor.SelectedIndexChanged += new System.EventHandler(this.cboEditor_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -162,12 +146,14 @@
             // 
             this.cboMatter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboMatter.Enabled = false;
             this.cboMatter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboMatter.FormattingEnabled = true;
             this.cboMatter.Location = new System.Drawing.Point(17, 160);
             this.cboMatter.Name = "cboMatter";
             this.cboMatter.Size = new System.Drawing.Size(301, 21);
             this.cboMatter.TabIndex = 27;
+            this.cboMatter.SelectedIndexChanged += new System.EventHandler(this.cboMatter_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -184,12 +170,14 @@
             // 
             this.cboClient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboClient.Enabled = false;
             this.cboClient.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboClient.FormattingEnabled = true;
-            this.cboClient.Location = new System.Drawing.Point(20, 116);
+            this.cboClient.Location = new System.Drawing.Point(18, 116);
             this.cboClient.Name = "cboClient";
             this.cboClient.Size = new System.Drawing.Size(298, 21);
             this.cboClient.TabIndex = 25;
+            this.cboClient.SelectedIndexChanged += new System.EventHandler(this.cboClient_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -208,17 +196,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboOrgProject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboOrgProject.FormattingEnabled = true;
-            this.cboOrgProject.Location = new System.Drawing.Point(20, 75);
+            this.cboOrgProject.Location = new System.Drawing.Point(19, 75);
             this.cboOrgProject.Name = "cboOrgProject";
             this.cboOrgProject.Size = new System.Drawing.Size(298, 21);
             this.cboOrgProject.TabIndex = 23;
+            this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
             // 
             // lblOrgsProjects
             // 
             this.lblOrgsProjects.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblOrgsProjects.AutoSize = true;
-            this.lblOrgsProjects.Location = new System.Drawing.Point(19, 59);
+            this.lblOrgsProjects.Location = new System.Drawing.Point(16, 59);
             this.lblOrgsProjects.Name = "lblOrgsProjects";
             this.lblOrgsProjects.Size = new System.Drawing.Size(107, 13);
             this.lblOrgsProjects.TabIndex = 22;
@@ -234,6 +223,7 @@
             this.rbProjects.TabStop = true;
             this.rbProjects.Text = "Project";
             this.rbProjects.UseVisualStyleBackColor = true;
+            this.rbProjects.CheckedChanged += new System.EventHandler(this.rbProjects_CheckedChanged);
             // 
             // rbOrganizations
             // 
@@ -245,6 +235,7 @@
             this.rbOrganizations.TabStop = true;
             this.rbOrganizations.Text = "Organizations";
             this.rbOrganizations.UseVisualStyleBackColor = true;
+            this.rbOrganizations.CheckedChanged += new System.EventHandler(this.rbOrganizations_CheckedChanged);
             // 
             // btnSettings
             // 
@@ -258,13 +249,73 @@
             this.btnSettings.TabIndex = 38;
             this.btnSettings.UseVisualStyleBackColor = true;
             // 
+            // dgvFolders
+            // 
+            this.dgvFolders.AllowUserToDeleteRows = false;
+            this.dgvFolders.AllowUserToResizeRows = false;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvFolders.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvFolders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvFolders.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvFolders.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvFolders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvFolders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnFolder,
+            this.ColumnFiles});
+            this.dgvFolders.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvFolders.Location = new System.Drawing.Point(17, 188);
+            this.dgvFolders.MultiSelect = false;
+            this.dgvFolders.Name = "dgvFolders";
+            this.dgvFolders.RowHeadersVisible = false;
+            this.dgvFolders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvFolders.Size = new System.Drawing.Size(301, 150);
+            this.dgvFolders.TabIndex = 39;
+            this.dgvFolders.SelectionChanged += new System.EventHandler(this.dgvFolders_SelectionChanged);
+            // 
+            // ColumnFolder
+            // 
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnFolder.DefaultCellStyle = dataGridViewCellStyle7;
+            this.ColumnFolder.HeaderText = "Folders";
+            this.ColumnFolder.Name = "ColumnFolder";
+            // 
+            // ColumnFiles
+            // 
+            this.ColumnFiles.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnFiles.DefaultCellStyle = dataGridViewCellStyle8;
+            this.ColumnFiles.HeaderText = "Documents";
+            this.ColumnFiles.Name = "ColumnFiles";
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(168, 482);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 40;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // SaveOrOpenControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.dgvFolders);
             this.Controls.Add(this.btnSettings);
-            this.Controls.Add(this.tvwFolder);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cboDocName);
             this.Controls.Add(this.label5);
@@ -283,17 +334,13 @@
             this.Name = "SaveOrOpenControl";
             this.Size = new System.Drawing.Size(352, 525);
             this.Load += new System.EventHandler(this.SaveOrOpenControl_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvFolders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TreeView tvwFolder;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.ComboBox cboDocName;
         private System.Windows.Forms.Label label5;
@@ -310,5 +357,9 @@
         private System.Windows.Forms.RadioButton rbProjects;
         private System.Windows.Forms.RadioButton rbOrganizations;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.DataGridView dgvFolders;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFolder;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnFiles;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }

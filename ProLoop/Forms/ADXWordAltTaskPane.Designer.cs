@@ -47,6 +47,7 @@ namespace ProLoop.WordAddin.Forms
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordAltTaskPane";
             this.Text = "ALT";
+            this.Activated += new System.EventHandler(this.ADXWordAltTaskPane_Activated);
             this.ResumeLayout(false);
 
         }

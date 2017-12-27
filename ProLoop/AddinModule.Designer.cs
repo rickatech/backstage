@@ -319,7 +319,6 @@
             // adxWordTaskPanesCollectionItem3
             // 
             this.adxWordTaskPanesCollectionItem3.AlwaysShowHeader = true;
-            this.adxWordTaskPanesCollectionItem3.Enabled = false;
             this.adxWordTaskPanesCollectionItem3.IsHiddenStateAllowed = false;
             this.adxWordTaskPanesCollectionItem3.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
             this.adxWordTaskPanesCollectionItem3.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordInfoTaskPane";

@@ -12,5 +12,10 @@ namespace ProLoop.WordAddin.Forms
         {
             InitializeComponent();
         }
+
+        private void ADXWordAltTaskPane_Activated(object sender, EventArgs e)
+        {
+            WordAddin.AddinModule.CurrentInstance.Mode = Operation.Alt;
+        }
     }
 }

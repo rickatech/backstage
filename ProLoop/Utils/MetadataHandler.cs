@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,23 +27,33 @@ namespace ProLoop.WordAddin.Utils
                 //TODO: need to write log.
             }
         }
-        public static string GetMetadatOfFile(string filePath)
+        public static List<T> GetMetaDataInfo<T>(string filePath)
         {
-            if (File.Exists(filePath))
+            try
             {
-                try
+                using (WebClient client = new WebClient())
                 {
-                    string newPath = ProcessFilePath(filePath);
-                    string content = File.ReadAllText(newPath);
-                    return content;
-                }
-                catch (Exception ex)
-                {
-
+                    string localurl = AddinModule.CurrentInstance.ProLoopUrl + "/api/filetags" + filePath;
+                    string response = client.DownloadString(localurl);
+                    var result = JsonConvert.DeserializeObject<List<T>>(response);
+                    return result;
                 }
             }
-            return string.Empty;
+            catch (Exception ex)
+            {
+
+            }
+            return null;
         }
+        public static void PostMetaDataInfo(string data, string filePath)
+        {
+            using (WebClient client = new WebClient())
+            {
+                string localurl = AddinModule.CurrentInstance.ProLoopUrl + "/api/filetags" + filePath+"?"+data;
+                var resposen = client.UploadString(localurl, data);
+            }
+        }
+
         private static string ProcessFilePath(string filePath)
         {
             string parentDirctory = Path.GetDirectoryName(filePath);

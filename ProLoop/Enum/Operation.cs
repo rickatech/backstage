@@ -9,6 +9,8 @@ namespace ProLoop.WordAddin
     public enum Operation
     {
         Open,
-        Save
+        Save,
+        Info,
+        Alt
     }
 }

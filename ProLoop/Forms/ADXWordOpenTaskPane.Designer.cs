@@ -48,6 +48,7 @@ namespace ProLoop.WordAddin.Forms
             this.label6 = new System.Windows.Forms.Label();
             this.tvwFolder = new System.Windows.Forms.TreeView();
             this.btnSettings = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -261,9 +262,20 @@ namespace ProLoop.WordAddin.Forms
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(143, 475);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 20;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // ADXWordOpenTaskPane
             // 
             this.ClientSize = new System.Drawing.Size(350, 535);
+            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.tvwFolder);
             this.Controls.Add(this.panel1);
@@ -285,8 +297,6 @@ namespace ProLoop.WordAddin.Forms
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordOpenTaskPane";
             this.Text = "Open";
-            //this.Activated += new System.EventHandler(this.ADXWordOpenTaskPane_Activated);
-            //this.Load += new System.EventHandler(this.ADXWordOpenTaskPane_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -314,5 +324,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TreeView tvwFolder;
         private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }

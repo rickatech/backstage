@@ -2,19 +2,20 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 using AddinExpress.WD;
 using AddinExpress.MSO;
 using Serilog;
 using System.Web.Script.Serialization;
 using ProLoop.WordAddin.Utils;
+using ProLoop.WordAddin.Model;
 
 namespace ProLoop.WordAddin.Forms
 {
     public partial class ADXWordInfoTaskPane: AddinExpress.WD.ADXWordTaskPane
     {
         private readonly AddinModule AddinCurrentInstance;
-        Microsoft.Office.Core.DocumentProperties properties;
-        RootMeta rootMeta = new RootMeta();
+        //Microsoft.Office.Core.DocumentProperties properties;       
         private SettingsForm settingForm;
 
         public ADXWordInfoTaskPane()
@@ -29,33 +30,35 @@ namespace ProLoop.WordAddin.Forms
         }
         private void ProcessMetaData()
         {
+            GetKeyWords();
             #region inbuiltProp
-            DataDeserialization();
-            if (rootMeta.Meta != null)
-            {
-                textBoxAuthor.Text = rootMeta.Meta.Author;
-                textBoxSummary.Text = rootMeta.Meta.Summary;
-            }
-            else
-            {
-                properties = (Microsoft.Office.Core.DocumentProperties)
-                   AddinCurrentInstance.WordApp.ActiveDocument.BuiltInDocumentProperties;
-                var author = properties["Author"];
-                if (author != null)
-                {
 
-                    textBoxAuthor.Text = author.Value as string;
+            //if (rootMeta.Meta != null)
+            //{
+            //    textBoxAuthor.Text = rootMeta.Meta.Author;
+            //    textBoxSummary.Text = rootMeta.Meta.Summary;
+            //}
+            //else
+            //{
+            //    properties = (Microsoft.Office.Core.DocumentProperties)
+            //       AddinCurrentInstance.WordApp.ActiveDocument.BuiltInDocumentProperties;
+            //    var author = properties["Author"];
+            //    if (author != null)
+            //    {
 
-                }
-                var summmary = properties["Comments"];
-                if (summmary != null)
-                {
-                    textBoxSummary.Text = summmary.Value as string;
+            //        textBoxAuthor.Text = author.Value as string;
 
-                }
+            //    }
+            //    var summmary = properties["Comments"];
+            //    if (summmary != null)
+            //    {
+            //        textBoxSummary.Text = summmary.Value as string;
+
+            //    }             
                
-                #endregion
-            }
+            //}
+            #endregion
+
             textBoxSummary.ReadOnly = true;
             textBoxAuthor.ReadOnly = true;
             label1.Text = AddinCurrentInstance.WordApp.ActiveDocument.Name;
@@ -111,7 +114,8 @@ namespace ProLoop.WordAddin.Forms
             try
             {
                 //save update data
-                DataSerialization();
+
+                PostKeyword();
                 textBoxSummary.ReadOnly = true;
                 textBoxAuthor.ReadOnly = true;
                
@@ -122,38 +126,52 @@ namespace ProLoop.WordAddin.Forms
             }
         }
 
-        private void DataSerialization()
+        private void PostKeyword()
         {
             string filePath = PathBuilder();
-            rootMeta.Meta = new Metadata()
-            {
-                Author = textBoxAuthor.Text.Trim(new Char[] { ' ', ',', '.' }),
-                Summary = textBoxSummary.Text.Trim()
-            };
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            var data = js.Serialize(rootMeta);
-            MetadataHandler.GenerateNewMetadataFile(filePath, data);
+            if (filePath == null)
+                return;
+            string data = "keywords=" + textBoxSummary.Text;
+            MetadataHandler.PostMetaDataInfo(data, filePath);
         }
-        private RootMeta DataDeserialization()
+        private void GetKeyWords()
         {
             string filePath = PathBuilder();
-           var content= MetadataHandler.GetMetadatOfFile(filePath);
-            if (!string.IsNullOrEmpty(content))
+            var data = MetadataHandler.GetMetaDataInfo<MetaDataInfo>(filePath);
+            if(data!=null)
             {
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                rootMeta = js.Deserialize<RootMeta>(content);
-                return rootMeta;
+                textBoxSummary.Text = string.Empty;
+                int index = 0;
+                foreach(var item in data)
+                {
+                    if (index == data.Count - 1)
+                    {
+                        textBoxSummary.Text += item.Keywords;
+                    }
+                    else
+                    {
+                        textBoxSummary.Text += item.Keywords+",";
+                    }
+                }
+               
             }
-            return null;
+            
         }
 
         private string PathBuilder()
         {
             string orionalLocation = AddinCurrentInstance.WordApp.ActiveDocument.FullName;
-            return orionalLocation;
+            if(orionalLocation.Contains("://"))
+            {
+                Uri uri = new Uri(orionalLocation);
+                string localurl = uri.LocalPath.Replace("/dav",string.Empty);
+                return localurl;
+            }
+            
+            return null;
         }
         private void buttonSum_Click(object sender, EventArgs e)
-        {
+        {           
             textBoxSummary.ReadOnly = false;
             
         }
