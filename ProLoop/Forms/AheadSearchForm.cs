@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ProLoop.WordAddin.Model;
+using ProLoop.WordAddin.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,9 +18,11 @@ namespace ProLoop.WordAddin.Forms
     {
         DataTable dt = new DataTable();
         public string FilePath { get; set; }
-        public AheadSearchForm()
+        SearchParameter _searchParameter;
+        public AheadSearchForm(SearchParameter searchParameter)
         {
             InitializeComponent();
+            _searchParameter = searchParameter;
         }
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
@@ -33,24 +36,54 @@ namespace ProLoop.WordAddin.Forms
 
         private void ProcessAutoComplete()
         {
+            pictureBox1.Visible = true;
+            pictureBox1.BringToFront();
+            var client = new WebClient();
+            string url = string.Format("{0}/api/sayt/f/{1}?keywords={2}&s={3}", AddinModule.CurrentInstance.ProLoopUrl, textBoxPath.Text, textBoxKeywords.Text, textBoxSearch.Text);
+                     
+            client.DownloadStringAsync(new Uri(url));
+            client.DownloadStringCompleted += Client_DownloadStringCompleted;
+        }
+
+        private void Client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
             var ObjectList = new List<MetaDataInfo>();
-            using (var client = new WebClient())
+           if(e==null)
             {
-                if (!string.IsNullOrEmpty(textBoxPath.Text))
-                {
-                    string url = string.Format("{0}/api/sayt/f/{1}?keywords={2}&s={3}",AddinModule.CurrentInstance.ProLoopUrl, textBoxPath.Text, textBoxKeywords.Text, textBoxSearch.Text);
-                    var jsonstring = client.DownloadString(url);
-                    if (!string.IsNullOrEmpty(jsonstring))
-                        ObjectList = JsonConvert.DeserializeObject<List<MetaDataInfo>>(jsonstring);
-                }
-                dataGridView1.AllowUserToAddRows = true;
                 dataGridView1.DataSource = ObjectList;
                 dataGridView1.AllowUserToAddRows = false;
+                pictureBox1.Visible = false;
+                return;
             }
+            var jsonstring = e.Result;
+            if (!string.IsNullOrEmpty(jsonstring))
+                ObjectList = JsonConvert.DeserializeObject<List<MetaDataInfo>>(jsonstring);
+            dataGridView1.AllowUserToAddRows = true;
+            dataGridView1.DataSource = ObjectList;
+            dataGridView1.AllowUserToAddRows = false;
+            pictureBox1.Visible = false;
+            pictureBox1.SendToBack();
         }
+
         private void AheadSearchForm_Load(object sender, EventArgs e)
         {
-           
+            if (_searchParameter != null)
+            {
+                if (!string.IsNullOrEmpty(_searchParameter.OrgOrProject))
+                    textBoxPath.Text = _searchParameter.OrgOrProject;
+                if (!string.IsNullOrEmpty(_searchParameter.OrgOrProjectName))
+                    textBoxPath.Text += "/" + _searchParameter.OrgOrProjectName;
+                if (!string.IsNullOrEmpty(_searchParameter.ClientName))
+                    textBoxPath.Text += "/" + _searchParameter.ClientName;
+                if (!string.IsNullOrEmpty(_searchParameter.MatterName))
+                    textBoxPath.Text += "/" + _searchParameter.MatterName;
+                if (!string.IsNullOrEmpty(_searchParameter.FolderName))
+                    textBoxPath.Text += "/" + _searchParameter.FolderName;
+                textBoxSearch.Text = _searchParameter.FileName;
+                textBoxKeywords.Text = _searchParameter.KeyWord;
+                textBoxEditor.Text = _searchParameter.EditorName;
+                ProcessAutoComplete();
+            }
         }
 
         private void DummyFilterr()
@@ -176,6 +209,8 @@ namespace ProLoop.WordAddin.Forms
             if(index>-1)
             {
                 FilePath = dataGridView1.Rows[index].Cells[1].Value as string;
+                _searchParameter.KeyWord = dataGridView1.Rows[index].Cells[2].Value as string;
+                _searchParameter.EditorName = dataGridView1.Rows[index].Cells[3].Value as string;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

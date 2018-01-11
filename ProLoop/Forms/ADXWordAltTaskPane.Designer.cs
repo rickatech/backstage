@@ -29,6 +29,7 @@ namespace ProLoop.WordAddin.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ADXWordAltTaskPane));
             this.saveOrOpenControl1 = new ProLoop.WordAddin.Forms.SaveOrOpenControl();
             this.SuspendLayout();
             // 
@@ -44,6 +45,7 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.ClientSize = new System.Drawing.Size(346, 522);
             this.Controls.Add(this.saveOrOpenControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordAltTaskPane";
             this.Text = "ALT";

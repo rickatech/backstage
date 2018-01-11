@@ -90,6 +90,7 @@
   <ItemGroup>
     <Content Include="Loader\adxloader.dll" />
     <Content Include="Loader\adxloader64.dll" />
+    <None Include="Resources\Gear.gif" />
     <None Include="Resources\opSetting.png" />
     <None Include="Resources\Settings.ico" />
   </ItemGroup>
@@ -169,6 +170,7 @@
     <Compile Include="Utils\ComboboxItem.cs" />
     <Compile Include="Utils\Metadata.cs" />
     <Compile Include="Utils\MetadataHandler.cs" />
+    <Compile Include="Utils\SearchParameter.cs" />
     <Compile Include="Win32.Utility.cs" />
   </ItemGroup>
   <ItemGroup>

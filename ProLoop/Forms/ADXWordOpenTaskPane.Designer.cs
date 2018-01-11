@@ -29,6 +29,7 @@ namespace ProLoop.WordAddin.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ADXWordOpenTaskPane));
             this.rbOrganizations = new System.Windows.Forms.RadioButton();
             this.rbProjects = new System.Windows.Forms.RadioButton();
             this.lblOrgsProjects = new System.Windows.Forms.Label();
@@ -49,6 +50,7 @@ namespace ProLoop.WordAddin.Forms
             this.tvwFolder = new System.Windows.Forms.TreeView();
             this.btnSettings = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.textBoxContent = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -146,7 +148,6 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.cboEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboEditor.Enabled = false;
             this.cboEditor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboEditor.FormattingEnabled = true;
             this.cboEditor.Location = new System.Drawing.Point(9, 350);
@@ -154,6 +155,7 @@ namespace ProLoop.WordAddin.Forms
             this.cboEditor.Name = "cboEditor";
             this.cboEditor.Size = new System.Drawing.Size(320, 21);
             this.cboEditor.TabIndex = 9;
+            this.cboEditor.SelectedIndexChanged += new System.EventHandler(this.cboEditor_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -168,7 +170,6 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.cboContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboContent.Enabled = false;
             this.cboContent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboContent.FormattingEnabled = true;
             this.cboContent.Location = new System.Drawing.Point(9, 393);
@@ -176,6 +177,7 @@ namespace ProLoop.WordAddin.Forms
             this.cboContent.Name = "cboContent";
             this.cboContent.Size = new System.Drawing.Size(320, 21);
             this.cboContent.TabIndex = 11;
+            this.cboContent.Visible = false;
             // 
             // label4
             // 
@@ -272,9 +274,19 @@ namespace ProLoop.WordAddin.Forms
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
+            // textBoxContent
+            // 
+            this.textBoxContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxContent.Location = new System.Drawing.Point(9, 393);
+            this.textBoxContent.Name = "textBoxContent";
+            this.textBoxContent.Size = new System.Drawing.Size(320, 20);
+            this.textBoxContent.TabIndex = 21;
+            // 
             // ADXWordOpenTaskPane
             // 
             this.ClientSize = new System.Drawing.Size(350, 535);
+            this.Controls.Add(this.textBoxContent);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.tvwFolder);
@@ -294,6 +306,7 @@ namespace ProLoop.WordAddin.Forms
             this.Controls.Add(this.lblOrgsProjects);
             this.Controls.Add(this.rbProjects);
             this.Controls.Add(this.rbOrganizations);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordOpenTaskPane";
             this.Text = "Open";
@@ -325,5 +338,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.TreeView tvwFolder;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.TextBox textBoxContent;
     }
 }

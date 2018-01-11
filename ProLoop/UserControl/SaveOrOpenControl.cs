@@ -334,7 +334,7 @@ namespace ProLoop.WordAddin.Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            using (var aheadSearch = new AheadSearchForm())
+            using (var aheadSearch = new AheadSearchForm(new SearchParameter()))
             {
                 aheadSearch.ShowDialog();
             }

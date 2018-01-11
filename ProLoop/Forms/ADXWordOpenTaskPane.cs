@@ -7,7 +7,7 @@ using ProLoop.WordAddin.Service;
 using System.Text;
 using Microsoft.Office.Interop.Word;
 using System.Linq;
-
+using ProLoop.WordAddin.Utils;
 
 namespace ProLoop.WordAddin.Forms
 {
@@ -53,6 +53,9 @@ namespace ProLoop.WordAddin.Forms
             get;
             set;
         }
+
+        private SearchParameter searchParameter;
+
         public ADXWordOpenTaskPane()
         {
             InitializeComponent();
@@ -67,6 +70,7 @@ namespace ProLoop.WordAddin.Forms
             this.ClientsAutoCompleteCollection = new AutoCompleteStringCollection();
             this.MattersAutoCompleteCollection = new AutoCompleteStringCollection();
             this.DocsAutoCompleteCollection = new AutoCompleteStringCollection();
+            searchParameter = new SearchParameter();
         }
 
         private void rbOrganizations_CheckedChanged(object sender, EventArgs e)
@@ -84,7 +88,7 @@ namespace ProLoop.WordAddin.Forms
             {
                 // Change the label to Organizations
                 lblOrgsProjects.Text = "Organizations";
-
+                searchParameter.OrgOrProject = "Organizations";
                 // Enable Client and Matter
                 cboClient.Enabled = true;
                 cboMatter.Enabled = true;
@@ -147,7 +151,7 @@ namespace ProLoop.WordAddin.Forms
             {
                 // Change the label to Organizations
                 lblOrgsProjects.Text = "Projects";
-
+                searchParameter.OrgOrProject = "Projects";
                 // Disable Client and Matter
                 cboClient.Enabled = false;
                 ObjClient = null;
@@ -260,12 +264,14 @@ namespace ProLoop.WordAddin.Forms
             if (cboOrgProject.SelectedItem is Organization)
             {
                 ObjOrganization = (Organization)this.cboOrgProject.SelectedItem;
+                searchParameter.OrgOrProjectName = ObjOrganization.Title;
                 ObjProject = null;
             }
             else if (cboOrgProject.SelectedItem is Project)
             {
                 ObjProject = cboOrgProject.SelectedItem as Project;
                 ObjOrganization = null;
+                searchParameter.OrgOrProjectName = ObjProject.Title;
             }
             else
             {
@@ -432,6 +438,7 @@ namespace ProLoop.WordAddin.Forms
                 if (this.cboClient.SelectedItem is Client)
                 {
                     ObjClient = (Client)this.cboClient.SelectedItem;
+                    searchParameter.ClientName = ObjClient.Name;
                 }
                 else
                 {
@@ -483,6 +490,7 @@ namespace ProLoop.WordAddin.Forms
                 if (cboMatter.SelectedItem is Matter)
                 {
                     ObjMatter = (Matter)this.cboMatter.SelectedItem;
+                    searchParameter.MatterName = ObjMatter.Name;
                 }
                 else
                 {
@@ -529,6 +537,7 @@ namespace ProLoop.WordAddin.Forms
             {
                 document = (ProLoopFile)cboDocName.SelectedItem;
                 DocumentName = document.Name;
+                searchParameter.FileName = DocumentName;
             }
             else
             {
@@ -549,7 +558,7 @@ namespace ProLoop.WordAddin.Forms
             // Get the full path of the node (from root node to the selected node)
             Stack<TreeNode> resultNodes = new Stack<TreeNode>();
             GetNodesToRoot(e.Node, resultNodes);
-
+            searchParameter.FolderName = e.Node.Text;
             StringBuilder nodePath = new StringBuilder();
             while (resultNodes.Count > 0)
             {
@@ -615,7 +624,7 @@ namespace ProLoop.WordAddin.Forms
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-
+            searchParameter = new SearchParameter();
             Log.Debug("btnOpen_Click() -- Begin");
 
             if (string.IsNullOrEmpty(AddinCurrentInstance.WebDAVMappedDriveLetter))
@@ -733,7 +742,8 @@ namespace ProLoop.WordAddin.Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            using (var search = new AheadSearchForm())
+            searchParameter.KeyWord = textBoxContent.Text;
+            using (var search = new AheadSearchForm(searchParameter))
             {
                 var dialogResult = search.ShowDialog();
                 if(dialogResult==DialogResult.OK)
@@ -793,6 +803,15 @@ namespace ProLoop.WordAddin.Forms
                 cboDocName.Text = string.Empty;
                 cboDocName.SelectedText = PathCollection[PathCollection.Length-1];
             }
+            //cboContent.Text = searchParameter.KeyWord;
+            textBoxContent.Text = searchParameter.KeyWord;
+            cboEditor.Text = searchParameter.EditorName;
+            
+        }
+
+        private void cboEditor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            searchParameter.EditorName = cboEditor.Text;
         }
         //private void ADXWordOpenTaskPane_Load(object sender, EventArgs e)
         //{

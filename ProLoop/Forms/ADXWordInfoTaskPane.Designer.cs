@@ -29,8 +29,8 @@ namespace ProLoop.WordAddin.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ADXWordInfoTaskPane));
             this.label1 = new System.Windows.Forms.Label();
-            this.btnSettings = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonSum = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,6 +41,7 @@ namespace ProLoop.WordAddin.Forms
             this.label3 = new System.Windows.Forms.Label();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -56,18 +57,6 @@ namespace ProLoop.WordAddin.Forms
             this.label1.Size = new System.Drawing.Size(45, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.FlatAppearance.BorderSize = 0;
-            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSettings.Image = global::ProLoop.WordAddin.Properties.Resources.opSetting;
-            this.btnSettings.Location = new System.Drawing.Point(242, 29);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(42, 30);
-            this.btnSettings.TabIndex = 20;
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // panel1
             // 
@@ -185,6 +174,18 @@ namespace ProLoop.WordAddin.Forms
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.FlatAppearance.BorderSize = 0;
+            this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSettings.Image = global::ProLoop.WordAddin.Properties.Resources.opSetting;
+            this.btnSettings.Location = new System.Drawing.Point(242, 29);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(42, 30);
+            this.btnSettings.TabIndex = 20;
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
             // ADXWordInfoTaskPane
             // 
             this.ClientSize = new System.Drawing.Size(334, 507);
@@ -196,6 +197,7 @@ namespace ProLoop.WordAddin.Forms
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordInfoTaskPane";
             this.Text = "Info";
