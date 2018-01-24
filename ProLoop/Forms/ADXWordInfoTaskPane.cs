@@ -114,8 +114,14 @@ namespace ProLoop.WordAddin.Forms
             try
             {
                 //save update data
-
-                PostKeyword();
+                if (!textBoxSummary.ReadOnly)
+                {
+                    PostKeyword();
+                }
+                if(!textBoxAuthor.ReadOnly)
+                {
+                    PostEditor();
+                }
                 textBoxSummary.ReadOnly = true;
                 textBoxAuthor.ReadOnly = true;
                
@@ -124,6 +130,15 @@ namespace ProLoop.WordAddin.Forms
             {
 
             }
+        }
+
+        private void PostEditor()
+        {
+            string filePath = PathBuilder();
+            if (filePath == null)
+                return;
+            string data = "Editor=" + textBoxAuthor.Text.Trim();
+            MetadataHandler.PostMetaDataInfo(data, filePath);
         }
 
         private void PostKeyword()

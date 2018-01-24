@@ -27,4 +27,3 @@ D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Debug\ProLoop.csproj.GenerateRe
 D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Debug\ProLoop.csproj.CoreCompileInputs.cache
 D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Debug\ProLoop.dll
 D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Debug\ProLoop.pdb
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Debug\ProLoop.csprojResolveAssemblyReference.cache

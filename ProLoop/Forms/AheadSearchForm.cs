@@ -39,7 +39,7 @@ namespace ProLoop.WordAddin.Forms
             pictureBox1.Visible = true;
             pictureBox1.BringToFront();
             var client = new WebClient();
-            string url = string.Format("{0}/api/sayt/f/{1}?keywords={2}&s={3}", AddinModule.CurrentInstance.ProLoopUrl, textBoxPath.Text, textBoxKeywords.Text, textBoxSearch.Text);
+            string url = string.Format("{0}/api/sayt/f/{1}?keywords={2}&s={3}&editor={4}", AddinModule.CurrentInstance.ProLoopUrl, textBoxPath.Text, textBoxKeywords.Text, textBoxSearch.Text,textBoxEditor.Text);
                      
             client.DownloadStringAsync(new Uri(url));
             client.DownloadStringCompleted += Client_DownloadStringCompleted;
@@ -47,22 +47,29 @@ namespace ProLoop.WordAddin.Forms
 
         private void Client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)
         {
-            var ObjectList = new List<MetaDataInfo>();
-           if(e==null)
+            try
             {
+                var ObjectList = new List<MetaDataInfo>();
+                if (e == null)
+                {
+                    dataGridView1.DataSource = ObjectList;
+                    dataGridView1.AllowUserToAddRows = false;
+                    pictureBox1.Visible = false;
+                    return;
+                }
+                var jsonstring = e.Result;
+                if (!string.IsNullOrEmpty(jsonstring))
+                    ObjectList = JsonConvert.DeserializeObject<List<MetaDataInfo>>(jsonstring);
+                dataGridView1.AllowUserToAddRows = true;
                 dataGridView1.DataSource = ObjectList;
                 dataGridView1.AllowUserToAddRows = false;
                 pictureBox1.Visible = false;
-                return;
+                pictureBox1.SendToBack();
             }
-            var jsonstring = e.Result;
-            if (!string.IsNullOrEmpty(jsonstring))
-                ObjectList = JsonConvert.DeserializeObject<List<MetaDataInfo>>(jsonstring);
-            dataGridView1.AllowUserToAddRows = true;
-            dataGridView1.DataSource = ObjectList;
-            dataGridView1.AllowUserToAddRows = false;
-            pictureBox1.Visible = false;
-            pictureBox1.SendToBack();
+            catch(Exception ex)
+            {
+                //Todo: need to write exception 
+            }
         }
 
         private void AheadSearchForm_Load(object sender, EventArgs e)
@@ -86,112 +93,116 @@ namespace ProLoop.WordAddin.Forms
             }
         }
 
-        private void DummyFilterr()
-        {
-            dt.Columns.Add("FileName", typeof(string));
-            dt.Columns.Add("Author", typeof(string));
-            dt.Columns.Add("Database", typeof(string));
-            dt.Columns.Add("Client", typeof(string));
-            dt.Columns.Add("Matter", typeof(string));
-            dt.Columns.Add("DocNum", typeof(string));
-            dt.Columns.Add("Version", typeof(string));
-            dt.Columns.Add("Editdate", typeof(string));
 
-            var list = new List<DataItem>();
-            list.Add(new DataItem()
-            {
-                Author = "RTech",
-                Client = "0110",
-                Database = "DMVS",
-                DocuNm = "45444",
-                FileName = "Marketing.doc",
-                Matter = "304",
-                Version = "2",
-                Editdate = DateTime.Now.AddMonths(-2).ToString("MM/dd/yyyy h:mm tt")
-            });
+        #region DummyCode
+        //private void DummyFilterr()
+        //{
+        //    dt.Columns.Add("FileName", typeof(string));
+        //    dt.Columns.Add("Author", typeof(string));
+        //    dt.Columns.Add("Database", typeof(string));
+        //    dt.Columns.Add("Client", typeof(string));
+        //    dt.Columns.Add("Matter", typeof(string));
+        //    dt.Columns.Add("DocNum", typeof(string));
+        //    dt.Columns.Add("Version", typeof(string));
+        //    dt.Columns.Add("Editdate", typeof(string));
 
-            list.Add(new DataItem()
-            {
-                Author = "JRT",
-                Client = "0130",
-                Database = "DMVS",
-                DocuNm = "45445",
-                FileName = "Helper.doc",
-                Matter = "345",
-                Version = "1.9",
-                Editdate = DateTime.Now.AddMonths(-1).ToString("MM/dd/yyyy h:mm tt")
-            });
+        //    var list = new List<DataItem>();
+        //    list.Add(new DataItem()
+        //    {
+        //        Author = "RTech",
+        //        Client = "0110",
+        //        Database = "DMVS",
+        //        DocuNm = "45444",
+        //        FileName = "Marketing.doc",
+        //        Matter = "304",
+        //        Version = "2",
+        //        Editdate = DateTime.Now.AddMonths(-2).ToString("MM/dd/yyyy h:mm tt")
+        //    });
 
-            list.Add(new DataItem()
-            {
-                Author = "JRT",
-                Client = "0130",
-                Database = "DMVS",
-                DocuNm = "45445",
-                FileName = "Meta.doc",
-                Matter = "345",
-                Version = "1.4",
-                Editdate = DateTime.Now.AddMonths(-3).ToString("MM/dd/yyyy h:mm tt")
-            });
-            list.Add(new DataItem()
-            {
-                Author = "NRT",
-                Client = "01102",
-                Database = "KVCP",
-                DocuNm = "45445",
-                FileName = "Works.doc",
-                Matter = "07672",
-                Version = "2.8",
-                Editdate = DateTime.Now.AddDays(-2).ToString("MM/dd/yyyy h:mm tt")
-            });
+        //    list.Add(new DataItem()
+        //    {
+        //        Author = "JRT",
+        //        Client = "0130",
+        //        Database = "DMVS",
+        //        DocuNm = "45445",
+        //        FileName = "Helper.doc",
+        //        Matter = "345",
+        //        Version = "1.9",
+        //        Editdate = DateTime.Now.AddMonths(-1).ToString("MM/dd/yyyy h:mm tt")
+        //    });
 
-            list.Add(new DataItem()
-            {
-                Author = "KMC",
-                Client = "01200",
-                Database = "KVCP",
-                DocuNm = "23461",
-                FileName = "Food.doc",
-                Matter = "7878",
-                Version = "3.0",
-                Editdate = DateTime.Now.AddDays(-4).ToString("MM/dd/yyyy h:mm tt")
-            });
+        //    list.Add(new DataItem()
+        //    {
+        //        Author = "JRT",
+        //        Client = "0130",
+        //        Database = "DMVS",
+        //        DocuNm = "45445",
+        //        FileName = "Meta.doc",
+        //        Matter = "345",
+        //        Version = "1.4",
+        //        Editdate = DateTime.Now.AddMonths(-3).ToString("MM/dd/yyyy h:mm tt")
+        //    });
+        //    list.Add(new DataItem()
+        //    {
+        //        Author = "NRT",
+        //        Client = "01102",
+        //        Database = "KVCP",
+        //        DocuNm = "45445",
+        //        FileName = "Works.doc",
+        //        Matter = "07672",
+        //        Version = "2.8",
+        //        Editdate = DateTime.Now.AddDays(-2).ToString("MM/dd/yyyy h:mm tt")
+        //    });
 
-            list.Add(new DataItem()
-            {
-                Author = "FVC",
-                Client = "0130",
-                Database = "DMVS",
-                DocuNm = "10092",
-                FileName = "Prediction.doc",
-                Matter = "4763",
-                Version = "3.1",
-                Editdate = DateTime.Now.AddDays(-8).ToString("MM/dd/yyyy h:mm tt")
-            });
+        //    list.Add(new DataItem()
+        //    {
+        //        Author = "KMC",
+        //        Client = "01200",
+        //        Database = "KVCP",
+        //        DocuNm = "23461",
+        //        FileName = "Food.doc",
+        //        Matter = "7878",
+        //        Version = "3.0",
+        //        Editdate = DateTime.Now.AddDays(-4).ToString("MM/dd/yyyy h:mm tt")
+        //    });
 
-            list.Add(new DataItem()
-            {
-                Author = "JRT",
-                Client = "01100",
-                Database = "DMVS",
-                DocuNm = "11909",
-                FileName = "Plans.doc",
-                Matter = "8798",
-                Version = "2.3",
-                Editdate = DateTime.Now.AddDays(-3).ToString("MM/dd/yyyy h:mm tt")
-            });
-            foreach (var item in list)
-            {
+        //    list.Add(new DataItem()
+        //    {
+        //        Author = "FVC",
+        //        Client = "0130",
+        //        Database = "DMVS",
+        //        DocuNm = "10092",
+        //        FileName = "Prediction.doc",
+        //        Matter = "4763",
+        //        Version = "3.1",
+        //        Editdate = DateTime.Now.AddDays(-8).ToString("MM/dd/yyyy h:mm tt")
+        //    });
 
-                dt.Rows.Add(new object[] { item.FileName,item.Author, item.Database , item.Client , item.Matter, item.DocuNm,
-                item.Version,item.Editdate
-            });
-            }
-            dataGridView1.AllowUserToAddRows = true;
-            dataGridView1.DataSource = dt;
-            dataGridView1.AllowUserToAddRows = false;
+        //    list.Add(new DataItem()
+        //    {
+        //        Author = "JRT",
+        //        Client = "01100",
+        //        Database = "DMVS",
+        //        DocuNm = "11909",
+        //        FileName = "Plans.doc",
+        //        Matter = "8798",
+        //        Version = "2.3",
+        //        Editdate = DateTime.Now.AddDays(-3).ToString("MM/dd/yyyy h:mm tt")
+        //    });
+        //    foreach (var item in list)
+        //    {
 
-        }
+        //        dt.Rows.Add(new object[] { item.FileName,item.Author, item.Database , item.Client , item.Matter, item.DocuNm,
+        //        item.Version,item.Editdate
+        //    });
+        //    }
+        //    dataGridView1.AllowUserToAddRows = true;
+        //    dataGridView1.DataSource = dt;
+        //    dataGridView1.AllowUserToAddRows = false;
+
+        //}
+
+        #endregion
 
         private void textBoxKeywords_TextChanged(object sender, EventArgs e)
         {
@@ -215,6 +226,11 @@ namespace ProLoop.WordAddin.Forms
                 this.Close();
             }
 
+        }
+
+        private void textBoxEditor_TextChanged(object sender, EventArgs e)
+        {
+            ProcessAutoComplete();
         }
     }
 }
