@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ProLoop.WordAddin.Model;
 using ProLoop.WordAddin.Utils;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,8 +40,12 @@ namespace ProLoop.WordAddin.Forms
             pictureBox1.Visible = true;
             pictureBox1.BringToFront();
             var client = new WebClient();
-            string url = string.Format("{0}/api/sayt/f/{1}?keywords={2}&s={3}&editor={4}", AddinModule.CurrentInstance.ProLoopUrl, textBoxPath.Text, textBoxKeywords.Text, textBoxSearch.Text,textBoxEditor.Text);
-                     
+            string url = string.Format("{0}/api/sayt/f/{1}?keywords={2}&s={3}", AddinModule.CurrentInstance.ProLoopUrl, textBoxPath.Text, textBoxKeywords.Text, textBoxSearch.Text);
+            if (!string.IsNullOrEmpty(textBoxEditor.Text))
+            {
+                url = $"{url}&editor={textBoxEditor.Text.Trim()}";
+            }
+            Log.Debug($"Processing {url} in ProcessAutoComplete()");
             client.DownloadStringAsync(new Uri(url));
             client.DownloadStringCompleted += Client_DownloadStringCompleted;
         }
@@ -68,12 +73,13 @@ namespace ProLoop.WordAddin.Forms
             }
             catch(Exception ex)
             {
-                //Todo: need to write exception 
+                Log.Debug($"Failed to get response due to {ex.Message} in Client_DownloadStringCompleted()");
             }
         }
 
         private void AheadSearchForm_Load(object sender, EventArgs e)
         {
+            Log.Debug($"Loading AheadSearchForm");
             if (_searchParameter != null)
             {
                 if (!string.IsNullOrEmpty(_searchParameter.OrgOrProject))
@@ -86,11 +92,14 @@ namespace ProLoop.WordAddin.Forms
                     textBoxPath.Text += "/" + _searchParameter.MatterName;
                 if (!string.IsNullOrEmpty(_searchParameter.FolderName))
                     textBoxPath.Text += "/" + _searchParameter.FolderName;
+                //if (!string.IsNullOrEmpty(_searchParameter.EditorName))
+                //    textBoxPath.Text += "/" + _searchParameter.EditorName;
                 textBoxSearch.Text = _searchParameter.FileName;
                 textBoxKeywords.Text = _searchParameter.KeyWord;
                 textBoxEditor.Text = _searchParameter.EditorName;
                 ProcessAutoComplete();
             }
+            Log.Debug($"Loaded AheadSearchForm");
         }
 
 

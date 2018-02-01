@@ -104,9 +104,9 @@ namespace ProLoop.WordAddin.Forms
 
                 tvwFolder.Nodes.Clear();
 
-                cboEditor.DataBindings.Clear();
-                cboEditor.DataSource = null;
-                cboEditor.Items.Clear();
+                //cboEditor.DataBindings.Clear();
+                //cboEditor.DataSource = null;
+                //cboEditor.Items.Clear();
 
                 cboContent.DataBindings.Clear();
                 cboContent.DataSource = null;
@@ -169,9 +169,9 @@ namespace ProLoop.WordAddin.Forms
 
                 tvwFolder.Nodes.Clear();
 
-                cboEditor.DataBindings.Clear();
-                cboEditor.DataSource = null;
-                cboEditor.Items.Clear();
+                //cboEditor.DataBindings.Clear();
+                //cboEditor.DataSource = null;
+                //cboEditor.Items.Clear();
 
                 cboContent.DataBindings.Clear();
                 cboContent.DataSource = null;
@@ -293,9 +293,9 @@ namespace ProLoop.WordAddin.Forms
 
                 tvwFolder.Nodes.Clear();
 
-                cboEditor.DataBindings.Clear();
-                cboEditor.DataSource = null;
-                cboEditor.Items.Clear();
+                //cboEditor.DataBindings.Clear();
+                //cboEditor.DataSource = null;
+                //cboEditor.Items.Clear();
 
                 cboContent.DataBindings.Clear();
                 cboContent.DataSource = null;
@@ -334,9 +334,9 @@ namespace ProLoop.WordAddin.Forms
 
                 tvwFolder.Nodes.Clear();
 
-                cboEditor.DataBindings.Clear();
-                cboEditor.DataSource = null;
-                cboEditor.Items.Clear();
+                //cboEditor.DataBindings.Clear();
+                //cboEditor.DataSource = null;
+                //cboEditor.Items.Clear();
 
                 cboContent.DataBindings.Clear();
                 cboContent.DataSource = null;
@@ -447,9 +447,9 @@ namespace ProLoop.WordAddin.Forms
                 this.cboMatter.DataBindings.Clear();
                 this.cboMatter.DataSource = null;
                 this.cboMatter.Items.Clear();
-                this.cboEditor.DataBindings.Clear();
-                this.cboEditor.DataSource = null;
-                this.cboEditor.Items.Clear();
+                //this.cboEditor.DataBindings.Clear();
+                //this.cboEditor.DataSource = null;
+                //this.cboEditor.Items.Clear();
                 this.cboContent.DataBindings.Clear();
                 this.cboContent.DataSource = null;
                 this.cboContent.Items.Clear();
@@ -497,9 +497,9 @@ namespace ProLoop.WordAddin.Forms
                     ObjMatter = new Matter();
                 }
                 this.tvwFolder.Nodes.Clear();
-                this.cboEditor.DataBindings.Clear();
-                this.cboEditor.DataSource = null;
-                this.cboEditor.Items.Clear();
+                //this.cboEditor.DataBindings.Clear();
+                //this.cboEditor.DataSource = null;
+                //this.cboEditor.Items.Clear();
                 this.cboContent.DataBindings.Clear();
                 this.cboContent.DataSource = null;
                 this.cboContent.Items.Clear();

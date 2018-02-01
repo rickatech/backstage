@@ -150,6 +150,10 @@ namespace ProLoop.WordAddin.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboEditor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboEditor.FormattingEnabled = true;
+            this.cboEditor.Items.AddRange(new object[] {
+            "Rickatech",
+            "Jullia",
+            "Rick Armstrong"});
             this.cboEditor.Location = new System.Drawing.Point(9, 350);
             this.cboEditor.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboEditor.Name = "cboEditor";
