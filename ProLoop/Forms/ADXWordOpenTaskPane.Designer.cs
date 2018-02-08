@@ -51,6 +51,7 @@ namespace ProLoop.WordAddin.Forms
             this.btnSettings = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxContent = new System.Windows.Forms.TextBox();
+            this.textBoxEditor = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -159,6 +160,7 @@ namespace ProLoop.WordAddin.Forms
             this.cboEditor.Name = "cboEditor";
             this.cboEditor.Size = new System.Drawing.Size(320, 21);
             this.cboEditor.TabIndex = 9;
+            this.cboEditor.Visible = false;
             this.cboEditor.SelectedIndexChanged += new System.EventHandler(this.cboEditor_SelectedIndexChanged);
             // 
             // label3
@@ -287,9 +289,19 @@ namespace ProLoop.WordAddin.Forms
             this.textBoxContent.Size = new System.Drawing.Size(320, 20);
             this.textBoxContent.TabIndex = 21;
             // 
+            // textBoxEditor
+            // 
+            this.textBoxEditor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxEditor.Location = new System.Drawing.Point(9, 351);
+            this.textBoxEditor.Name = "textBoxEditor";
+            this.textBoxEditor.Size = new System.Drawing.Size(320, 20);
+            this.textBoxEditor.TabIndex = 22;
+            // 
             // ADXWordOpenTaskPane
             // 
             this.ClientSize = new System.Drawing.Size(350, 535);
+            this.Controls.Add(this.textBoxEditor);
             this.Controls.Add(this.textBoxContent);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.btnSettings);
@@ -343,5 +355,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TextBox textBoxContent;
+        private System.Windows.Forms.TextBox textBoxEditor;
     }
 }

@@ -743,6 +743,7 @@ namespace ProLoop.WordAddin.Forms
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             searchParameter.KeyWord = textBoxContent.Text;
+            searchParameter.EditorName = textBoxEditor.Text;
             using (var search = new AheadSearchForm(searchParameter))
             {
                 var dialogResult = search.ShowDialog();

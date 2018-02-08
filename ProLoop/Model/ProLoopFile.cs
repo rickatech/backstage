@@ -19,5 +19,6 @@ namespace ProLoop.WordAddin
             get;
             set;
         }
+        public string id { get; set; }
     }
 }

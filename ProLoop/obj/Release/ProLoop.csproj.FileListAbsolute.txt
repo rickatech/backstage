@@ -37,33 +37,3 @@ C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\obj\Release\ProLoop.csproj.GenerateResou
 C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\obj\Release\ProLoop.dll
 C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\obj\Release\ProLoop.pdb
 E:\Githubs\backstage\ProLoop\bin\Release\ProLoop.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\ProLoop.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\ProLoop.pdb
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\ProLoop.tlb
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Microsoft.Office.Interop.Word.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Microsoft.Vbe.Interop.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Newtonsoft.Json.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Office.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.File.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.RollingFile.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\stdole.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Newtonsoft.Json.xml
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.xml
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.File.xml
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.RollingFile.xml
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.csprojResolveAssemblyReference.cache
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.AddinModule.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.AboutUs.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.ADXWordAltTaskPane.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.ADXWordInfoTaskPane.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.ADXWordOpenTaskPane.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.ADXWordSaveTaskPane.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.AheadSearchForm.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.SaveOrOpenControl.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Forms.SettingsForm.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.WordAddin.Properties.Resources.resources
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.csproj.GenerateResource.Cache
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.csproj.CoreCompileInputs.cache
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\obj\Release\ProLoop.pdb

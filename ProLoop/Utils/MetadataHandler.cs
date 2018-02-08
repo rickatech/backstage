@@ -33,8 +33,8 @@ namespace ProLoop.WordAddin.Utils
             {
                 using (WebClient client = new WebClient())
                 {
-                    string localurl = AddinModule.CurrentInstance.ProLoopUrl + "/api/filetags" + filePath;
-                    string response = client.DownloadString(localurl);
+                    
+                    string response = client.DownloadString(filePath);
                     var result = JsonConvert.DeserializeObject<List<T>>(response);
                     return result;
                 }
@@ -44,6 +44,18 @@ namespace ProLoop.WordAddin.Utils
 
             }
             return null;
+        }
+
+        public static T GetMetaData<T>(string filePath)
+        {          
+                using (WebClient client = new WebClient())
+                {
+
+                    string response = client.DownloadString(filePath);
+                    var result = JsonConvert.DeserializeObject<T>(response);
+                    return result;
+                }        
+                 
         }
         public static void PostMetaDataInfo(string data, string filePath)
         {

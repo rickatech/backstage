@@ -31,6 +31,7 @@ namespace ProLoop.WordAddin.Forms
         private void ProcessMetaData()
         {
             GetKeyWords();
+            GetEditor();
             #region inbuiltProp
 
             //if (rootMeta.Meta != null)
@@ -152,12 +153,15 @@ namespace ProLoop.WordAddin.Forms
         private void GetKeyWords()
         {
             string filePath = PathBuilder();
+            if (string.IsNullOrEmpty(filePath))
+                return;
+            filePath = $"{AddinCurrentInstance.ProLoopUrl}/api/filetags{filePath}";
             var data = MetadataHandler.GetMetaDataInfo<MetaDataInfo>(filePath);
-            if(data!=null)
+            if (data != null)
             {
                 textBoxSummary.Text = string.Empty;
                 int index = 0;
-                foreach(var item in data)
+                foreach (var item in data)
                 {
                     if (index == data.Count - 1)
                     {
@@ -165,14 +169,50 @@ namespace ProLoop.WordAddin.Forms
                     }
                     else
                     {
-                        textBoxSummary.Text += item.Keywords+",";
+                        textBoxSummary.Text += item.Keywords + ",";
                     }
                 }
-               
+
             }
-            
+
         }
 
+        private void GetEditor()
+        {
+            try
+            {
+                string filePath = PathBuilder();
+                if (string.IsNullOrEmpty(filePath))
+                    return;
+                filePath = $"{AddinCurrentInstance.ProLoopUrl}/api/sayt/f{filePath}";
+                var data = MetadataHandler.GetMetaDataInfo<ProLoopFile>(filePath);
+                if (data != null && data.Count>0)
+                {
+                    GetHistory(data[0].id);
+                }
+            }catch(Exception ex)
+            {
+
+            }
+        }
+
+        private void GetHistory(string fileId)
+        {
+            string url = $"{AddinCurrentInstance.ProLoopUrl}/api/file/{fileId}/history";
+            var data = MetadataHandler.GetMetaData<DataInfoRequest>(url);
+            if(data!=null && data.History!=null)
+            {
+                textBoxAuthor.Clear();
+                
+                foreach(var history in data.History)
+                {
+                    textBoxAuthor.Text = history.Username;                    
+                }
+                if (!string.IsNullOrEmpty(textBoxAuthor.Text))
+                    textBoxAuthor.Text = textBoxAuthor.Text.Trim(new char[] { ',' });
+            }
+
+        }
         private string PathBuilder()
         {
             string orionalLocation = AddinCurrentInstance.WordApp.ActiveDocument.FullName;
