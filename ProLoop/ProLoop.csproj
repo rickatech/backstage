@@ -41,6 +41,10 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevExpress.Data.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -101,6 +105,13 @@
     <Compile Include="AddinModule.Designer.cs">
       <DependentUpon>AddinModule.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControl\DropdownControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControl\EasyCompletionComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomControl\StringMatcher.cs" />
     <Compile Include="Enum\Context.cs" />
     <Compile Include="Enum\Operation.cs" />
     <Compile Include="Forms\AboutUs.cs">

@@ -94,9 +94,12 @@ namespace ProLoop.WordAddin.Forms
                     textBoxPath.Text += "/" + _searchParameter.FolderName;
                 //if (!string.IsNullOrEmpty(_searchParameter.EditorName))
                 //    textBoxPath.Text += "/" + _searchParameter.EditorName;
-                textBoxSearch.Text = _searchParameter.FileName;
-                textBoxKeywords.Text = _searchParameter.KeyWord;
-                textBoxEditor.Text = _searchParameter.EditorName;
+                if (!string.IsNullOrEmpty(_searchParameter.FileName))
+                    textBoxSearch.Text = _searchParameter.FileName;
+                if (!string.IsNullOrEmpty(_searchParameter.KeyWord))
+                    textBoxKeywords.Text = _searchParameter.KeyWord;
+                if (!string.IsNullOrEmpty(_searchParameter.EditorName))
+                    textBoxEditor.Text = _searchParameter.EditorName;
                 ProcessAutoComplete();
             }
             Log.Debug($"Loaded AheadSearchForm");

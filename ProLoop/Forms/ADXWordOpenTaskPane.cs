@@ -13,28 +13,8 @@ namespace ProLoop.WordAddin.Forms
 {
     public partial class ADXWordOpenTaskPane : AddinExpress.WD.ADXWordTaskPane
     {
-        private readonly AddinModule AddinCurrentInstance;
-        private BindingSource OrgsBindingSource;
-
-        private BindingSource ProjectsBindingSource;
-
-        private BindingSource ClientsBindingSource;
-
-        private BindingSource MattersBindingSource;
-
-        private BindingSource DocsBindingSource;
-
-        private SettingsForm settingForm;
-
-        private AutoCompleteStringCollection OrgsAutoCompleteCollection;
-
-        private AutoCompleteStringCollection ClientsAutoCompleteCollection;
-
-        private AutoCompleteStringCollection MattersAutoCompleteCollection;
-
-        private AutoCompleteStringCollection ProjectsAutoCompleteCollection;
-
-        private AutoCompleteStringCollection DocsAutoCompleteCollection;
+        private readonly AddinModule AddinCurrentInstance;      
+        private SettingsForm settingForm;       
 
         private Client ObjClient { get; set; } = new Client();
         private Project ObjProject { get; set; } = new Project();
@@ -59,17 +39,7 @@ namespace ProLoop.WordAddin.Forms
         public ADXWordOpenTaskPane()
         {
             InitializeComponent();
-            this.AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);
-            this.OrgsBindingSource = new BindingSource();
-            this.ProjectsBindingSource = new BindingSource();
-            this.ClientsBindingSource = new BindingSource();
-            this.MattersBindingSource = new BindingSource();
-            this.DocsBindingSource = new BindingSource();
-            this.OrgsAutoCompleteCollection = new AutoCompleteStringCollection();
-            this.ProjectsAutoCompleteCollection = new AutoCompleteStringCollection();
-            this.ClientsAutoCompleteCollection = new AutoCompleteStringCollection();
-            this.MattersAutoCompleteCollection = new AutoCompleteStringCollection();
-            this.DocsAutoCompleteCollection = new AutoCompleteStringCollection();
+            this.AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);            
             searchParameter = new SearchParameter();
         }
 
@@ -89,6 +59,12 @@ namespace ProLoop.WordAddin.Forms
                 // Change the label to Organizations
                 lblOrgsProjects.Text = "Organizations";
                 searchParameter.OrgOrProject = "Organizations";
+                searchParameter.ClientName = string.Empty;
+                searchParameter.OrgOrProjectName = string.Empty;
+                searchParameter.MatterName = string.Empty;
+                searchParameter.EditorName = string.Empty;
+                searchParameter.FileName = string.Empty;
+                searchParameter.KeyWord = string.Empty;
                 // Enable Client and Matter
                 cboClient.Enabled = true;
                 cboMatter.Enabled = true;
@@ -116,19 +92,11 @@ namespace ProLoop.WordAddin.Forms
                 cboDocName.DataSource = null;
                 cboDocName.Items.Clear();
 
-                List<Organization> orgs = APIHelper.GetOrganizations();
-
-                OrgsBindingSource.DataSource = orgs;
-                cboOrgProject.DataSource = OrgsBindingSource;
+                List<Organization> orgs = APIHelper.GetOrganizations();               
+                cboOrgProject.DataSource = orgs;
+                cboOrgProject.MatchingMethod = StringMatchingMethod.NoWildcards;
                 cboOrgProject.DisplayMember = "title";
-                cboOrgProject.ValueMember = "id";
-
-                cboOrgProject.AutoCompleteMode = AutoCompleteMode.Suggest;
-                cboOrgProject.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-                OrgsAutoCompleteCollection.AddRange(orgs.Select(org => org.Title).ToArray());
-                cboOrgProject.AutoCompleteCustomSource = OrgsAutoCompleteCollection;
-
+                cboOrgProject.ValueMember = "id";              
                 cboOrgProject.SelectedIndex = -1;
                 cboOrgProject.Text = "Select:";
             }
@@ -152,6 +120,12 @@ namespace ProLoop.WordAddin.Forms
                 // Change the label to Organizations
                 lblOrgsProjects.Text = "Projects";
                 searchParameter.OrgOrProject = "Projects";
+                searchParameter.OrgOrProjectName = string.Empty;
+                searchParameter.ClientName = string.Empty;
+                searchParameter.MatterName = string.Empty;
+                searchParameter.EditorName = string.Empty;
+                searchParameter.FileName = string.Empty;
+                searchParameter.KeyWord = string.Empty;
                 // Disable Client and Matter
                 cboClient.Enabled = false;
                 ObjClient = null;
@@ -159,40 +133,17 @@ namespace ProLoop.WordAddin.Forms
                 cboMatter.Enabled = false;
 
                 // Clear the Client, Matter, Docs..
-                cboClient.DataBindings.Clear();
-                cboClient.DataSource = null;
-                cboClient.Items.Clear();
+                
 
-                cboMatter.DataBindings.Clear();
-                cboMatter.DataSource = null;
-                cboMatter.Items.Clear();
-
-                tvwFolder.Nodes.Clear();
-
-                //cboEditor.DataBindings.Clear();
-                //cboEditor.DataSource = null;
-                //cboEditor.Items.Clear();
-
-                cboContent.DataBindings.Clear();
-                cboContent.DataSource = null;
-                cboContent.Items.Clear();
-
-                cboDocName.DataBindings.Clear();
-                cboDocName.DataSource = null;
-                cboDocName.Items.Clear();
+                tvwFolder.Nodes.Clear();                
 
                 List<Project> projects = APIHelper.GetProjects();
 
-                ProjectsBindingSource.DataSource = projects;
-                cboOrgProject.DataSource = ProjectsBindingSource;
+                //ProjectsBindingSource.DataSource = projects;
+                cboOrgProject.DataSource = projects;
+                cboOrgProject.MatchingMethod = StringMatchingMethod.NoWildcards;
                 cboOrgProject.DisplayMember = "title";
-                cboOrgProject.ValueMember = "id";
-
-                cboOrgProject.AutoCompleteMode = AutoCompleteMode.Suggest;
-                cboOrgProject.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-                ProjectsAutoCompleteCollection.AddRange(projects.Select(project => project.Title).ToArray());
-                cboOrgProject.AutoCompleteCustomSource = ProjectsAutoCompleteCollection;
+                cboOrgProject.ValueMember = "id";              
 
                 cboOrgProject.SelectedIndex = -1;
                 cboOrgProject.SelectedText = "Select:";
@@ -256,7 +207,7 @@ namespace ProLoop.WordAddin.Forms
 
             // Make sure the Combo box has the focus before processing the event handler.
             // This will fire the event only when the Combo box has focus
-            ComboBox cbo = (ComboBox)sender;
+            var cbo = (EasyCompletionComboBox)sender;
             if (!cbo.Focused) return;
 
             Context context = rbOrganizations.Checked ? Context.Orgs : Context.Projects;
@@ -265,6 +216,11 @@ namespace ProLoop.WordAddin.Forms
             {
                 ObjOrganization = (Organization)this.cboOrgProject.SelectedItem;
                 searchParameter.OrgOrProjectName = ObjOrganization.Title;
+                searchParameter.ClientName = string.Empty;
+                searchParameter.MatterName = string.Empty;
+                searchParameter.EditorName = string.Empty;
+                searchParameter.FileName = string.Empty;
+                searchParameter.KeyWord = string.Empty;
                 ObjProject = null;
             }
             else if (cboOrgProject.SelectedItem is Project)
@@ -272,6 +228,11 @@ namespace ProLoop.WordAddin.Forms
                 ObjProject = cboOrgProject.SelectedItem as Project;
                 ObjOrganization = null;
                 searchParameter.OrgOrProjectName = ObjProject.Title;
+                searchParameter.ClientName = string.Empty;
+                searchParameter.MatterName = string.Empty;
+                searchParameter.EditorName = string.Empty;
+                searchParameter.FileName = string.Empty;
+                searchParameter.KeyWord = string.Empty;
             }
             else
             {
@@ -306,19 +267,11 @@ namespace ProLoop.WordAddin.Forms
                 cboDocName.Items.Clear();
 
                 List<Client> clients = APIHelper.GetClients(ObjOrganization.Id);
-                ClientsBindingSource.DataSource = clients;
-                cboClient.DataSource = ClientsBindingSource;
+                //ClientsBindingSource.DataSource = clients;
+                cboClient.DataSource = clients;
+                cboClient.MatchingMethod = StringMatchingMethod.NoWildcards;
                 cboClient.DisplayMember = "name";
-                cboClient.ValueMember = "id";
-                //cboClient_SelectedIndexChanged(cboClient, null);
-                //cboClient.SelectedIndex = 0;
-
-                cboClient.AutoCompleteMode = AutoCompleteMode.Suggest;
-                cboClient.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-                ClientsAutoCompleteCollection.AddRange(clients.Select(client => client.Name).ToArray());
-                cboClient.AutoCompleteCustomSource = ClientsAutoCompleteCollection;
-
+                cboClient.ValueMember = "id";               
                 cboClient.SelectedIndex = -1;
                 cboClient.SelectedText = "Select:";
             }
@@ -365,10 +318,11 @@ namespace ProLoop.WordAddin.Forms
 
                 if (folders.Count > 0)
                 {
-                    foreach (ProLoopFolder current in folders)
-                    {
-                        this.tvwFolder.Nodes.Add(current.Name);
-                    }
+                    //foreach (ProLoopFolder current in folders)
+                    //{
+                    //    this.tvwFolder.Nodes.Add(current.Name);
+                    //}
+                    ProcessFolderItem(folders);
                 }
                 else
                 {
@@ -407,18 +361,12 @@ namespace ProLoop.WordAddin.Forms
                         }
                     }
                     List<ProLoopFile> files = APIHelper.GetFiles(folderPath);
-                    DocsBindingSource.DataSource = files;
+                   // DocsBindingSource.DataSource = files;
 
-                    cboDocName.DataSource = DocsBindingSource;
+                    cboDocName.DataSource = files;
+                    cboDocName.MatchingMethod = StringMatchingMethod.NoWildcards;
                     cboDocName.DisplayMember = "name";
-                    cboDocName.ValueMember = "name";
-                    //cboMatter_SelectedIndexChanged(cboMatter, null);
-
-                    cboDocName.AutoCompleteMode = AutoCompleteMode.Suggest;
-                    cboDocName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-                    DocsAutoCompleteCollection.AddRange(files.Select(file => file.Name).ToArray());
-                    cboDocName.AutoCompleteCustomSource = DocsAutoCompleteCollection;
+                    cboDocName.ValueMember = "name";                   
 
                     cboDocName.SelectedIndex = -1;
                     cboDocName.SelectedText = "Select:";
@@ -430,55 +378,49 @@ namespace ProLoop.WordAddin.Forms
 
         private void cboClient_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!cboClient.Focused)
+                return;
             Log.Debug("cboClient_SelectedIndexChanged() -- Begin");
-            ComboBox comboBox = (ComboBox)sender;
-            bool flag = !comboBox.Focused;
-            if (!flag)
+
+            if (this.cboClient.SelectedItem is Client)
             {
-                if (this.cboClient.SelectedItem is Client)
-                {
-                    ObjClient = (Client)this.cboClient.SelectedItem;
-                    searchParameter.ClientName = ObjClient.Name;
-                }
-                else
-                {
-                    ObjClient = null;
-                }
-                this.cboMatter.DataBindings.Clear();
-                this.cboMatter.DataSource = null;
-                this.cboMatter.Items.Clear();
-                //this.cboEditor.DataBindings.Clear();
-                //this.cboEditor.DataSource = null;
-                //this.cboEditor.Items.Clear();
-                this.cboContent.DataBindings.Clear();
-                this.cboContent.DataSource = null;
-                this.cboContent.Items.Clear();
-                this.cboDocName.DataBindings.Clear();
-                this.cboDocName.DataSource = null;
-                this.cboDocName.Items.Clear();
-                List<Matter> matters = APIHelper.GetMatters(ObjOrganization.Id, ObjClient.Id);
-                MattersBindingSource.DataSource = matters;
-                cboMatter.DataSource = MattersBindingSource;
-                cboMatter.DisplayMember = "name";
-                cboMatter.ValueMember = "id";
-                //cboMatter_SelectedIndexChanged(cboMatter, null);
-
-                cboMatter.AutoCompleteMode = AutoCompleteMode.Suggest;
-                cboMatter.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-                MattersAutoCompleteCollection.AddRange(matters.Select(matter => matter.Name).ToArray());
-                cboMatter.AutoCompleteCustomSource = MattersAutoCompleteCollection;
-
-                cboMatter.SelectedIndex = -1;
-                cboMatter.SelectedText = "Select:";
-
-                // Clear the selected text
-                //cboOrgProject.SelectionStart = 0;
-
-                Log.Debug("cboClient_SelectedIndexChanged() -- End");
-
+                ObjClient = (Client)this.cboClient.SelectedItem;
+                searchParameter.ClientName = ObjClient.Name;               
+                searchParameter.MatterName = string.Empty;
+                searchParameter.EditorName = string.Empty;
+                searchParameter.FileName = string.Empty;
+                searchParameter.KeyWord = string.Empty;
             }
-        }
+            else
+            {
+                ObjClient = null;
+            }
+            //this.cboMatter.DataBindings.Clear();
+            this.cboMatter.DataSource = null;
+            this.cboMatter.Items.Clear();
+            //this.cboEditor.DataBindings.Clear();
+            //this.cboEditor.DataSource = null;
+            //this.cboEditor.Items.Clear();
+            this.cboContent.DataBindings.Clear();
+            this.cboContent.DataSource = null;
+            this.cboContent.Items.Clear();
+            this.cboDocName.DataBindings.Clear();
+            this.cboDocName.DataSource = null;
+            this.cboDocName.Items.Clear();
+            if (ObjClient == null)
+                return;
+            List<Matter> matters = APIHelper.GetMatters(ObjOrganization.Id, ObjClient.Id);
+            cboMatter.DataSource = matters;
+            cboMatter.MatchingMethod = StringMatchingMethod.NoWildcards;
+            cboMatter.DisplayMember = "name";
+            cboMatter.ValueMember = "id";
+
+            cboMatter.SelectedIndex = -1;
+            cboMatter.SelectedText = "Select:";
+
+            Log.Debug("cboClient_SelectedIndexChanged() -- End");
+
+        }       
 
         private void cboMatter_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -490,7 +432,10 @@ namespace ProLoop.WordAddin.Forms
                 if (cboMatter.SelectedItem is Matter)
                 {
                     ObjMatter = (Matter)this.cboMatter.SelectedItem;
-                    searchParameter.MatterName = ObjMatter.Name;
+                    searchParameter.MatterName = ObjMatter.Name;                    
+                    searchParameter.EditorName = string.Empty;
+                    searchParameter.FileName = string.Empty;
+                    searchParameter.KeyWord = string.Empty;
                 }
                 else
                 {
@@ -515,19 +460,48 @@ namespace ProLoop.WordAddin.Forms
                 {
                     folders = APIHelper.GetFolders(ObjProject.Title, "", "", "");
                 }
+
+                ProcessFolderItem(folders);
+                
+                Log.Debug("cboMatter_SelectedIndexChanged() -- End");
+            }
+        }
+
+        private void ProcessFolderItem(List<ProLoopFolder> folders)
+        {
+            var filesitem = folders.Where(x => x.Name.Contains(".")).ToList();
+            if (filesitem != null && filesitem.Count > 0)
+            {
+                List<ProLoopFile> files = new List<ProLoopFile>();
+                foreach (var item in filesitem)
+                {
+                    files.Add(new ProLoopFile() { Name = item.Name, Path = item.Path });
+                }
+                if (files.Count > 0)
+                // DocsBindingSource.DataSource = files;
+                {
+                    cboDocName.DataSource = files;
+                    cboDocName.DisplayMember = "name";
+                    cboDocName.ValueMember = "name";
+                    cboDocName.SelectedIndex = -1;
+                    cboDocName.SelectedText = "Select:";
+                }
+            }
+            //Pull only folder item
+            folders = folders.Where(x => !x.Name.Contains(".")).ToList();
+            if (folders != null && folders.Count > 0)
+            {
                 this.tvwFolder.Nodes.Clear();
                 foreach (ProLoopFolder current in folders)
                 {
                     this.tvwFolder.Nodes.Add(current.Name);
                 }
-                Log.Debug("cboMatter_SelectedIndexChanged() -- End");
             }
         }
 
         private void cboDocName_SelectedIndexChanged(object sender, EventArgs e)
         {
             Log.Debug("cboDocName_SelectedIndexChanged() -- Begin");
-
             // Make sure the Combobox has the focus before processing the event handler
             ComboBox cbo = (ComboBox)sender;
             if (!cbo.Focused) return;
@@ -597,18 +571,18 @@ namespace ProLoop.WordAddin.Forms
             }
             List<ProLoopFile> files = APIHelper.GetFiles(folderPath);           
 
-            DocsBindingSource.DataSource = files;
+           // DocsBindingSource.DataSource = files;
 
-            cboDocName.DataSource = DocsBindingSource;
+            cboDocName.DataSource = files;
             cboDocName.DisplayMember = "name";
             cboDocName.ValueMember = "name";
             //cboMatter_SelectedIndexChanged(cboMatter, null);
 
-            cboDocName.AutoCompleteMode = AutoCompleteMode.Suggest;
-            cboDocName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            //cboDocName.AutoCompleteMode = AutoCompleteMode.Suggest;
+            //cboDocName.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
-            DocsAutoCompleteCollection.AddRange(files.Select(file => file.Name).ToArray());
-            cboDocName.AutoCompleteCustomSource = DocsAutoCompleteCollection;
+            //DocsAutoCompleteCollection.AddRange(files.Select(file => file.Name).ToArray());
+            //cboDocName.AutoCompleteCustomSource = DocsAutoCompleteCollection;
 
             cboDocName.SelectedIndex = -1;
             cboDocName.SelectedText = "Select:";
@@ -813,15 +787,6 @@ namespace ProLoop.WordAddin.Forms
         private void cboEditor_SelectedIndexChanged(object sender, EventArgs e)
         {
             searchParameter.EditorName = cboEditor.Text;
-        }
-        //private void ADXWordOpenTaskPane_Load(object sender, EventArgs e)
-        //{
-        //    AddinCurrentInstance.Mode = Operation.Open;
-        //}
-
-        //private void ADXWordOpenTaskPane_Activated(object sender, EventArgs e)
-        //{
-
-        //}
+        }       
     }
 }

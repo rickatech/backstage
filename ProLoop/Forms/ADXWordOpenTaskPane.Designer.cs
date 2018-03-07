@@ -33,16 +33,16 @@ namespace ProLoop.WordAddin.Forms
             this.rbOrganizations = new System.Windows.Forms.RadioButton();
             this.rbProjects = new System.Windows.Forms.RadioButton();
             this.lblOrgsProjects = new System.Windows.Forms.Label();
-            this.cboOrgProject = new System.Windows.Forms.ComboBox();
-            this.cboClient = new System.Windows.Forms.ComboBox();
+            this.cboOrgProject = new ProLoop.EasyCompletionComboBox();
+            this.cboClient = new ProLoop.EasyCompletionComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cboMatter = new System.Windows.Forms.ComboBox();
+            this.cboMatter = new ProLoop.EasyCompletionComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboEditor = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cboContent = new System.Windows.Forms.ComboBox();
+            this.cboContent = new ProLoop.EasyCompletionComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cboDocName = new System.Windows.Forms.ComboBox();
+            this.cboDocName = new ProLoop.EasyCompletionComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnOpen = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -92,7 +92,6 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.cboOrgProject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboOrgProject.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboOrgProject.FormattingEnabled = true;
             this.cboOrgProject.Location = new System.Drawing.Point(9, 73);
             this.cboOrgProject.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
@@ -100,12 +99,12 @@ namespace ProLoop.WordAddin.Forms
             this.cboOrgProject.Size = new System.Drawing.Size(320, 21);
             this.cboOrgProject.TabIndex = 3;
             this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
+            
             // 
             // cboClient
             // 
             this.cboClient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboClient.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboClient.FormattingEnabled = true;
             this.cboClient.Location = new System.Drawing.Point(9, 117);
             this.cboClient.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
@@ -127,7 +126,6 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.cboMatter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboMatter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboMatter.FormattingEnabled = true;
             this.cboMatter.Location = new System.Drawing.Point(11, 160);
             this.cboMatter.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
@@ -198,7 +196,6 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.cboDocName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboDocName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cboDocName.FormattingEnabled = true;
             this.cboDocName.Location = new System.Drawing.Point(9, 436);
             this.cboDocName.Name = "cboDocName";
@@ -337,16 +334,21 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.RadioButton rbOrganizations;
         private System.Windows.Forms.RadioButton rbProjects;
         private System.Windows.Forms.Label lblOrgsProjects;
-        private System.Windows.Forms.ComboBox cboOrgProject;
-        private System.Windows.Forms.ComboBox cboClient;
+        //private System.Windows.Forms.ComboBox cboOrgProject;
+        private EasyCompletionComboBox cboOrgProject;
+        //private System.Windows.Forms.ComboBox cboClient;
+        private EasyCompletionComboBox cboClient;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cboMatter;
+        // private System.Windows.Forms.ComboBox cboMatter;
+        private EasyCompletionComboBox cboMatter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cboEditor;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox cboContent;
+        //private System.Windows.Forms.ComboBox cboContent;
+        private EasyCompletionComboBox cboContent;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cboDocName;
+        //private System.Windows.Forms.ComboBox cboDocName;
+        private EasyCompletionComboBox cboDocName;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Panel panel1;
