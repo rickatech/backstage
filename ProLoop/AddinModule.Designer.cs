@@ -296,8 +296,8 @@
             // adxProloopWordTaskPanesManager
             // 
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem1);
-            this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem2);
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem3);
+            this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem2);
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem4);
             this.adxProloopWordTaskPanesManager.SetOwner(this);
             // 
@@ -311,7 +311,6 @@
             // adxWordTaskPanesCollectionItem2
             // 
             this.adxWordTaskPanesCollectionItem2.AlwaysShowHeader = true;
-            this.adxWordTaskPanesCollectionItem2.Enabled = false;
             this.adxWordTaskPanesCollectionItem2.IsHiddenStateAllowed = false;
             this.adxWordTaskPanesCollectionItem2.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
             this.adxWordTaskPanesCollectionItem2.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordSaveTaskPane";
