@@ -41,6 +41,8 @@ namespace ProLoop.WordAddin.Forms
             InitializeComponent();
             this.AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);            
             searchParameter = new SearchParameter();
+            rbOrganizations.Checked = Properties.Settings.Default.OpenOrganisation;
+            rbProjects.Checked= Properties.Settings.Default.OpenProject;
         }
 
         private void rbOrganizations_CheckedChanged(object sender, EventArgs e)
@@ -96,9 +98,26 @@ namespace ProLoop.WordAddin.Forms
                 cboOrgProject.DataSource = orgs;
                 cboOrgProject.MatchingMethod = StringMatchingMethod.NoWildcards;
                 cboOrgProject.DisplayMember = "title";
-                cboOrgProject.ValueMember = "id";              
-                cboOrgProject.SelectedIndex = -1;
-                cboOrgProject.Text = "Select:";
+                cboOrgProject.ValueMember = "id";
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.OpenEntity))
+                {
+                    var item = orgs.FirstOrDefault(x => x.Title == Properties.Settings.Default.OpenEntity);
+                    if (item != null)
+                    {
+                        cboOrgProject.SelectedItem = item;
+
+                    }
+                    else
+                    {
+                        cboOrgProject.SelectedIndex = -1;
+                        cboOrgProject.Text = "Select:";
+                    }
+                }
+                else
+                {
+                    cboOrgProject.SelectedIndex = -1;
+                    cboOrgProject.Text = "Select:";
+                }
             }
         }
 
@@ -143,10 +162,28 @@ namespace ProLoop.WordAddin.Forms
                 cboOrgProject.DataSource = projects;
                 cboOrgProject.MatchingMethod = StringMatchingMethod.NoWildcards;
                 cboOrgProject.DisplayMember = "title";
-                cboOrgProject.ValueMember = "id";              
+                cboOrgProject.ValueMember = "id";
 
-                cboOrgProject.SelectedIndex = -1;
-                cboOrgProject.SelectedText = "Select:";
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.OpenEntity)&& projects!=null)
+                {
+                    var item = projects.FirstOrDefault(x => x.Title == Properties.Settings.Default.OpenEntity);
+                    if (item != null)
+                    {
+                        cboOrgProject.SelectedItem = item;
+                    }
+                    else
+                    {
+                        cboOrgProject.SelectedIndex = -1;
+                        cboOrgProject.Text = "Select:";
+                    }
+                }
+                else
+                {
+                    cboOrgProject.SelectedIndex = -1;
+                    cboOrgProject.Text = "Select:";
+                }
+
+                
             }
             Log.Debug("rbProjects_CheckedChanged() -- End");
         }
@@ -208,6 +245,17 @@ namespace ProLoop.WordAddin.Forms
             // Make sure the Combo box has the focus before processing the event handler.
             // This will fire the event only when the Combo box has focus
             var cbo = (EasyCompletionComboBox)sender;
+            if (rbOrganizations.Checked && !string.IsNullOrEmpty(Properties.Settings.Default.OpenClient) && !cbo.Focused)
+            {
+                ObjOrganization = (Organization)this.cboOrgProject.SelectedItem;
+                cboClient.Items.Clear();
+                var client = new Client() { Name = Properties.Settings.Default.OpenClient, Id = Properties.Settings.Default.OpenClientId };
+                cboClient.Items.Add(client);
+                cboClient.DisplayMember = "name";
+                cboClient.ValueMember = "id";
+                cboClient.SelectedItem = client;
+                ObjProject = null;
+            }
             if (!cbo.Focused) return;
 
             Context context = rbOrganizations.Checked ? Context.Orgs : Context.Projects;
@@ -378,6 +426,21 @@ namespace ProLoop.WordAddin.Forms
 
         private void cboClient_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (rbOrganizations.Checked && !string.IsNullOrEmpty(Properties.Settings.Default.OpenMatter) && !cboClient.Focused)
+            {
+                if (cboMatter.Items.Count == 0)
+                {
+                    ObjOrganization = (Organization)this.cboOrgProject.SelectedItem;
+                    ObjClient = (Client)this.cboClient.SelectedItem;
+                    cboMatter.Items.Clear();
+                    var matter = new Matter() { Name = Properties.Settings.Default.OpenMatter, Id = Properties.Settings.Default.OpenMatterId };
+                    cboMatter.Items.Add(matter);
+                    cboMatter.DisplayMember = "name";
+                    cboMatter.ValueMember = "id";
+                    cboMatter.SelectedItem = matter;
+                }
+            }
+
             if (!cboClient.Focused)
                 return;
             Log.Debug("cboClient_SelectedIndexChanged() -- Begin");
@@ -414,9 +477,22 @@ namespace ProLoop.WordAddin.Forms
             cboMatter.MatchingMethod = StringMatchingMethod.NoWildcards;
             cboMatter.DisplayMember = "name";
             cboMatter.ValueMember = "id";
-
-            cboMatter.SelectedIndex = -1;
-            cboMatter.SelectedText = "Select:";
+            if (rbOrganizations.Checked && !string.IsNullOrEmpty(Properties.Settings.Default.OpenMatter))
+            {
+                var item = matters.FirstOrDefault(x => x.Name == Properties.Settings.Default.OpenMatter);
+                if (item != null)
+                    cboMatter.SelectedItem = item;
+                else
+                {
+                    cboMatter.SelectedIndex = -1;
+                    cboMatter.SelectedText = "Select:";
+                }
+            }
+            else
+            {
+                cboMatter.SelectedIndex = -1;
+                cboMatter.SelectedText = "Select:";
+            }
 
             Log.Debug("cboClient_SelectedIndexChanged() -- End");
 
@@ -662,6 +738,7 @@ namespace ProLoop.WordAddin.Forms
 
                 // Open the selected document
                 document = documents.Open(filePath, AddToRecentFiles: false);
+                SaveSettingChange();
             }
             catch (Exception exception)
             {
@@ -732,6 +809,21 @@ namespace ProLoop.WordAddin.Forms
                     }
                 }
             }
+        }
+
+        private void SaveSettingChange()
+        {
+            Properties.Settings.Default.OpenOrganisation = rbOrganizations.Checked;
+            Properties.Settings.Default.OpenProject = rbProjects.Checked;
+            if (rbOrganizations.Checked)
+            {
+                Properties.Settings.Default.OpenMatter = ((Matter)cboMatter.SelectedItem).Name;
+                Properties.Settings.Default.OpenMatterId = ((Matter)cboMatter.SelectedItem).Id;
+                Properties.Settings.Default.OpenClient = ((Client)cboClient.SelectedItem).Name;
+                Properties.Settings.Default.OpenClientId = ((Client)cboClient.SelectedItem).Id;
+            }
+            Properties.Settings.Default.OpenEntity = cboOrgProject.Text;
+            Properties.Settings.Default.Save();
         }
         private void FillFromSearchWindow()
         {

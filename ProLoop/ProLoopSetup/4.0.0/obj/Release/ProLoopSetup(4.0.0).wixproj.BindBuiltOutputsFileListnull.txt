@@ -1,0 +1,2 @@
+D:\Projects\Rick Armstrong\backstage\ProLoop\ProLoopSetup\4.0.0\bin\Release\ProLoopSetup.msi
+D:\Projects\Rick Armstrong\backstage\ProLoop\ProLoopSetup\4.0.0\bin\Release\ProLoopSetup.wixpdb

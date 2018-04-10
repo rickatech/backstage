@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="ProLoop.Binaries">
-            <Component Id="cmp47A255382BE0AC30D39C109BBD01408E" Guid="{A4E5A67A-9087-4D8D-B45E-B72F8D158114}">
+            <Component Id="cmp47A255382BE0AC30D39C109BBD01408E" Guid="{7DCD944B-207B-4F00-8F99-E2E5E600F878}">
                 <File Id="fil6B8D39C5816EA0A45B9353DE7636A8D7" Source="$(var.ProLoop.TargetDir)\ProLoop.dll" />
             </Component>
         </DirectoryRef>

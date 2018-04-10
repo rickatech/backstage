@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Loader\adxloader.dll.manifest" />
     <None Include="packages.config" />
     <None Include="ProLoop.snk" />
@@ -90,6 +91,10 @@
   <ItemGroup>
     <Content Include="Loader\adxloader.dll" />
     <Content Include="Loader\adxloader64.dll" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\Gear.gif" />
     <None Include="Resources\opSetting.png" />
     <None Include="Resources\Settings.ico" />
@@ -147,6 +152,11 @@
       <DependentUpon>AheadSearchForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\DataItem.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\SaveOrOpenControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

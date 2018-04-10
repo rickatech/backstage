@@ -1,0 +1,20 @@
+C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.WD.2005.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Newtonsoft.Json.xml
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\stdole.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.File.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\Loader\adxloader.dll.manifest
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.RollingFile.xml
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.File.xml
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Microsoft.Office.Interop.Word.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.Sinks.RollingFile.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\AddinExpress.ToolbarControls.2005.dll
+C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.MSO.2005.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Office.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Microsoft.Vbe.Interop.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\Loader\adxloader64.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\ProLoop.dll.config
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Newtonsoft.Json.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\Serilog.xml
+D:\Projects\Rick Armstrong\backstage\ProLoop\Loader\adxloader.dll
+D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\\ProLoop.dll

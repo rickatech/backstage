@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="ProLoop" Language="1033" Version="4.6.7" Manufacturer="ZapTech" UpgradeCode="{4B264A8D-0722-4CCA-BD7A-4D893BDFA2A2}" Codepage="1252">
+  <Product Id="*" Name="ProLoop" Language="1033" Version="4.6.9" Manufacturer="ZapTech" UpgradeCode="{4B264A8D-0722-4CCA-BD7A-4D893BDFA2A2}" Codepage="1252">
     <Package AdminImage="no" Comments="ProLoop" Compressed="yes" Description="Adds the ProLooop MS Word Backstage entry to Open and Save As menu items" InstallerVersion="200" InstallScope="perUser" Languages="1033" Manufacturer="ZapTech" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Media Id="1" Cabinet="ProLoop.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
     <Icon Id="ProLoopLogo.ico" SourceFile="ProLoopLogo.ico" />
@@ -93,7 +93,12 @@
 			</Component>
 				<Component Id="comp_139818F1_B437_4639_A37A_B5E97153CCCA" Guid="A5F8C46D-9538-4E6C-8536-55DA268AD229" Permanent="no" SharedDllRefCount="no" Transitive="no">
 				<File Id="_139818F1_B437_4639_A37A_B5E97153CCCA" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="stdole.dll" Source="$(var.ProLoop.TargetDir)stdole.dll" />
-			</Component>   
+			</Component>  
+    
+      	<Component Id="comp_AFBD1CF4_938F_4C7C_8DC9_134310628FD5" Guid="E7B9232B-B522-447B-84DF-E1BF42683CB6" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<File Id="_EFDD1C1D_795E_4A50_B163_865285E02F68" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="ProLoop.dll.config" Source="$(var.ProLoop.TargetDir)ProLoop.dll.config" />
+			</Component>
+    
     </Directory>
     <!-- The FileSystem group of the installation package. -->
     <ComponentGroup Id="FileSystemGroup">
@@ -115,6 +120,7 @@
 			<ComponentRef Id="comp_8709F245_A886_453A_A193_8B180BE57A3B" />
 			<ComponentRef Id="comp_FA1C068C_1725_43A2_B6F8_A91BEA4B91E4" />
 			<ComponentRef Id="comp_139818F1_B437_4639_A37A_B5E97153CCCA" />
+      <ComponentRef Id="comp_AFBD1CF4_938F_4C7C_8DC9_134310628FD5"/>
     </ComponentGroup>
     <!-- The composite feature of the installation package. -->
     <Feature Id="CompleteInstall" Title="All Files" Level="1" ConfigurableDirectory="TARGETDIR">
