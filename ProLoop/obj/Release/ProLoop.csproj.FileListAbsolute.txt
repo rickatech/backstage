@@ -37,4 +37,3 @@ C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\obj\Release\ProLoop.csproj.GenerateResou
 C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\obj\Release\ProLoop.dll
 C:\_Dev\Projects\PRD\CS_ProLoop\ProLoop\obj\Release\ProLoop.pdb
 E:\Githubs\backstage\ProLoop\bin\Release\ProLoop.dll
-D:\Projects\Rick Armstrong\backstage\ProLoop\bin\Release\ProLoop.dll

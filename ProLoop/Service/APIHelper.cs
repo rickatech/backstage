@@ -81,6 +81,40 @@ namespace ProLoop.WordAddin.Service
             return list;
         }
 
+        public static string GetFolderPath(string projectName, string orgName, string matterName, string clientName)
+        {
+            string text = null;
+            if (!string.IsNullOrEmpty(projectName))
+            {
+                text = "/api/files/Projects/" + projectName;
+                //text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
+            }
+            else
+            {
+
+                if (!string.IsNullOrEmpty(matterName))
+                {
+                    text = string.Concat(new string[]
+                    {
+                        "/api/files/Organizations/",
+                        orgName,
+                        "/",
+                        clientName,
+                        "/",
+                        matterName
+                    });
+                    //text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
+                }
+                else
+                {
+                    text = "/api/files/Organizations/" + orgName + "/" + clientName;
+                   // text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
+                }
+            }
+            return text;
+
+        }
+
         public static List<ProLoopFolder> GetFolders(string projectName,string orgName,string matterName, string clientName)
         {
             Log.Debug("GetFolders() -- Begin");

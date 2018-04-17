@@ -99,7 +99,6 @@ namespace ProLoop.WordAddin.Forms
             this.cboOrgProject.Size = new System.Drawing.Size(320, 21);
             this.cboOrgProject.TabIndex = 3;
             this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
-            
             // 
             // cboClient
             // 
@@ -253,6 +252,7 @@ namespace ProLoop.WordAddin.Forms
             this.tvwFolder.Name = "tvwFolder";
             this.tvwFolder.Size = new System.Drawing.Size(320, 118);
             this.tvwFolder.TabIndex = 18;
+            this.tvwFolder.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvwFolder_BeforeExpand);
             this.tvwFolder.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvwFolder_AfterSelect);
             // 
             // btnSettings

@@ -352,15 +352,17 @@ namespace ProLoop.WordAddin.Forms
                 ObjClient = new Client();
 
                 tvwFolder.Nodes.Clear();
-
+                string tempFolder = string.Empty;
                 List<ProLoopFolder> folders = new List<ProLoopFolder>();
                 if (context == Context.Orgs)
                 {
-                    folders = APIHelper.GetFolders("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
+                    tempFolder=APIHelper.GetFolderPath("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
+                    folders = APIHelper.GetFolders(tempFolder);
                 }
                 else
                 {
-                    folders = APIHelper.GetFolders(ObjProject.Title, "", "", "");
+                    tempFolder = APIHelper.GetFolderPath(ObjProject.Title, "", "", "");
+                    folders = APIHelper.GetFolders(tempFolder);
                 }
 
 
@@ -370,7 +372,7 @@ namespace ProLoop.WordAddin.Forms
                     //{
                     //    this.tvwFolder.Nodes.Add(current.Name);
                     //}
-                    ProcessFolderItem(folders);
+                    ProcessFolderItem(folders,tempFolder);
                 }
                 else
                 {
@@ -528,22 +530,25 @@ namespace ProLoop.WordAddin.Forms
                 this.cboDocName.DataSource = null;
                 this.cboDocName.Items.Clear();
                 List<ProLoopFolder> folders = new List<ProLoopFolder>();
+                string tempFolder = string.Empty;
                 if (ObjProject == null)
                 {
-                    folders = APIHelper.GetFolders("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
+                    tempFolder=APIHelper.GetFolderPath("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
+                    folders = APIHelper.GetFolders(tempFolder);
                 }
                 else
                 {
-                    folders = APIHelper.GetFolders(ObjProject.Title, "", "", "");
+                    tempFolder = APIHelper.GetFolderPath(ObjProject.Title, "", "", "");
+                    folders = APIHelper.GetFolders(tempFolder);
                 }
 
-                ProcessFolderItem(folders);
+                ProcessFolderItem(folders,tempFolder);
                 
                 Log.Debug("cboMatter_SelectedIndexChanged() -- End");
             }
         }
 
-        private void ProcessFolderItem(List<ProLoopFolder> folders)
+        private void ProcessFolderItem(List<ProLoopFolder> folders,string tempfolder)
         {
             var filesitem = folders.Where(x => x.Name.Contains(".")).ToList();
             if (filesitem != null && filesitem.Count > 0)
@@ -568,9 +573,15 @@ namespace ProLoop.WordAddin.Forms
             if (folders != null && folders.Count > 0)
             {
                 this.tvwFolder.Nodes.Clear();
+                //Adding first Node               
+               var root= tvwFolder.Nodes.Add(@"\");
+                root.Tag = tempfolder;
                 foreach (ProLoopFolder current in folders)
                 {
-                    this.tvwFolder.Nodes.Add(current.Name);
+                    var node = new TreeNode();
+                    node.Text = current.Name;
+                    node.Tag = current.Path;
+                    root.Nodes.Add(node);
                 }
             }
         }
@@ -606,17 +617,20 @@ namespace ProLoop.WordAddin.Forms
         private void tvwFolder_AfterSelect(object sender, TreeViewEventArgs e)
         {
             // Get the full path of the node (from root node to the selected node)
-            Stack<TreeNode> resultNodes = new Stack<TreeNode>();
-            GetNodesToRoot(e.Node, resultNodes);
-            searchParameter.FolderName = e.Node.Text;
+           
             StringBuilder nodePath = new StringBuilder();
-            while (resultNodes.Count > 0)
-            {
-                nodePath.Append(resultNodes.Pop().Text);
-                if (resultNodes.Count > 1) nodePath.Append("/");
+            if (!e.Node.Text.Contains(@"\")){
+                
+                string[] data = e.Node.FullPath.Split('\\');
+               foreach(string item in data)
+                {
+                    if (string.IsNullOrEmpty(item))
+                        continue;
+                    nodePath.Append(item).Append("/");
+                }                
+                this.FolderPath = nodePath.ToString().TrimEnd('/');
+                searchParameter.FolderName = FolderPath;
             }
-            this.FolderPath = nodePath.ToString();
-
             // Get the files in this path
             string folderPath = string.Empty;
 
@@ -637,29 +651,25 @@ namespace ProLoop.WordAddin.Forms
                 if (ObjMatter != null && !string.IsNullOrEmpty(ObjMatter.Name))
                 {
 
-                    folderPath = "/api/files/Organizations/" + ObjOrganization.Title + "/" + ObjClient.Name + "/" + ObjMatter.Name + "/" + nodePath + "/*?token=";
+                    folderPath = "/api/files/Organizations/" + ObjOrganization.Title + "/" + ObjClient.Name + "/" + ObjMatter.Name + "/" + nodePath + "*?token=";
                    
                 }
                 else
                 {
-                    folderPath = "/api/files/Organizations/" + ObjOrganization.Title + "/" + ObjClient.Name + "/" + nodePath + "/*?token=";
+                    folderPath = "/api/files/Organizations/" + ObjOrganization.Title + "/" + ObjClient.Name + "/" + nodePath + "*?token=";
                 }
             }
-            List<ProLoopFile> files = APIHelper.GetFiles(folderPath);           
+            List<ProLoopFile> files = APIHelper.GetFiles(folderPath);
 
-           // DocsBindingSource.DataSource = files;
+            // DocsBindingSource.DataSource = files;
 
-            cboDocName.DataSource = files;
+            if (files.Count > 0)
+            {
+                cboDocName.DataSource = files.Where(x => x.Name.Contains(".")).ToList();
+            }
             cboDocName.DisplayMember = "name";
             cboDocName.ValueMember = "name";
-            //cboMatter_SelectedIndexChanged(cboMatter, null);
-
-            //cboDocName.AutoCompleteMode = AutoCompleteMode.Suggest;
-            //cboDocName.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
-            //DocsAutoCompleteCollection.AddRange(files.Select(file => file.Name).ToArray());
-            //cboDocName.AutoCompleteCustomSource = DocsAutoCompleteCollection;
-
+            
             cboDocName.SelectedIndex = -1;
             cboDocName.SelectedText = "Select:";
         }
@@ -828,7 +838,7 @@ namespace ProLoop.WordAddin.Forms
         private void FillFromSearchWindow()
         {
             string[] PathCollection = selectedPath.Split('/');
-            if(selectedPath.StartsWith("Organizations"))
+            if (selectedPath.StartsWith("Organizations"))
             {
                 cboOrgProject.Text = string.Empty;
                 rbOrganizations.Checked = true;
@@ -846,7 +856,7 @@ namespace ProLoop.WordAddin.Forms
 
                 // Handle FolderName
                 tvwFolder.Nodes.Clear();
-                for (int i=4;i<PathCollection.Length-1;i++)
+                for (int i = 4; i < PathCollection.Length - 1; i++)
                 {
                     this.tvwFolder.Nodes.Add(PathCollection[i]);
                 }
@@ -863,12 +873,13 @@ namespace ProLoop.WordAddin.Forms
                 cboMatter.Enabled = false;
                 // Handle FolderName
                 tvwFolder.Nodes.Clear();
+                var root = tvwFolder.Nodes.Add(@"\");
                 for (int i = 2; i < PathCollection.Length - 1; i++)
                 {
-                    this.tvwFolder.Nodes.Add(PathCollection[i]);
+                    root.Nodes.Add(PathCollection[i]);
                 }
                 cboDocName.Text = string.Empty;
-                cboDocName.SelectedText = PathCollection[PathCollection.Length-1];
+                cboDocName.SelectedText = PathCollection[PathCollection.Length - 1];
             }
             //cboContent.Text = searchParameter.KeyWord;
             textBoxContent.Text = searchParameter.KeyWord;
@@ -879,6 +890,49 @@ namespace ProLoop.WordAddin.Forms
         private void cboEditor_SelectedIndexChanged(object sender, EventArgs e)
         {
             searchParameter.EditorName = cboEditor.Text;
-        }       
+        }
+
+        private void tvwFolder_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            var expandNode = e.Node;
+            if(expandNode!=null)
+            {
+                expandNode.Nodes.Clear();
+                var folders = APIHelper.GetFolders(expandNode.Tag as string);
+                foreach(ProLoopFolder folder in folders)
+                {
+                    if (folder.Name.Contains("."))
+                        continue;
+                    TreeNode childNode = new TreeNode();
+                    childNode.Text = folder.Name;
+                    childNode.Tag= $"/api/files/{folder.Path}";
+                    expandNode.Nodes.Add(childNode);
+                }
+                foreach (TreeNode node in expandNode.Nodes)
+                {
+                    if (node != null && node.Tag is string)
+                    {
+                        string folderPath = node.Tag as string;
+                        if (!string.IsNullOrEmpty(folderPath))
+                        {
+                            folderPath =node.Tag as string;
+                            var childFolders = APIHelper.GetFolders(folderPath);
+                            if (childFolders != null)
+                            {
+                                foreach (ProLoopFolder childFolder in childFolders)
+                                {
+                                    if (childFolder.Name.Contains("."))
+                                        continue;
+                                    var treenode = new TreeNode();
+                                    treenode.Text = childFolder.Name;
+                                    treenode.Tag = childFolder.Path;
+                                    node.Nodes.Add(treenode);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
