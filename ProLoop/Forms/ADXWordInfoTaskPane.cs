@@ -22,6 +22,7 @@ namespace ProLoop.WordAddin.Forms
         {
             InitializeComponent();
             AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);
+            label4.Text = string.Empty;
         }
 
         private void ADXWordInfoTaskPane_Activated(object sender, EventArgs e)
@@ -166,6 +167,7 @@ namespace ProLoop.WordAddin.Forms
                     if (index == data.Count - 1)
                     {
                         textBoxSummary.Text += item.Keywords;
+                        label4.Text = $"Doc ID:{item.VersionId}";
                     }
                     else
                     {

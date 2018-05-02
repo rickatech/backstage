@@ -68,7 +68,11 @@ namespace ProLoop.WordAddin
 
         public static void CloseLogging()
         {
-            Log.CloseAndFlush();
+            try
+            {
+                Log.CloseAndFlush();
+            }
+            catch { }
         }
 
         private static void DeleteLogFiles(string folderPath)

@@ -29,6 +29,9 @@ namespace ProLoop.WordAddin.Model
         [JsonProperty(PropertyName = "username")]
         public string EditorName { get; set; }
 
+        [JsonProperty(PropertyName="versionId")]
+        public string VersionId { get; set; }
+
     }
     class History
     {
