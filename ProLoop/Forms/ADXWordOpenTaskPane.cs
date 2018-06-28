@@ -8,6 +8,7 @@ using System.Text;
 using Microsoft.Office.Interop.Word;
 using System.Linq;
 using ProLoop.WordAddin.Utils;
+using ProLoop.WordAddin.Model;
 
 namespace ProLoop.WordAddin.Forms
 {
@@ -33,7 +34,7 @@ namespace ProLoop.WordAddin.Forms
             get;
             set;
         }
-
+        ProLoopFile proloopFile { get; set; }
         private SearchParameter searchParameter;
 
         public ADXWordOpenTaskPane()
@@ -43,6 +44,15 @@ namespace ProLoop.WordAddin.Forms
             searchParameter = new SearchParameter();
             rbOrganizations.Checked = Properties.Settings.Default.OpenOrganisation;
             rbProjects.Checked= Properties.Settings.Default.OpenProject;
+            if (string.IsNullOrEmpty(AddinCurrentInstance.ProLoopUsername))
+            {
+                label7.Visible = false;
+            }
+            else
+            {
+                label7.Visible = true;
+                label7.Text = $"Current user : {AddinCurrentInstance.ProLoopUsername}";
+            }
         }
 
         private void rbOrganizations_CheckedChanged(object sender, EventArgs e)
@@ -593,11 +603,11 @@ namespace ProLoop.WordAddin.Forms
             ComboBox cbo = (ComboBox)sender;
             if (!cbo.Focused) return;
           
-            var document = new ProLoopFile();
+            proloopFile = new ProLoopFile();
             if (cboDocName.SelectedItem is ProLoopFile)
             {
-                document = (ProLoopFile)cboDocName.SelectedItem;
-                DocumentName = document.Name;
+                proloopFile = (ProLoopFile)cboDocName.SelectedItem;
+                DocumentName = proloopFile.Name;
                 searchParameter.FileName = DocumentName;
             }
             else
@@ -748,6 +758,23 @@ namespace ProLoop.WordAddin.Forms
 
                 // Open the selected document
                 document = documents.Open(filePath, AddToRecentFiles: false);
+                string fileInfo = $"{AddinCurrentInstance.ProLoopUrl}/api/filetags/{proloopFile.Path}";
+                var data = MetadataHandler.GetMetaDataInfo<MetaDataInfo>(fileInfo);
+                if (data != null)
+                {
+                    foreach (Section wordSection in document.Sections)
+                    {
+                        Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                        if (footerRange.Text.Contains("Doc Id"))
+                            continue;
+                        footerRange.Font.ColorIndex = WdColorIndex.wdBlack;
+                        //footerRange.Font.Size = 20;
+
+                        footerRange.Underline = WdUnderline.wdUnderlineThick;
+                        footerRange.Text = $"Doc Id:{data[0].VersionId}";
+                    }
+                    document.Save();
+                }
                 SaveSettingChange();
             }
             catch (Exception exception)

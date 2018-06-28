@@ -33,16 +33,11 @@ namespace ProLoop.WordAddin.Forms
             this.rbOrganizations = new System.Windows.Forms.RadioButton();
             this.rbProjects = new System.Windows.Forms.RadioButton();
             this.lblOrgsProjects = new System.Windows.Forms.Label();
-            this.cboOrgProject = new ProLoop.EasyCompletionComboBox();
-            this.cboClient = new ProLoop.EasyCompletionComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.cboMatter = new ProLoop.EasyCompletionComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cboEditor = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cboContent = new ProLoop.EasyCompletionComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cboDocName = new ProLoop.EasyCompletionComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnOpen = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -52,6 +47,12 @@ namespace ProLoop.WordAddin.Forms
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxContent = new System.Windows.Forms.TextBox();
             this.textBoxEditor = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cboDocName = new ProLoop.EasyCompletionComboBox();
+            this.cboContent = new ProLoop.EasyCompletionComboBox();
+            this.cboMatter = new ProLoop.EasyCompletionComboBox();
+            this.cboClient = new ProLoop.EasyCompletionComboBox();
+            this.cboOrgProject = new ProLoop.EasyCompletionComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,30 +89,6 @@ namespace ProLoop.WordAddin.Forms
             this.lblOrgsProjects.TabIndex = 2;
             this.lblOrgsProjects.Text = "Oranization /Project :";
             // 
-            // cboOrgProject
-            // 
-            this.cboOrgProject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboOrgProject.FormattingEnabled = true;
-            this.cboOrgProject.Location = new System.Drawing.Point(9, 73);
-            this.cboOrgProject.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.cboOrgProject.Name = "cboOrgProject";
-            this.cboOrgProject.Size = new System.Drawing.Size(320, 21);
-            this.cboOrgProject.TabIndex = 3;
-            this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
-            // 
-            // cboClient
-            // 
-            this.cboClient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboClient.FormattingEnabled = true;
-            this.cboClient.Location = new System.Drawing.Point(9, 117);
-            this.cboClient.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.cboClient.Name = "cboClient";
-            this.cboClient.Size = new System.Drawing.Size(320, 21);
-            this.cboClient.TabIndex = 5;
-            this.cboClient.SelectedIndexChanged += new System.EventHandler(this.cboClient_SelectedIndexChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -120,18 +97,6 @@ namespace ProLoop.WordAddin.Forms
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Client :";
-            // 
-            // cboMatter
-            // 
-            this.cboMatter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboMatter.FormattingEnabled = true;
-            this.cboMatter.Location = new System.Drawing.Point(11, 160);
-            this.cboMatter.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.cboMatter.Name = "cboMatter";
-            this.cboMatter.Size = new System.Drawing.Size(320, 21);
-            this.cboMatter.TabIndex = 7;
-            this.cboMatter.SelectedIndexChanged += new System.EventHandler(this.cboMatter_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -169,19 +134,6 @@ namespace ProLoop.WordAddin.Forms
             this.label3.TabIndex = 8;
             this.label3.Text = "Document Editor :";
             // 
-            // cboContent
-            // 
-            this.cboContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboContent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cboContent.FormattingEnabled = true;
-            this.cboContent.Location = new System.Drawing.Point(9, 393);
-            this.cboContent.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.cboContent.Name = "cboContent";
-            this.cboContent.Size = new System.Drawing.Size(320, 21);
-            this.cboContent.TabIndex = 11;
-            this.cboContent.Visible = false;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -190,17 +142,6 @@ namespace ProLoop.WordAddin.Forms
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "Document Content:";
-            // 
-            // cboDocName
-            // 
-            this.cboDocName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cboDocName.FormattingEnabled = true;
-            this.cboDocName.Location = new System.Drawing.Point(9, 436);
-            this.cboDocName.Name = "cboDocName";
-            this.cboDocName.Size = new System.Drawing.Size(320, 21);
-            this.cboDocName.TabIndex = 13;
-            this.cboDocName.SelectedIndexChanged += new System.EventHandler(this.cboDocName_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -260,7 +201,7 @@ namespace ProLoop.WordAddin.Forms
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Image = global::ProLoop.WordAddin.Properties.Resources.opSetting;
-            this.btnSettings.Location = new System.Drawing.Point(218, 15);
+            this.btnSettings.Location = new System.Drawing.Point(244, 26);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(42, 30);
             this.btnSettings.TabIndex = 19;
@@ -295,9 +236,81 @@ namespace ProLoop.WordAddin.Forms
             this.textBoxEditor.Size = new System.Drawing.Size(320, 20);
             this.textBoxEditor.TabIndex = 22;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(162, 3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "label7";
+            // 
+            // cboDocName
+            // 
+            this.cboDocName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboDocName.FormattingEnabled = true;
+            this.cboDocName.Location = new System.Drawing.Point(9, 436);
+            this.cboDocName.Name = "cboDocName";
+            this.cboDocName.Size = new System.Drawing.Size(320, 21);
+            this.cboDocName.TabIndex = 13;
+            this.cboDocName.SelectedIndexChanged += new System.EventHandler(this.cboDocName_SelectedIndexChanged);
+            // 
+            // cboContent
+            // 
+            this.cboContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboContent.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboContent.FormattingEnabled = true;
+            this.cboContent.Location = new System.Drawing.Point(9, 393);
+            this.cboContent.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.cboContent.Name = "cboContent";
+            this.cboContent.Size = new System.Drawing.Size(320, 21);
+            this.cboContent.TabIndex = 11;
+            this.cboContent.Visible = false;
+            // 
+            // cboMatter
+            // 
+            this.cboMatter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboMatter.FormattingEnabled = true;
+            this.cboMatter.Location = new System.Drawing.Point(11, 160);
+            this.cboMatter.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.cboMatter.Name = "cboMatter";
+            this.cboMatter.Size = new System.Drawing.Size(320, 21);
+            this.cboMatter.TabIndex = 7;
+            this.cboMatter.SelectedIndexChanged += new System.EventHandler(this.cboMatter_SelectedIndexChanged);
+            // 
+            // cboClient
+            // 
+            this.cboClient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboClient.FormattingEnabled = true;
+            this.cboClient.Location = new System.Drawing.Point(9, 117);
+            this.cboClient.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.cboClient.Name = "cboClient";
+            this.cboClient.Size = new System.Drawing.Size(320, 21);
+            this.cboClient.TabIndex = 5;
+            this.cboClient.SelectedIndexChanged += new System.EventHandler(this.cboClient_SelectedIndexChanged);
+            // 
+            // cboOrgProject
+            // 
+            this.cboOrgProject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboOrgProject.FormattingEnabled = true;
+            this.cboOrgProject.Location = new System.Drawing.Point(9, 73);
+            this.cboOrgProject.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.cboOrgProject.Name = "cboOrgProject";
+            this.cboOrgProject.Size = new System.Drawing.Size(320, 21);
+            this.cboOrgProject.TabIndex = 3;
+            this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
+            // 
             // ADXWordOpenTaskPane
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.ClientSize = new System.Drawing.Size(350, 535);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxEditor);
             this.Controls.Add(this.textBoxContent);
             this.Controls.Add(this.buttonSearch);
@@ -358,5 +371,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TextBox textBoxContent;
         private System.Windows.Forms.TextBox textBoxEditor;
+        private System.Windows.Forms.Label label7;
     }
 }
