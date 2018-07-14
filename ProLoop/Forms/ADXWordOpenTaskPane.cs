@@ -765,13 +765,10 @@ namespace ProLoop.WordAddin.Forms
                     foreach (Section wordSection in document.Sections)
                     {
                         Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                        if (footerRange.Text.Contains("Doc Id"))
-                            continue;
+                       
                         footerRange.Font.ColorIndex = WdColorIndex.wdBlack;
-                        //footerRange.Font.Size = 20;
-
-                        footerRange.Underline = WdUnderline.wdUnderlineThick;
-                        footerRange.Text = $"Doc Id:{data[0].VersionId}";
+                        footerRange.Bold = 1;                        
+                        footerRange.Text = $"Doc Id:{data[0].VersionId} \t\t Version:2.0.0";
                     }
                     document.Save();
                 }
