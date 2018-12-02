@@ -55,8 +55,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtOrgProject = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -360,6 +360,14 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Doc ID";
             // 
+            // txtOrgProject
+            // 
+            this.txtOrgProject.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtOrgProject.Location = new System.Drawing.Point(3, 33);
+            this.txtOrgProject.Name = "txtOrgProject";
+            this.txtOrgProject.Size = new System.Drawing.Size(155, 23);
+            this.txtOrgProject.TabIndex = 17;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -370,14 +378,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
-            // 
-            // txtOrgProject
-            // 
-            this.txtOrgProject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtOrgProject.Location = new System.Drawing.Point(3, 33);
-            this.txtOrgProject.Name = "txtOrgProject";
-            this.txtOrgProject.Size = new System.Drawing.Size(155, 23);
-            this.txtOrgProject.TabIndex = 17;
             // 
             // AheadSearchForm
             // 

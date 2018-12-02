@@ -153,6 +153,12 @@
     <Compile Include="Forms\AheadSearchForm.Designer.cs">
       <DependentUpon>AheadSearchForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ContentSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ContentSearch.Designer.cs">
+      <DependentUpon>ContentSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\DataItem.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -213,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AheadSearchForm.resx">
       <DependentUpon>AheadSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ContentSearch.resx">
+      <DependentUpon>ContentSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\SaveOrOpenControl.resx">
       <DependentUpon>SaveOrOpenControl.cs</DependentUpon>

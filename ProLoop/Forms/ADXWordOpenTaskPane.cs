@@ -9,13 +9,14 @@ using Microsoft.Office.Interop.Word;
 using System.Linq;
 using ProLoop.WordAddin.Utils;
 using ProLoop.WordAddin.Model;
+using System.IO;
 
 namespace ProLoop.WordAddin.Forms
 {
     public partial class ADXWordOpenTaskPane : AddinExpress.WD.ADXWordTaskPane
     {
-        private readonly AddinModule AddinCurrentInstance;      
-        private SettingsForm settingForm;       
+        private readonly AddinModule AddinCurrentInstance;
+        private SettingsForm settingForm;
 
         private Client ObjClient { get; set; } = new Client();
         private Project ObjProject { get; set; } = new Project();
@@ -40,10 +41,10 @@ namespace ProLoop.WordAddin.Forms
         public ADXWordOpenTaskPane()
         {
             InitializeComponent();
-            this.AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);            
+            this.AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);
             searchParameter = new SearchParameter();
             rbOrganizations.Checked = Properties.Settings.Default.OpenOrganisation;
-            rbProjects.Checked= Properties.Settings.Default.OpenProject;
+            rbProjects.Checked = Properties.Settings.Default.OpenProject;
             if (string.IsNullOrEmpty(AddinCurrentInstance.ProLoopUsername))
             {
                 label7.Visible = false;
@@ -104,7 +105,7 @@ namespace ProLoop.WordAddin.Forms
                 cboDocName.DataSource = null;
                 cboDocName.Items.Clear();
 
-                List<Organization> orgs = APIHelper.GetOrganizations();               
+                List<Organization> orgs = APIHelper.GetOrganizations();
                 cboOrgProject.DataSource = orgs;
                 cboOrgProject.MatchingMethod = StringMatchingMethod.NoWildcards;
                 cboOrgProject.DisplayMember = "title";
@@ -162,9 +163,9 @@ namespace ProLoop.WordAddin.Forms
                 cboMatter.Enabled = false;
 
                 // Clear the Client, Matter, Docs..
-                
 
-                tvwFolder.Nodes.Clear();                
+
+                tvwFolder.Nodes.Clear();
 
                 List<Project> projects = APIHelper.GetProjects();
 
@@ -174,7 +175,7 @@ namespace ProLoop.WordAddin.Forms
                 cboOrgProject.DisplayMember = "title";
                 cboOrgProject.ValueMember = "id";
 
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.OpenEntity)&& projects!=null)
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.OpenEntity) && projects != null)
                 {
                     var item = projects.FirstOrDefault(x => x.Title == Properties.Settings.Default.OpenEntity);
                     if (item != null)
@@ -193,7 +194,7 @@ namespace ProLoop.WordAddin.Forms
                     cboOrgProject.Text = "Select:";
                 }
 
-                
+
             }
             Log.Debug("rbProjects_CheckedChanged() -- End");
         }
@@ -217,7 +218,7 @@ namespace ProLoop.WordAddin.Forms
                     radioButton.Checked = false;
                     return;
                 }
-            }            
+            }
             if (!string.IsNullOrEmpty(this.AddinCurrentInstance.ProLoopUrl))
             {
                 //    Uri uri = new Uri(this.AddinCurrentInstance.ProLoopUrl);
@@ -329,7 +330,7 @@ namespace ProLoop.WordAddin.Forms
                 cboClient.DataSource = clients;
                 cboClient.MatchingMethod = StringMatchingMethod.NoWildcards;
                 cboClient.DisplayMember = "name";
-                cboClient.ValueMember = "id";               
+                cboClient.ValueMember = "id";
                 cboClient.SelectedIndex = -1;
                 cboClient.SelectedText = "Select:";
             }
@@ -366,7 +367,7 @@ namespace ProLoop.WordAddin.Forms
                 List<ProLoopFolder> folders = new List<ProLoopFolder>();
                 if (context == Context.Orgs)
                 {
-                    tempFolder=APIHelper.GetFolderPath("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
+                    tempFolder = APIHelper.GetFolderPath("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
                     folders = APIHelper.GetFolders(tempFolder);
                 }
                 else
@@ -382,7 +383,7 @@ namespace ProLoop.WordAddin.Forms
                     //{
                     //    this.tvwFolder.Nodes.Add(current.Name);
                     //}
-                    ProcessFolderItem(folders,tempFolder);
+                    ProcessFolderItem(folders, tempFolder);
                 }
                 else
                 {
@@ -421,12 +422,12 @@ namespace ProLoop.WordAddin.Forms
                         }
                     }
                     List<ProLoopFile> files = APIHelper.GetFiles(folderPath);
-                   // DocsBindingSource.DataSource = files;
+                    // DocsBindingSource.DataSource = files;
 
                     cboDocName.DataSource = files;
                     cboDocName.MatchingMethod = StringMatchingMethod.NoWildcards;
                     cboDocName.DisplayMember = "name";
-                    cboDocName.ValueMember = "name";                   
+                    cboDocName.ValueMember = "name";
 
                     cboDocName.SelectedIndex = -1;
                     cboDocName.SelectedText = "Select:";
@@ -460,7 +461,7 @@ namespace ProLoop.WordAddin.Forms
             if (this.cboClient.SelectedItem is Client)
             {
                 ObjClient = (Client)this.cboClient.SelectedItem;
-                searchParameter.ClientName = ObjClient.Name;               
+                searchParameter.ClientName = ObjClient.Name;
                 searchParameter.MatterName = string.Empty;
                 searchParameter.EditorName = string.Empty;
                 searchParameter.FileName = string.Empty;
@@ -508,7 +509,7 @@ namespace ProLoop.WordAddin.Forms
 
             Log.Debug("cboClient_SelectedIndexChanged() -- End");
 
-        }       
+        }
 
         private void cboMatter_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -520,7 +521,7 @@ namespace ProLoop.WordAddin.Forms
                 if (cboMatter.SelectedItem is Matter)
                 {
                     ObjMatter = (Matter)this.cboMatter.SelectedItem;
-                    searchParameter.MatterName = ObjMatter.Name;                    
+                    searchParameter.MatterName = ObjMatter.Name;
                     searchParameter.EditorName = string.Empty;
                     searchParameter.FileName = string.Empty;
                     searchParameter.KeyWord = string.Empty;
@@ -543,7 +544,7 @@ namespace ProLoop.WordAddin.Forms
                 string tempFolder = string.Empty;
                 if (ObjProject == null)
                 {
-                    tempFolder=APIHelper.GetFolderPath("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
+                    tempFolder = APIHelper.GetFolderPath("", ObjOrganization.Title, ObjMatter.Name, ObjClient.Name);
                     folders = APIHelper.GetFolders(tempFolder);
                 }
                 else
@@ -552,13 +553,13 @@ namespace ProLoop.WordAddin.Forms
                     folders = APIHelper.GetFolders(tempFolder);
                 }
 
-                ProcessFolderItem(folders,tempFolder);
-                
+                ProcessFolderItem(folders, tempFolder);
+
                 Log.Debug("cboMatter_SelectedIndexChanged() -- End");
             }
         }
 
-        private void ProcessFolderItem(List<ProLoopFolder> folders,string tempfolder)
+        private void ProcessFolderItem(List<ProLoopFolder> folders, string tempfolder)
         {
             var filesitem = folders.Where(x => x.Name.Contains(".")).ToList();
             if (filesitem != null && filesitem.Count > 0)
@@ -584,7 +585,7 @@ namespace ProLoop.WordAddin.Forms
             {
                 this.tvwFolder.Nodes.Clear();
                 //Adding first Node               
-               var root= tvwFolder.Nodes.Add(@"\");
+                var root = tvwFolder.Nodes.Add(@"\");
                 root.Tag = tempfolder;
                 foreach (ProLoopFolder current in folders)
                 {
@@ -602,7 +603,7 @@ namespace ProLoop.WordAddin.Forms
             // Make sure the Combobox has the focus before processing the event handler
             ComboBox cbo = (ComboBox)sender;
             if (!cbo.Focused) return;
-          
+
             proloopFile = new ProLoopFile();
             if (cboDocName.SelectedItem is ProLoopFile)
             {
@@ -627,17 +628,18 @@ namespace ProLoop.WordAddin.Forms
         private void tvwFolder_AfterSelect(object sender, TreeViewEventArgs e)
         {
             // Get the full path of the node (from root node to the selected node)
-           
+
             StringBuilder nodePath = new StringBuilder();
-            if (!e.Node.Text.Contains(@"\")){
-                
+            if (!e.Node.Text.Contains(@"\"))
+            {
+
                 string[] data = e.Node.FullPath.Split('\\');
-               foreach(string item in data)
+                foreach (string item in data)
                 {
                     if (string.IsNullOrEmpty(item))
                         continue;
                     nodePath.Append(item).Append("/");
-                }                
+                }
                 this.FolderPath = nodePath.ToString().TrimEnd('/');
                 searchParameter.FolderName = FolderPath;
             }
@@ -662,7 +664,7 @@ namespace ProLoop.WordAddin.Forms
                 {
 
                     folderPath = "/api/files/Organizations/" + ObjOrganization.Title + "/" + ObjClient.Name + "/" + ObjMatter.Name + "/" + nodePath + "*?token=";
-                   
+
                 }
                 else
                 {
@@ -679,7 +681,7 @@ namespace ProLoop.WordAddin.Forms
             }
             cboDocName.DisplayMember = "name";
             cboDocName.ValueMember = "name";
-            
+
             cboDocName.SelectedIndex = -1;
             cboDocName.SelectedText = "Select:";
         }
@@ -687,9 +689,9 @@ namespace ProLoop.WordAddin.Forms
         {
             if (node == null)
                 return; // previous node was the root.           
-                resultNodes.Push(node);
-                GetNodesToRoot(node.Parent, resultNodes);
-            
+            resultNodes.Push(node);
+            GetNodesToRoot(node.Parent, resultNodes);
+
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -702,7 +704,7 @@ namespace ProLoop.WordAddin.Forms
             string filePath = AddinCurrentInstance.WebDAVMappedDriveLetter;
             if (!string.IsNullOrEmpty(selectedPath))
             {
-                filePath =filePath+"\\"+ selectedPath;
+                filePath = filePath + "\\" + selectedPath;
                 selectedPath = string.Empty;
             }
             else
@@ -757,7 +759,7 @@ namespace ProLoop.WordAddin.Forms
                 }
 
                 // Open the selected document
-                document = documents.Open(filePath, AddToRecentFiles: false);
+                document = documents.Open(filePath, AddToRecentFiles: false,ReadOnly:false);
                 string fileInfo = $"{AddinCurrentInstance.ProLoopUrl}/api/filetags/{proloopFile.Path}";
                 var data = MetadataHandler.GetMetaDataInfo<MetaDataInfo>(fileInfo);
                 if (data != null)
@@ -765,12 +767,16 @@ namespace ProLoop.WordAddin.Forms
                     foreach (Section wordSection in document.Sections)
                     {
                         Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                       
+
                         footerRange.Font.ColorIndex = WdColorIndex.wdBlack;
-                        footerRange.Bold = 1;                        
+                        footerRange.Bold = 1;
                         footerRange.Text = $"Doc Id:{data[0].VersionId} \t\t Version:2.0.0";
                     }
-                    document.Save();
+                    FileInfo docinfo = new FileInfo(filePath);
+                    if (!docinfo.IsReadOnly)
+                    {
+                        document.Save();
+                    }                 
                 }
                 SaveSettingChange();
             }
@@ -832,12 +838,12 @@ namespace ProLoop.WordAddin.Forms
             using (var search = new AheadSearchForm(searchParameter))
             {
                 var dialogResult = search.ShowDialog();
-                if(dialogResult==DialogResult.OK)
+                if (dialogResult == DialogResult.OK)
                 {
-                    selectedPath =search.FilePath;
-                    if(!string.IsNullOrEmpty(selectedPath))
+                    selectedPath = search.FilePath;
+                    if (!string.IsNullOrEmpty(selectedPath))
                     {
-                        
+
                         FillFromSearchWindow();
                         btnOpen.Enabled = true;
                     }
@@ -908,7 +914,7 @@ namespace ProLoop.WordAddin.Forms
             //cboContent.Text = searchParameter.KeyWord;
             textBoxContent.Text = searchParameter.KeyWord;
             cboEditor.Text = searchParameter.EditorName;
-            
+
         }
 
         private void cboEditor_SelectedIndexChanged(object sender, EventArgs e)
@@ -919,17 +925,17 @@ namespace ProLoop.WordAddin.Forms
         private void tvwFolder_BeforeExpand(object sender, TreeViewCancelEventArgs e)
         {
             var expandNode = e.Node;
-            if(expandNode!=null)
+            if (expandNode != null)
             {
                 expandNode.Nodes.Clear();
                 var folders = APIHelper.GetFolders(expandNode.Tag as string);
-                foreach(ProLoopFolder folder in folders)
+                foreach (ProLoopFolder folder in folders)
                 {
                     if (folder.Name.Contains("."))
                         continue;
                     TreeNode childNode = new TreeNode();
                     childNode.Text = folder.Name;
-                    childNode.Tag= $"/api/files/{folder.Path}";
+                    childNode.Tag = $"/api/files/{folder.Path}";
                     expandNode.Nodes.Add(childNode);
                 }
                 foreach (TreeNode node in expandNode.Nodes)
@@ -939,7 +945,7 @@ namespace ProLoop.WordAddin.Forms
                         string folderPath = node.Tag as string;
                         if (!string.IsNullOrEmpty(folderPath))
                         {
-                            folderPath =node.Tag as string;
+                            folderPath = node.Tag as string;
                             var childFolders = APIHelper.GetFolders(folderPath);
                             if (childFolders != null)
                             {
@@ -954,6 +960,24 @@ namespace ProLoop.WordAddin.Forms
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        private void buttonFullDocSearch_Click(object sender, EventArgs e)
+        {
+            using (var search = new ContentSearch(searchParameter))
+            {
+                var dialogResult = search.ShowDialog();
+                if (dialogResult == DialogResult.OK)
+                {
+                    selectedPath = search.FilePath;
+                    if (!string.IsNullOrEmpty(selectedPath))
+                    {
+                        FillFromSearchWindow();
+                        btnOpen.Enabled = true;
+                        btnOpen.PerformClick();
                     }
                 }
             }

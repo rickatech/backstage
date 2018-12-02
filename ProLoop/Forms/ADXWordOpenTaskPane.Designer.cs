@@ -53,6 +53,7 @@ namespace ProLoop.WordAddin.Forms
             this.cboMatter = new ProLoop.EasyCompletionComboBox();
             this.cboClient = new ProLoop.EasyCompletionComboBox();
             this.cboOrgProject = new ProLoop.EasyCompletionComboBox();
+            this.buttonFullDocSearch = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,7 +156,7 @@ namespace ProLoop.WordAddin.Forms
             // btnOpen
             // 
             this.btnOpen.Enabled = false;
-            this.btnOpen.Location = new System.Drawing.Point(15, 475);
+            this.btnOpen.Location = new System.Drawing.Point(9, 475);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 14;
@@ -210,7 +211,7 @@ namespace ProLoop.WordAddin.Forms
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(143, 475);
+            this.buttonSearch.Location = new System.Drawing.Point(110, 475);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(75, 23);
             this.buttonSearch.TabIndex = 20;
@@ -306,10 +307,21 @@ namespace ProLoop.WordAddin.Forms
             this.cboOrgProject.TabIndex = 3;
             this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
             // 
+            // buttonFullDocSearch
+            // 
+            this.buttonFullDocSearch.Location = new System.Drawing.Point(213, 475);
+            this.buttonFullDocSearch.Name = "buttonFullDocSearch";
+            this.buttonFullDocSearch.Size = new System.Drawing.Size(97, 23);
+            this.buttonFullDocSearch.TabIndex = 24;
+            this.buttonFullDocSearch.Text = "Full Doc Search";
+            this.buttonFullDocSearch.UseVisualStyleBackColor = true;
+            this.buttonFullDocSearch.Click += new System.EventHandler(this.buttonFullDocSearch_Click);
+            // 
             // ADXWordOpenTaskPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.ClientSize = new System.Drawing.Size(350, 535);
+            this.Controls.Add(this.buttonFullDocSearch);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxEditor);
             this.Controls.Add(this.textBoxContent);
@@ -372,5 +384,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.TextBox textBoxContent;
         private System.Windows.Forms.TextBox textBoxEditor;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonFullDocSearch;
     }
 }
