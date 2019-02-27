@@ -542,9 +542,37 @@ namespace ProLoop.WordAddin.Forms
             {
                 var missing = System.Type.Missing;
                 var AddtoRecent = false;
-                AddinCurrentInstance.WordApp.ActiveDocument.SaveAs(filePath, missing, missing, missing, AddtoRecent, missing,
-                    missing, missing, missing, missing, missing, missing, missing, missing, missing);
-                SaveSettingChange();
+                if (AddinCurrentInstance.SelectedFile != null)
+                {
+                    if(!string.IsNullOrWhiteSpace(AddinCurrentInstance.SelectedFile.LockingUserId) && AddinCurrentInstance.SelectedFile.LockingUserId != AddinCurrentInstance.CurrentUserId.ToString())
+                    {
+                        var message = "This Document is Checked Out by Rick Shaul.Would you like to Save As a new Document?";
+                        var resposne = AddinCurrentInstance.DisplayWaranigMessage(message);
+                        if (resposne)
+                        {                            
+                            AddinCurrentInstance.WordApp.ActiveDocument.SaveAs(filePath, missing, missing, missing, AddtoRecent, missing,
+                                missing, missing, missing, missing, missing, missing, missing, missing, missing);
+                            SaveSettingChange();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        AddinCurrentInstance.WordApp.ActiveDocument.SaveAs(filePath, missing, missing, missing, AddtoRecent, missing,
+                                            missing, missing, missing, missing, missing, missing, missing, missing, missing);
+                        SaveSettingChange();
+                    }
+                }
+                else {
+                    AddinCurrentInstance.WordApp.ActiveDocument.SaveAs(filePath, missing, missing, missing, AddtoRecent, missing,
+                        missing, missing, missing, missing, missing, missing, missing, missing, missing);
+                    SaveSettingChange();
+                }
+               
+                
             }
             catch (Exception ex)
             {

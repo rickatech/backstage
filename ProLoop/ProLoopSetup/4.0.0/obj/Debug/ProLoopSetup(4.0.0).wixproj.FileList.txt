@@ -1,0 +1,2 @@
+obj\\Debug\Product.wixobj
+obj\\Debug\pthEACCC25A607C4EFD8B4719BDFAF1ADB9\_ProLoop.wixobj

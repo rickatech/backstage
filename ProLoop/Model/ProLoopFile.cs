@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProLoop.WordAddin
 {
-    class ProLoopFile
+   public class ProLoopFile
     {
         public string Path
         {
@@ -19,6 +19,11 @@ namespace ProLoop.WordAddin
             get;
             set;
         }
-        public string id { get; set; }
+        public string LockingUserId
+        {
+            get;
+            set;
+        }
+        public string Id { get; set; }
     }
 }

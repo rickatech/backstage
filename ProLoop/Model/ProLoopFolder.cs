@@ -19,5 +19,14 @@ namespace ProLoop.WordAddin
             get;
             set;
         }
+        public string LockingUserId
+        {
+            get;
+            set;
+        }
+        public bool isDirctory
+        {
+            get;set;
+        }
     }
 }

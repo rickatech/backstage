@@ -84,7 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Loader\adxloader.dll.manifest" />
     <None Include="packages.config" />
     <None Include="ProLoop.snk" />

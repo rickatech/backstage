@@ -561,13 +561,18 @@ namespace ProLoop.WordAddin.Forms
 
         private void ProcessFolderItem(List<ProLoopFolder> folders, string tempfolder)
         {
-            var filesitem = folders.Where(x => x.Name.Contains(".")).ToList();
+            var filesitem = folders.Where(x => !x.isDirctory && x.Name.Contains('.')).ToList();
             if (filesitem != null && filesitem.Count > 0)
             {
                 List<ProLoopFile> files = new List<ProLoopFile>();
                 foreach (var item in filesitem)
                 {
-                    files.Add(new ProLoopFile() { Name = item.Name, Path = item.Path });
+                    var fileObj = new ProLoopFile();
+                    fileObj.Path = item.Path;
+                    fileObj.LockingUserId = item.LockingUserId;
+                    fileObj.Name = (item.LockingUserId != null) ? ($"{item.Name}     (locked by{item.LockingUserId})") : item.Name;
+                    //files.Add(new ProLoopFile() { Name = item.Name, Path = item.Path });
+                    files.Add(fileObj);
                 }
                 if (files.Count > 0)
                 // DocsBindingSource.DataSource = files;
@@ -610,6 +615,7 @@ namespace ProLoop.WordAddin.Forms
                 proloopFile = (ProLoopFile)cboDocName.SelectedItem;
                 DocumentName = proloopFile.Name;
                 searchParameter.FileName = DocumentName;
+                AddinCurrentInstance.SelectedFile = proloopFile;
             }
             else
             {
@@ -711,7 +717,30 @@ namespace ProLoop.WordAddin.Forms
             {
                 if (!string.IsNullOrEmpty(DocumentName)) // Open the document
                 {
-
+                    var FileNameData = DocumentName.Split(' ');
+                    if (FileNameData.Length > 1)
+                    {
+                        if (proloopFile.LockingUserId != AddinCurrentInstance.CurrentUserId.ToString())
+                        {
+                            string message = $"This Document is Checked Out by {proloopFile.LockingUserId}.Would you like to still like to Open the Document?";
+  
+                            var response=AddinCurrentInstance.DisplayWaranigMessage(message);
+                            if (response)
+                            {
+                                DocumentName = DocumentName.Split(' ')[0];
+                            }
+                            else
+                            {
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            DocumentName = DocumentName.Split(' ')[0];
+                        }
+                        
+                    }                  
+                    
                     //string filePath = AddinCurrentInstance.ProLoopUrl;
                     if (ObjProject != null && !string.IsNullOrEmpty(ObjProject.Title))
                     {

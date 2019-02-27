@@ -43,8 +43,15 @@ namespace ProLoop.WordAddin.Forms
             this.buttonSave = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelDetail = new System.Windows.Forms.Label();
+            this.labelMessage = new System.Windows.Forms.Label();
+            this.labelCheckin = new System.Windows.Forms.Label();
+            this.buttonCheckin = new System.Windows.Forms.Button();
+            this.buttonCheckout = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -156,7 +163,7 @@ namespace ProLoop.WordAddin.Forms
             // buttonRefresh
             // 
             this.buttonRefresh.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonRefresh.Location = new System.Drawing.Point(21, 448);
+            this.buttonRefresh.Location = new System.Drawing.Point(4, 470);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(76, 25);
             this.buttonRefresh.TabIndex = 25;
@@ -167,7 +174,7 @@ namespace ProLoop.WordAddin.Forms
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSave.Location = new System.Drawing.Point(209, 448);
+            this.buttonSave.Location = new System.Drawing.Point(249, 470);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 25);
             this.buttonSave.TabIndex = 26;
@@ -197,10 +204,76 @@ namespace ProLoop.WordAddin.Forms
             this.label4.TabIndex = 27;
             this.label4.Text = "label4";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.labelDetail);
+            this.groupBox1.Controls.Add(this.labelMessage);
+            this.groupBox1.Controls.Add(this.labelCheckin);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.groupBox1.Location = new System.Drawing.Point(7, 382);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(322, 82);
+            this.groupBox1.TabIndex = 28;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Check in /Check out";
+            // 
+            // labelDetail
+            // 
+            this.labelDetail.AutoSize = true;
+            this.labelDetail.Location = new System.Drawing.Point(8, 42);
+            this.labelDetail.Name = "labelDetail";
+            this.labelDetail.Size = new System.Drawing.Size(43, 17);
+            this.labelDetail.TabIndex = 2;
+            this.labelDetail.Text = "label5";
+            this.labelDetail.Visible = false;
+            // 
+            // labelMessage
+            // 
+            this.labelMessage.AutoSize = true;
+            this.labelMessage.Location = new System.Drawing.Point(89, 21);
+            this.labelMessage.Name = "labelMessage";
+            this.labelMessage.Size = new System.Drawing.Size(43, 17);
+            this.labelMessage.TabIndex = 1;
+            this.labelMessage.Text = "label6";
+            // 
+            // labelCheckin
+            // 
+            this.labelCheckin.AutoSize = true;
+            this.labelCheckin.Location = new System.Drawing.Point(7, 21);
+            this.labelCheckin.Name = "labelCheckin";
+            this.labelCheckin.Size = new System.Drawing.Size(43, 17);
+            this.labelCheckin.TabIndex = 0;
+            this.labelCheckin.Text = "label5";
+            // 
+            // buttonCheckin
+            // 
+            this.buttonCheckin.Location = new System.Drawing.Point(90, 471);
+            this.buttonCheckin.Name = "buttonCheckin";
+            this.buttonCheckin.Size = new System.Drawing.Size(67, 25);
+            this.buttonCheckin.TabIndex = 29;
+            this.buttonCheckin.Text = "Check in";
+            this.buttonCheckin.UseVisualStyleBackColor = true;
+            this.buttonCheckin.Visible = false;
+            this.buttonCheckin.Click += new System.EventHandler(this.buttonCheckin_Click);
+            // 
+            // buttonCheckout
+            // 
+            this.buttonCheckout.Location = new System.Drawing.Point(169, 470);
+            this.buttonCheckout.Name = "buttonCheckout";
+            this.buttonCheckout.Size = new System.Drawing.Size(74, 25);
+            this.buttonCheckout.TabIndex = 30;
+            this.buttonCheckout.Text = "Checkout";
+            this.buttonCheckout.UseVisualStyleBackColor = true;
+            this.buttonCheckout.Visible = false;
+            this.buttonCheckout.Click += new System.EventHandler(this.buttonCheckout_Click);
+            // 
             // ADXWordInfoTaskPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.ClientSize = new System.Drawing.Size(334, 507);
+            this.Controls.Add(this.buttonCheckout);
+            this.Controls.Add(this.buttonCheckin);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonRefresh);
@@ -210,6 +283,7 @@ namespace ProLoop.WordAddin.Forms
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordInfoTaskPane";
@@ -219,6 +293,8 @@ namespace ProLoop.WordAddin.Forms
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,5 +314,11 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label labelMessage;
+        private System.Windows.Forms.Label labelCheckin;
+        private System.Windows.Forms.Label labelDetail;
+        private System.Windows.Forms.Button buttonCheckin;
+        private System.Windows.Forms.Button buttonCheckout;
     }
 }

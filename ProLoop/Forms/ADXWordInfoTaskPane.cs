@@ -9,20 +9,24 @@ using Serilog;
 using System.Web.Script.Serialization;
 using ProLoop.WordAddin.Utils;
 using ProLoop.WordAddin.Model;
+using System.Text;
+using System.Net;
+using System.Collections.Specialized;
 
 namespace ProLoop.WordAddin.Forms
 {
-    public partial class ADXWordInfoTaskPane: AddinExpress.WD.ADXWordTaskPane
+    public partial class ADXWordInfoTaskPane : AddinExpress.WD.ADXWordTaskPane
     {
         private readonly AddinModule AddinCurrentInstance;
         //Microsoft.Office.Core.DocumentProperties properties;       
         private SettingsForm settingForm;
-
+        private ProLoopFile CurrentFile = null;
         public ADXWordInfoTaskPane()
         {
             InitializeComponent();
             AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);
             label4.Text = string.Empty;
+            groupBox1.Visible = false;
         }
 
         private void ADXWordInfoTaskPane_Activated(object sender, EventArgs e)
@@ -57,7 +61,7 @@ namespace ProLoop.WordAddin.Forms
             //        textBoxSummary.Text = summmary.Value as string;
 
             //    }             
-               
+
             //}
             #endregion
 
@@ -120,13 +124,13 @@ namespace ProLoop.WordAddin.Forms
                 {
                     PostKeyword();
                 }
-                if(!textBoxAuthor.ReadOnly)
+                if (!textBoxAuthor.ReadOnly)
                 {
                     PostEditor();
                 }
                 textBoxSummary.ReadOnly = true;
                 textBoxAuthor.ReadOnly = true;
-               
+
             }
             catch (Exception ex)
             {
@@ -188,55 +192,163 @@ namespace ProLoop.WordAddin.Forms
                     return;
                 filePath = $"{AddinCurrentInstance.ProLoopUrl}/api/sayt/f{filePath}";
                 var data = MetadataHandler.GetMetaDataInfo<ProLoopFile>(filePath);
-                if (data != null && data.Count>0)
+                if (data != null && data.Count > 0)
                 {
-                    GetHistory(data[0].id);
+                    ProcessCheckInCheckout(data[0]);
+                    GetHistory(data[0].Id);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }
         }
-
+        private void ProcessCheckInCheckout(ProLoopFile currentFile)
+        {
+            groupBox1.Visible = true;
+            this.CurrentFile = currentFile;
+            //File is already Checkout
+            if (!string.IsNullOrWhiteSpace(currentFile.LockingUserId))
+            {
+                labelCheckin.Text = "Check Out :";
+                labelMessage.Text = "Locked";
+                buttonCheckin.Visible = true;
+                buttonCheckout.Visible = false;
+                labelDetail.Text = $"Check out by {currentFile.LockingUserId} on {DateTime.Now.ToShortDateString()}";
+                labelDetail.Visible = true;
+            }
+            else
+            {
+                labelCheckin.Text = "Check Out :";
+                labelMessage.Text = "Not Locked";
+                buttonCheckin.Visible = false;
+                buttonCheckout.Visible = true;
+                labelDetail.Visible = false;
+            }
+        }
         private void GetHistory(string fileId)
         {
             string url = $"{AddinCurrentInstance.ProLoopUrl}/api/file/{fileId}/history";
             var data = MetadataHandler.GetMetaData<DataInfoRequest>(url);
-            if(data!=null && data.History!=null)
+            if (data != null && data.History != null)
             {
                 textBoxAuthor.Clear();
-                
-                foreach(var history in data.History)
+                StringBuilder sbAuthor = new StringBuilder();
+                foreach (var history in data.History)
                 {
-                    textBoxAuthor.Text = history.Username;                    
+                    if (!sbAuthor.ToString().Contains(history.Username))
+                        sbAuthor.Append(history.Username + ",");
                 }
-                if (!string.IsNullOrEmpty(textBoxAuthor.Text))
-                    textBoxAuthor.Text = textBoxAuthor.Text.Trim(new char[] { ',' });
+                if (!string.IsNullOrEmpty(sbAuthor.ToString()))
+                    textBoxAuthor.Text = sbAuthor.ToString().Trim(new char[] { ',' });
             }
 
         }
         private string PathBuilder()
         {
             string orionalLocation = AddinCurrentInstance.WordApp.ActiveDocument.FullName;
-            if(orionalLocation.Contains("://"))
+            if (orionalLocation.Contains("://"))
             {
                 Uri uri = new Uri(orionalLocation);
-                string localurl = uri.LocalPath.Replace("/dav",string.Empty);
+                string localurl = uri.LocalPath.Replace("/dav", string.Empty);
                 return localurl;
             }
-            
+
             return null;
         }
         private void buttonSum_Click(object sender, EventArgs e)
-        {           
+        {
             textBoxSummary.ReadOnly = false;
-            
+
         }
 
         private void buttonAuther_Click(object sender, EventArgs e)
         {
             textBoxAuthor.ReadOnly = false;
-            
+
+        }
+
+        private void buttonCheckout_Click(object sender, EventArgs e)
+        {
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    var values = new NameValueCollection();
+                    values["token"] = AddinCurrentInstance.ProLoopToken;
+                    var result = client.UploadValues($"{AddinCurrentInstance.ProLoopUrl}/api/file/{this.CurrentFile.Id }/lock/{AddinCurrentInstance.CurrentUserId}", values);
+                    var str = Encoding.Default.GetString(result);
+                    if (str != null)
+                    {
+                        this.CurrentFile.LockingUserId = AddinCurrentInstance.CurrentUserId.ToString();
+                        ProcessCheckInCheckout(this.CurrentFile);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
+        }
+
+        private void buttonCheckin_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(this.CurrentFile.LockingUserId) && CurrentFile.LockingUserId != AddinCurrentInstance.CurrentUserId.ToString())
+            {
+                var message = $"This Document Checked Out by {CurrentFile.LockingUserId} Would you like to Force this Check In? If you do so, {CurrentFile.LockingUserId} will receive an email notification";
+                var response = AddinCurrentInstance.DisplayWaranigMessage(message);
+                if (response)
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        try
+                        {
+                            client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                            var values = new NameValueCollection();
+                            values["token"] = AddinCurrentInstance.ProLoopToken;
+                            var result = client.UploadValues($"{AddinCurrentInstance.ProLoopUrl}/api/file/{this.CurrentFile.Id }/unlock", values);
+                            var str = Encoding.Default.GetString(result);
+                            if (str != null)
+                            {
+                                this.CurrentFile.LockingUserId = "";
+                                ProcessCheckInCheckout(this.CurrentFile);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                using (WebClient client = new WebClient())
+                {
+                    try
+                    {
+                        client.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                        var values = new NameValueCollection();
+                        values["token"] = AddinCurrentInstance.ProLoopToken;
+                        var result = client.UploadValues($"{AddinCurrentInstance.ProLoopUrl}/api/file/{this.CurrentFile.Id }/unlock", values);
+                        var str = Encoding.Default.GetString(result);
+                        if (str != null)
+                        {
+                            this.CurrentFile.LockingUserId = "";
+                            ProcessCheckInCheckout(this.CurrentFile);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+                }
+            }
+
         }
     }
 }

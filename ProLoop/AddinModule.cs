@@ -39,7 +39,7 @@ namespace ProLoop.WordAddin
         private string WebDAVFolderMappedDriveLetter;
         public Operation Mode { get; set; } = Operation.Open;       
         public bool WebDAVValuesUpdated = false;
-
+        public int CurrentUserId { get; set; }
         public string ProLoopUrl { get; set; }     
 
         public string ProLoopPassword { get; set; }
@@ -49,6 +49,7 @@ namespace ProLoop.WordAddin
         public string WebDAVMappedDriveLetter { get; set; }
         public bool IsProLoopDocument { get; set; }
         public string ProLoopToken { get; set; }
+        public ProLoopFile SelectedFile { get; set; }
 
         public AddinModule()
         {
@@ -670,6 +671,14 @@ namespace ProLoop.WordAddin
         private void adxRibbonButtonInfo_OnClick(object sender, IRibbonControl control, bool pressed)
         {
             new AboutUs().ShowDialog();
+        }
+        public bool DisplayWaranigMessage(string message)
+        {
+            DialogResult result = MessageBox.Show(message,"ProLoop" , MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+                return true;
+            else
+                return false;
         }
     }
     
