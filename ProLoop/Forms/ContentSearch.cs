@@ -58,6 +58,12 @@ namespace ProLoop.WordAddin.Forms
                 client.DownloadStringAsync(new Uri(url));
                 client.DownloadStringCompleted += Client_DownloadStringCompleted;
             }
+            else
+            {
+                pictureBox1.Visible = false;
+                pictureBox1.SendToBack();
+
+            }
         }
 
         private void Client_DownloadStringCompleted(object sender, DownloadStringCompletedEventArgs e)

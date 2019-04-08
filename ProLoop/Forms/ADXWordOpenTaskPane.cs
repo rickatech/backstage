@@ -116,7 +116,7 @@ namespace ProLoop.WordAddin.Forms
                     if (item != null)
                     {
                         cboOrgProject.SelectedItem = item;
-
+                        searchParameter.OrgOrProjectName = item.Title;
                     }
                     else
                     {
@@ -181,6 +181,7 @@ namespace ProLoop.WordAddin.Forms
                     if (item != null)
                     {
                         cboOrgProject.SelectedItem = item;
+                        searchParameter.OrgOrProjectName = item.Title;
                     }
                     else
                     {
@@ -266,6 +267,7 @@ namespace ProLoop.WordAddin.Forms
                 cboClient.ValueMember = "id";
                 cboClient.SelectedItem = client;
                 ObjProject = null;
+                searchParameter.ClientName = client.Name;
             }
             if (!cbo.Focused) return;
 
@@ -451,6 +453,7 @@ namespace ProLoop.WordAddin.Forms
                     cboMatter.DisplayMember = "name";
                     cboMatter.ValueMember = "id";
                     cboMatter.SelectedItem = matter;
+                    searchParameter.MatterName = matter.Name;
                 }
             }
 
@@ -720,7 +723,7 @@ namespace ProLoop.WordAddin.Forms
                     var FileNameData = DocumentName.Split(' ');
                     if (FileNameData.Length > 1)
                     {
-                        if (proloopFile.LockingUserId != AddinCurrentInstance.CurrentUserId.ToString())
+                        if (!string.IsNullOrEmpty(proloopFile.LockingUserId)&& proloopFile.LockingUserId != AddinCurrentInstance.CurrentUserId.ToString())
                         {
                             string message = $"This Document is Checked Out by {proloopFile.LockingUserId}.Would you like to still like to Open the Document?";
   

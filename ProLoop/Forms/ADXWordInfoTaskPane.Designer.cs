@@ -39,16 +39,16 @@ namespace ProLoop.WordAddin.Forms
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonAuther = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.buttonRefresh = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelDetail = new System.Windows.Forms.Label();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.labelCheckin = new System.Windows.Forms.Label();
             this.buttonCheckin = new System.Windows.Forms.Button();
             this.buttonCheckout = new System.Windows.Forms.Button();
+            this.labelCheckin = new System.Windows.Forms.Label();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -74,7 +74,7 @@ namespace ProLoop.WordAddin.Forms
             this.panel1.Controls.Add(this.buttonSum);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.panel1.Location = new System.Drawing.Point(8, 76);
+            this.panel1.Location = new System.Drawing.Point(8, 62);
             this.panel1.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(321, 34);
@@ -106,7 +106,7 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.textBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSummary.Location = new System.Drawing.Point(7, 107);
+            this.textBoxSummary.Location = new System.Drawing.Point(7, 93);
             this.textBoxSummary.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.textBoxSummary.Multiline = true;
             this.textBoxSummary.Name = "textBoxSummary";
@@ -117,7 +117,7 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.textBoxAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAuthor.Location = new System.Drawing.Point(7, 267);
+            this.textBoxAuthor.Location = new System.Drawing.Point(7, 239);
             this.textBoxAuthor.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.textBoxAuthor.Multiline = true;
             this.textBoxAuthor.Name = "textBoxAuthor";
@@ -132,7 +132,7 @@ namespace ProLoop.WordAddin.Forms
             this.panel2.Controls.Add(this.buttonAuther);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.panel2.Location = new System.Drawing.Point(9, 236);
+            this.panel2.Location = new System.Drawing.Point(9, 208);
             this.panel2.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(320, 34);
@@ -156,31 +156,9 @@ namespace ProLoop.WordAddin.Forms
             this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label3.Location = new System.Drawing.Point(4, 5);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 17);
+            this.label3.Size = new System.Drawing.Size(50, 17);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Author(s)";
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonRefresh.Location = new System.Drawing.Point(4, 470);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(76, 25);
-            this.buttonRefresh.TabIndex = 25;
-            this.buttonRefresh.Text = "Refresh";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSave.Location = new System.Drawing.Point(249, 470);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 25);
-            this.buttonSave.TabIndex = 26;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.label3.Text = "Editors";
             // 
             // btnSettings
             // 
@@ -208,11 +186,13 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.groupBox1.Controls.Add(this.labelDetail);
             this.groupBox1.Controls.Add(this.labelMessage);
+            this.groupBox1.Controls.Add(this.buttonCheckin);
+            this.groupBox1.Controls.Add(this.buttonCheckout);
             this.groupBox1.Controls.Add(this.labelCheckin);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(7, 382);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(322, 82);
+            this.groupBox1.Size = new System.Drawing.Size(322, 113);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Check in /Check out";
@@ -236,6 +216,28 @@ namespace ProLoop.WordAddin.Forms
             this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "label6";
             // 
+            // buttonCheckin
+            // 
+            this.buttonCheckin.Location = new System.Drawing.Point(235, 56);
+            this.buttonCheckin.Name = "buttonCheckin";
+            this.buttonCheckin.Size = new System.Drawing.Size(74, 25);
+            this.buttonCheckin.TabIndex = 29;
+            this.buttonCheckin.Text = "Check in";
+            this.buttonCheckin.UseVisualStyleBackColor = true;
+            this.buttonCheckin.Visible = false;
+            this.buttonCheckin.Click += new System.EventHandler(this.buttonCheckin_Click);
+            // 
+            // buttonCheckout
+            // 
+            this.buttonCheckout.Location = new System.Drawing.Point(235, 20);
+            this.buttonCheckout.Name = "buttonCheckout";
+            this.buttonCheckout.Size = new System.Drawing.Size(74, 25);
+            this.buttonCheckout.TabIndex = 30;
+            this.buttonCheckout.Text = "Checkout";
+            this.buttonCheckout.UseVisualStyleBackColor = true;
+            this.buttonCheckout.Visible = false;
+            this.buttonCheckout.Click += new System.EventHandler(this.buttonCheckout_Click);
+            // 
             // labelCheckin
             // 
             this.labelCheckin.AutoSize = true;
@@ -245,38 +247,36 @@ namespace ProLoop.WordAddin.Forms
             this.labelCheckin.TabIndex = 0;
             this.labelCheckin.Text = "label5";
             // 
-            // buttonCheckin
+            // buttonRefresh
             // 
-            this.buttonCheckin.Location = new System.Drawing.Point(90, 471);
-            this.buttonCheckin.Name = "buttonCheckin";
-            this.buttonCheckin.Size = new System.Drawing.Size(67, 25);
-            this.buttonCheckin.TabIndex = 29;
-            this.buttonCheckin.Text = "Check in";
-            this.buttonCheckin.UseVisualStyleBackColor = true;
-            this.buttonCheckin.Visible = false;
-            this.buttonCheckin.Click += new System.EventHandler(this.buttonCheckin_Click);
+            this.buttonRefresh.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonRefresh.Location = new System.Drawing.Point(7, 351);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(76, 25);
+            this.buttonRefresh.TabIndex = 31;
+            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // buttonCheckout
+            // buttonSave
             // 
-            this.buttonCheckout.Location = new System.Drawing.Point(169, 470);
-            this.buttonCheckout.Name = "buttonCheckout";
-            this.buttonCheckout.Size = new System.Drawing.Size(74, 25);
-            this.buttonCheckout.TabIndex = 30;
-            this.buttonCheckout.Text = "Checkout";
-            this.buttonCheckout.UseVisualStyleBackColor = true;
-            this.buttonCheckout.Visible = false;
-            this.buttonCheckout.Click += new System.EventHandler(this.buttonCheckout_Click);
+            this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSave.Location = new System.Drawing.Point(241, 353);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 25);
+            this.buttonSave.TabIndex = 32;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // ADXWordInfoTaskPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.ClientSize = new System.Drawing.Size(334, 507);
-            this.Controls.Add(this.buttonCheckout);
-            this.Controls.Add(this.buttonCheckin);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonRefresh);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxAuthor);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.textBoxSummary);
@@ -311,8 +311,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonAuther;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button buttonRefresh;
-        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelMessage;
@@ -320,5 +318,7 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Label labelDetail;
         private System.Windows.Forms.Button buttonCheckin;
         private System.Windows.Forms.Button buttonCheckout;
+        private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Button buttonSave;
     }
 }
