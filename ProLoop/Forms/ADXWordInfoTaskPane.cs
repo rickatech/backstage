@@ -27,6 +27,7 @@ namespace ProLoop.WordAddin.Forms
             AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);
             label4.Text = string.Empty;
             groupBox1.Visible = false;
+            labelEditors.Text = string.Empty;           
         }
 
         private void ADXWordInfoTaskPane_Activated(object sender, EventArgs e)
@@ -65,8 +66,7 @@ namespace ProLoop.WordAddin.Forms
             //}
             #endregion
 
-            textBoxSummary.ReadOnly = true;
-            textBoxAuthor.ReadOnly = true;
+            textBoxSummary.ReadOnly = true;           
             label1.Text = AddinCurrentInstance.WordApp.ActiveDocument.Name;
         }
 
@@ -123,13 +123,8 @@ namespace ProLoop.WordAddin.Forms
                 if (!textBoxSummary.ReadOnly)
                 {
                     PostKeyword();
-                }
-                if (!textBoxAuthor.ReadOnly)
-                {
-                    PostEditor();
-                }
-                textBoxSummary.ReadOnly = true;
-                textBoxAuthor.ReadOnly = true;
+                }                
+                textBoxSummary.ReadOnly = true;               
 
             }
             catch (Exception ex)
@@ -137,13 +132,12 @@ namespace ProLoop.WordAddin.Forms
 
             }
         }
-
         private void PostEditor()
         {
             string filePath = PathBuilder();
             if (filePath == null)
                 return;
-            string data = "Editor=" + textBoxAuthor.Text.Trim();
+            string data = "Editor=";
             MetadataHandler.PostMetaDataInfo(data, filePath);
         }
 
@@ -172,6 +166,7 @@ namespace ProLoop.WordAddin.Forms
                     {
                         textBoxSummary.Text += item.Keywords;
                         label4.Text = $"Doc ID:{item.VersionId}";
+                        ProcessMetaDataInfo(item.VersionId);
                     }
                     else
                     {
@@ -181,6 +176,23 @@ namespace ProLoop.WordAddin.Forms
 
             }
 
+        }
+        private void ProcessMetaDataInfo(string docId)
+        {
+            string[] metaInfo = docId.Split('-');
+            if (metaInfo != null && metaInfo.Length == 5)
+            {
+                lblorg.Text = $"Org: {RemovedZeroData(metaInfo[0])}";
+                lblClient.Text = $"Client: { RemovedZeroData(metaInfo[1])}";
+                lblMatter.Text = $"Matter: { RemovedZeroData(metaInfo[2])}";
+                lbDocId.Text = $"Doc Id: { RemovedZeroData(metaInfo[3])}";
+                lblVersion.Text = $"Version: {RemovedZeroData(metaInfo[4])}";
+            }
+        }
+        private string RemovedZeroData(string data)
+        {
+            char[] chartrim = { '0' };
+            return data.TrimStart(chartrim);
         }
 
         private void GetEditor()
@@ -232,7 +244,7 @@ namespace ProLoop.WordAddin.Forms
             var data = MetadataHandler.GetMetaData<DataInfoRequest>(url);
             if (data != null && data.History != null)
             {
-                textBoxAuthor.Clear();
+               
                 StringBuilder sbAuthor = new StringBuilder();
                 foreach (var history in data.History)
                 {
@@ -240,7 +252,7 @@ namespace ProLoop.WordAddin.Forms
                         sbAuthor.Append(history.Username + ",");
                 }
                 if (!string.IsNullOrEmpty(sbAuthor.ToString()))
-                    textBoxAuthor.Text = sbAuthor.ToString().Trim(new char[] { ',' });
+                    labelEditors.Text = sbAuthor.ToString().Trim(new char[] { ',' });
             }
 
         }
@@ -264,7 +276,7 @@ namespace ProLoop.WordAddin.Forms
 
         private void buttonAuther_Click(object sender, EventArgs e)
         {
-            textBoxAuthor.ReadOnly = false;
+            
 
         }
 
