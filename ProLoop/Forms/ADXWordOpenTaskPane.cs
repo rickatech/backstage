@@ -217,37 +217,10 @@ namespace ProLoop.WordAddin.Forms
                 if (settingForm.ShowDialog() == DialogResult.OK)
                 {
                     radioButton.Checked = false;
-                    return;
+                    AddinCurrentInstance.SaveValuesToRegistry(AddinCurrentInstance.ProLoopUrl, AddinCurrentInstance.ProLoopUsername, AddinCurrentInstance.ProLoopPassword);
                 }
             }
-            if (!string.IsNullOrEmpty(this.AddinCurrentInstance.ProLoopUrl))
-            {
-                //    Uri uri = new Uri(this.AddinCurrentInstance.ProLoopUrl);
-                //    bool flag5 = this.localHttpClient != null;
-                //    if (flag5)
-                //    {
-                //        bool flag6 = this.localHttpClient.BaseAddress != uri;
-                //        if (flag6)
-                //        {
-                //            this.localHttpClient.BaseAddress = uri;
-                //        }
-                //    }
-                //    else
-                //    {
-                //        this.localHttpClient = new HttpClient
-                //        {
-                //            BaseAddress = uri,
-                //            Timeout = TimeSpan.FromSeconds(30.0)
-                //        };
-                //        this.localHttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //    }
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Please update the ProLoop settings (URL, Username, and Password) to proceed.", "Invalid settings", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-                //    this.ShowSettingsForm();
-                //}           
-            }
+           
         }
 
         private void cboOrgProject_SelectedIndexChanged(object sender, EventArgs e)

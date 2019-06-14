@@ -273,13 +273,6 @@ namespace ProLoop.WordAddin.Forms
             textBoxSummary.ReadOnly = false;
 
         }
-
-        private void buttonAuther_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
         private void buttonCheckout_Click(object sender, EventArgs e)
         {
             using (WebClient client = new WebClient())
@@ -304,7 +297,6 @@ namespace ProLoop.WordAddin.Forms
 
             }
         }
-
         private void buttonCheckin_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(this.CurrentFile.LockingUserId) && CurrentFile.LockingUserId != AddinCurrentInstance.CurrentUserId.ToString())
