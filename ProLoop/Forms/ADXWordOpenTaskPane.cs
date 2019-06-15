@@ -217,7 +217,11 @@ namespace ProLoop.WordAddin.Forms
                 if (settingForm.ShowDialog() == DialogResult.OK)
                 {
                     radioButton.Checked = false;
-                    AddinCurrentInstance.SaveValuesToRegistry(AddinCurrentInstance.ProLoopUrl, AddinCurrentInstance.ProLoopUsername, AddinCurrentInstance.ProLoopPassword);
+                   var result= AddinCurrentInstance.SaveValuesToRegistry(AddinCurrentInstance.ProLoopUrl, AddinCurrentInstance.ProLoopUsername, AddinCurrentInstance.ProLoopPassword);
+                    if (result)
+                    {
+                        AddinCurrentInstance.UnmapAndMapWebDavFolderToDrive();
+                    }
                 }
             }
            
@@ -764,26 +768,30 @@ namespace ProLoop.WordAddin.Forms
                 }
 
                 // Open the selected document
-                document = documents.Open(filePath, AddToRecentFiles: false,ReadOnly:false);
+                document = documents.Open(filePath, AddToRecentFiles: false, ReadOnly: false);
                 string fileInfo = $"{AddinCurrentInstance.ProLoopUrl}/api/filetags/{proloopFile.Path}";
                 var data = MetadataHandler.GetMetaDataInfo<MetaDataInfo>(fileInfo);
                 if (data != null)
                 {
-                    foreach (Section wordSection in document.Sections)
+                    if (document != null)
                     {
-                        Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                        foreach (Section wordSection in document.Sections)
+                        {
+                            Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
 
-                        footerRange.Font.ColorIndex = WdColorIndex.wdBlack;
-                        footerRange.Bold = 1;
-                        footerRange.Text = $"Doc Id:{data[0].VersionId} \t\t Version:2.0.0";
+                            footerRange.Font.ColorIndex = WdColorIndex.wdBlack;
+                            footerRange.Bold = 1;
+                            footerRange.Text = $"Doc Id:{data[0].VersionId} \t\t Version:2.0.0";
+                        }
+                        FileInfo docinfo = new FileInfo(filePath);
+                        if (!docinfo.IsReadOnly)
+                        {
+                            document.Save();
+                        }
                     }
-                    FileInfo docinfo = new FileInfo(filePath);
-                    if (!docinfo.IsReadOnly)
-                    {
-                        document.Save();
-                    }                 
+                    SaveSettingChange();
                 }
-                SaveSettingChange();
+
             }
             catch (Exception exception)
             {

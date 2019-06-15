@@ -68,7 +68,7 @@ namespace ProLoop.WordAddin.Forms
             this.lblOrgsProjects.AutoSize = true;
             this.lblOrgsProjects.Location = new System.Drawing.Point(11, 59);
             this.lblOrgsProjects.Name = "lblOrgsProjects";
-            this.lblOrgsProjects.Size = new System.Drawing.Size(107, 13);
+            this.lblOrgsProjects.Size = new System.Drawing.Size(168, 20);
             this.lblOrgsProjects.TabIndex = 41;
             this.lblOrgsProjects.Text = "Oranization /Project :";
             // 
@@ -77,7 +77,7 @@ namespace ProLoop.WordAddin.Forms
             this.rbProjects.AutoSize = true;
             this.rbProjects.Location = new System.Drawing.Point(12, 35);
             this.rbProjects.Name = "rbProjects";
-            this.rbProjects.Size = new System.Drawing.Size(58, 17);
+            this.rbProjects.Size = new System.Drawing.Size(87, 24);
             this.rbProjects.TabIndex = 40;
             this.rbProjects.TabStop = true;
             this.rbProjects.Text = "Project";
@@ -89,7 +89,7 @@ namespace ProLoop.WordAddin.Forms
             this.rbOrganizations.AutoSize = true;
             this.rbOrganizations.Location = new System.Drawing.Point(12, 12);
             this.rbOrganizations.Name = "rbOrganizations";
-            this.rbOrganizations.Size = new System.Drawing.Size(89, 17);
+            this.rbOrganizations.Size = new System.Drawing.Size(138, 24);
             this.rbOrganizations.TabIndex = 39;
             this.rbOrganizations.TabStop = true;
             this.rbOrganizations.Text = "Organizations";
@@ -101,7 +101,7 @@ namespace ProLoop.WordAddin.Forms
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 146);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.Size = new System.Drawing.Size(67, 20);
             this.label2.TabIndex = 46;
             this.label2.Text = "Matter :";
             // 
@@ -110,7 +110,7 @@ namespace ProLoop.WordAddin.Forms
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(11, 103);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.Size = new System.Drawing.Size(62, 20);
             this.label1.TabIndex = 44;
             this.label1.Text = "Client :";
             // 
@@ -119,7 +119,7 @@ namespace ProLoop.WordAddin.Forms
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(1, 2);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.Size = new System.Drawing.Size(65, 20);
             this.label6.TabIndex = 0;
             this.label6.Text = "Folders";
             // 
@@ -151,7 +151,7 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.btnSaveAs.Location = new System.Drawing.Point(75, 469);
             this.btnSaveAs.Name = "btnSaveAs";
-            this.btnSaveAs.Size = new System.Drawing.Size(75, 23);
+            this.btnSaveAs.Size = new System.Drawing.Size(121, 32);
             this.btnSaveAs.TabIndex = 50;
             this.btnSaveAs.Text = "Save As";
             this.btnSaveAs.UseVisualStyleBackColor = true;
@@ -162,7 +162,7 @@ namespace ProLoop.WordAddin.Forms
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(11, 346);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 13);
+            this.label3.Size = new System.Drawing.Size(80, 20);
             this.label3.TabIndex = 51;
             this.label3.Text = "FileName";
             // 
@@ -173,7 +173,7 @@ namespace ProLoop.WordAddin.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtboxFileName.Location = new System.Drawing.Point(11, 366);
             this.txtboxFileName.Name = "txtboxFileName";
-            this.txtboxFileName.Size = new System.Drawing.Size(320, 20);
+            this.txtboxFileName.Size = new System.Drawing.Size(320, 26);
             this.txtboxFileName.TabIndex = 52;
             // 
             // cboMatter
@@ -184,7 +184,7 @@ namespace ProLoop.WordAddin.Forms
             this.cboMatter.Location = new System.Drawing.Point(13, 162);
             this.cboMatter.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboMatter.Name = "cboMatter";
-            this.cboMatter.Size = new System.Drawing.Size(320, 21);
+            this.cboMatter.Size = new System.Drawing.Size(320, 28);
             this.cboMatter.TabIndex = 47;
             this.cboMatter.SelectedIndexChanged += new System.EventHandler(this.cboMatter_SelectedIndexChanged);
             // 
@@ -196,7 +196,7 @@ namespace ProLoop.WordAddin.Forms
             this.cboClient.Location = new System.Drawing.Point(11, 119);
             this.cboClient.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboClient.Name = "cboClient";
-            this.cboClient.Size = new System.Drawing.Size(320, 21);
+            this.cboClient.Size = new System.Drawing.Size(320, 28);
             this.cboClient.TabIndex = 45;
             this.cboClient.SelectedIndexChanged += new System.EventHandler(this.cboClient_SelectedIndexChanged);
             // 
@@ -208,12 +208,13 @@ namespace ProLoop.WordAddin.Forms
             this.cboOrgProject.Location = new System.Drawing.Point(11, 75);
             this.cboOrgProject.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
             this.cboOrgProject.Name = "cboOrgProject";
-            this.cboOrgProject.Size = new System.Drawing.Size(320, 21);
+            this.cboOrgProject.Size = new System.Drawing.Size(320, 28);
             this.cboOrgProject.TabIndex = 43;
             this.cboOrgProject.SelectedIndexChanged += new System.EventHandler(this.cboOrgProject_SelectedIndexChanged);
             // 
             // ADXWordSaveTaskPane
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.ClientSize = new System.Drawing.Size(350, 523);
             this.Controls.Add(this.txtboxFileName);
             this.Controls.Add(this.label3);

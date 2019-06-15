@@ -79,7 +79,7 @@ namespace ProLoop.WordAddin.Forms
             this.panel1.Controls.Add(this.buttonSum);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.panel1.Location = new System.Drawing.Point(22, 526);
+            this.panel1.Location = new System.Drawing.Point(22, 488);
             this.panel1.Margin = new System.Windows.Forms.Padding(15, 4, 15, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(483, 50);
@@ -113,7 +113,7 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.textBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSummary.Location = new System.Drawing.Point(21, 578);
+            this.textBoxSummary.Location = new System.Drawing.Point(21, 540);
             this.textBoxSummary.Margin = new System.Windows.Forms.Padding(15, 4, 15, 4);
             this.textBoxSummary.Multiline = true;
             this.textBoxSummary.Name = "textBoxSummary";
@@ -156,7 +156,7 @@ namespace ProLoop.WordAddin.Forms
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(483, 170);
+            this.groupBox1.Size = new System.Drawing.Size(483, 137);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Check in /Check out";
@@ -219,7 +219,7 @@ namespace ProLoop.WordAddin.Forms
             // buttonRefresh
             // 
             this.buttonRefresh.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonRefresh.Location = new System.Drawing.Point(28, 669);
+            this.buttonRefresh.Location = new System.Drawing.Point(28, 634);
             this.buttonRefresh.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(114, 38);
@@ -231,7 +231,7 @@ namespace ProLoop.WordAddin.Forms
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSave.Location = new System.Drawing.Point(358, 667);
+            this.buttonSave.Location = new System.Drawing.Point(358, 632);
             this.buttonSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(112, 38);
@@ -243,7 +243,7 @@ namespace ProLoop.WordAddin.Forms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 478);
+            this.label3.Location = new System.Drawing.Point(24, 449);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 28);
@@ -253,7 +253,7 @@ namespace ProLoop.WordAddin.Forms
             // labelEditors
             // 
             this.labelEditors.AutoSize = true;
-            this.labelEditors.Location = new System.Drawing.Point(116, 478);
+            this.labelEditors.Location = new System.Drawing.Point(116, 449);
             this.labelEditors.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelEditors.Name = "labelEditors";
             this.labelEditors.Size = new System.Drawing.Size(65, 28);
@@ -329,7 +329,7 @@ namespace ProLoop.WordAddin.Forms
             // ADXWordInfoTaskPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
-            this.ClientSize = new System.Drawing.Size(527, 736);
+            this.ClientSize = new System.Drawing.Size(527, 686);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.labelEditors);
             this.Controls.Add(this.label3);
