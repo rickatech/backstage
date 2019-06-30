@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProLoop.WordAddin
 {
-    class Profile
+   public class Profile
     {
         [JsonProperty("admin")]
         public int Admin { get; set; }

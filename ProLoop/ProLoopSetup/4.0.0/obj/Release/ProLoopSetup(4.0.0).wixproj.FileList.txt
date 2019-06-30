@@ -1,2 +1,0 @@
-E:\Githubs\backstage\ProLoop\ProLoopSetup\4.0.0\bin\Release\ProLoopSetup(4.0.0).msi
-E:\Githubs\backstage\ProLoop\ProLoopSetup\4.0.0\bin\Release\ProLoopSetup(4.0.0).wixpdb

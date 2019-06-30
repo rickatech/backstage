@@ -680,9 +680,8 @@ namespace ProLoop.WordAddin.Forms
 
         }
 
-        private void btnOpen_Click(object sender, EventArgs e)
-        {
-            searchParameter = new SearchParameter();
+        private void btnOpen_Click(object sender, EventArgs e)        {
+            
             Log.Debug("btnOpen_Click() -- Begin");
 
             if (string.IsNullOrEmpty(AddinCurrentInstance.WebDAVMappedDriveLetter))
@@ -791,7 +790,13 @@ namespace ProLoop.WordAddin.Forms
                     }
                     SaveSettingChange();
                 }
-
+                AddinCurrentInstance.fileMetadata = new FileMetadataInfo()
+                {
+                    ClientName = searchParameter.ClientName,
+                    MatterName = searchParameter.MatterName,
+                    ProjectName = searchParameter.OrgOrProjectName
+                };
+                searchParameter = new SearchParameter();
             }
             catch (Exception exception)
             {

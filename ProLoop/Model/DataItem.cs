@@ -46,4 +46,10 @@ namespace ProLoop.WordAddin.Model
     {
         public List<History> History { get; set; }
     }
+    public class FileMetadataInfo
+    {
+        public string ProjectName { get; set; }
+        public string ClientName { get; set; }
+        public string MatterName { get; set; }
+    }
 }

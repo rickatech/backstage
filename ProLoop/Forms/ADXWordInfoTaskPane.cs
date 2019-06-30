@@ -180,13 +180,26 @@ namespace ProLoop.WordAddin.Forms
         private void ProcessMetaDataInfo(string docId)
         {
             string[] metaInfo = docId.Split('-');
-            if (metaInfo != null && metaInfo.Length == 5)
+            if (metaInfo != null)
             {
-                lblorg.Text = $"Org: {RemovedZeroData(metaInfo[0])}";
-                lblClient.Text = $"Client: { RemovedZeroData(metaInfo[1])}";
-                lblMatter.Text = $"Matter: { RemovedZeroData(metaInfo[2])}";
-                lbDocId.Text = $"Doc Id: { RemovedZeroData(metaInfo[3])}";
-                lblVersion.Text = $"Version: {RemovedZeroData(metaInfo[4])}";
+                string tempDocId = string.Empty;
+                string tempDocversion = string.Empty;
+
+                if (metaInfo.Length == 5)
+                {
+                    tempDocId = metaInfo[3];
+                    tempDocversion = metaInfo[4];
+                }
+                else
+                {
+                    tempDocId = metaInfo[1];
+                    tempDocversion = metaInfo[2];
+                }
+                lblorg.Text = $"Org: {AddinCurrentInstance.fileMetadata.ProjectName}";
+                lblClient.Text = $"Client: { AddinCurrentInstance.fileMetadata.ClientName}";
+                lblMatter.Text = $"Matter: { AddinCurrentInstance.fileMetadata.MatterName}";
+                lbDocId.Text = $"Doc Id: { RemovedZeroData(tempDocId)}";
+                lblVersion.Text = $"Version: {RemovedZeroData(tempDocversion)}";
             }
         }
         private string RemovedZeroData(string data)
@@ -226,7 +239,8 @@ namespace ProLoop.WordAddin.Forms
                 labelMessage.Text = "Locked";
                 buttonCheckin.Visible = true;
                 buttonCheckout.Visible = false;
-                labelDetail.Text = $"Check out by {currentFile.LockingUserId} on {DateTime.Now.ToShortDateString()}";
+                var checkoutUser = currentFile.LockingUserId == AddinCurrentInstance.CurrentUserId.ToString() ? AddinCurrentInstance.profile.Username : currentFile.LockingUserId;
+                labelDetail.Text = $"Check out by {checkoutUser} on {DateTime.Now.ToShortDateString()}";
                 labelDetail.Visible = true;
             }
             else
