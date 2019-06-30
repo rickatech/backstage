@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using Win32;
 using Word = Microsoft.Office.Interop.Word;
 using ProLoop.WordAddin.Forms;
+using ProLoop.WordAddin.Model;
 
 #if NETFX45
 using System.Threading.Tasks;
@@ -40,6 +41,8 @@ namespace ProLoop.WordAddin
         public Operation Mode { get; set; } = Operation.Open;       
         public bool WebDAVValuesUpdated = false;
         public int CurrentUserId { get; set; }
+        public Profile profile = null;
+        public FileMetadataInfo fileMetadata = null;
         public string ProLoopUrl { get; set; }     
 
         public string ProLoopPassword { get; set; }
