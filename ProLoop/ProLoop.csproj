@@ -137,6 +137,12 @@
     <Compile Include="Forms\ADXWordInfoTaskPane.Designer.cs">
       <DependentUpon>ADXWordInfoTaskPane.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ADXWordLogInTaskPane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ADXWordLogInTaskPane.Designer.cs">
+      <DependentUpon>ADXWordLogInTaskPane.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ADXWordOpenTaskPane.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ADXWordInfoTaskPane.resx">
       <DependentUpon>ADXWordInfoTaskPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ADXWordLogInTaskPane.resx">
+      <DependentUpon>ADXWordLogInTaskPane.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ADXWordOpenTaskPane.resx">
       <DependentUpon>ADXWordOpenTaskPane.cs</DependentUpon>

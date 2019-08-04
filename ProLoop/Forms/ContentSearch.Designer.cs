@@ -140,7 +140,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::ProLoop.WordAddin.Properties.Resources.Gear;
-            this.pictureBox1.Location = new System.Drawing.Point(240, 65);
+            this.pictureBox1.Location = new System.Drawing.Point(279, 65);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(49, 49);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;

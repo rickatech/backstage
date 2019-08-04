@@ -255,5 +255,10 @@ namespace ProLoop.WordAddin.Forms
         {
             ProcessAutoComplete();
         }
+
+        private void textBoxContent_TextChanged(object sender, EventArgs e)
+        {
+            ProcessAutoComplete();
+        }
     }
 }
