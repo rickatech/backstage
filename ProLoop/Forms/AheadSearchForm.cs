@@ -41,14 +41,15 @@ namespace ProLoop.WordAddin.Forms
             pictureBox1.BringToFront();
             var client = new WebClient();
             string url = string.Empty;
+
             if (string.IsNullOrEmpty(txtDocId.Text) && string.IsNullOrEmpty(txtFileName.Text) && string.IsNullOrEmpty(txtEditor.Text)
                 && string.IsNullOrEmpty(txtKeyword.Text))
             {
-                url = $"{AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid=223";
+                url = $"{AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid=223&body={textBoxContent.Text}";
             }
             else
             {
-                url = $"{AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid={txtDocId.Text}";
+                url = $"{AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid={txtDocId.Text}&body={textBoxContent.Text}";
             }
         
             Log.Debug($"Processing {url} in ProcessAutoComplete()");
@@ -80,6 +81,8 @@ namespace ProLoop.WordAddin.Forms
             catch(Exception ex)
             {
                 Log.Debug($"Failed to get response due to {ex.Message} in Client_DownloadStringCompleted()");
+                pictureBox1.Visible = false;
+                pictureBox1.SendToBack();
             }
         }
 
