@@ -35,7 +35,7 @@
             this.txtDocId = new System.Windows.Forms.TextBox();
             this.txtEditor = new System.Windows.Forms.TextBox();
             this.txtFileName = new System.Windows.Forms.TextBox();
-            this.txtFolderPath = new System.Windows.Forms.TextBox();
+            this.textBoxContent = new System.Windows.Forms.TextBox();
             this.txtMatter = new System.Windows.Forms.TextBox();
             this.txtClient = new System.Windows.Forms.TextBox();
             this.txtKeyword = new System.Windows.Forms.TextBox();
@@ -56,8 +56,6 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.txtOrgProject = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxContent = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -90,13 +88,13 @@
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 199);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 155);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(22, 5, 22, 5);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(970, 401);
+            this.dataGridView1.Size = new System.Drawing.Size(970, 445);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDoubleClick);
             // 
@@ -110,7 +108,7 @@
             this.tableLayoutPanel1.Controls.Add(this.txtDocId, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtEditor, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtFileName, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.txtFolderPath, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxContent, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtMatter, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtClient, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtKeyword, 0, 3);
@@ -123,20 +121,18 @@
             this.tableLayoutPanel1.Controls.Add(this.panel7, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.panel8, 3, 2);
             this.tableLayoutPanel1.Controls.Add(this.txtOrgProject, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.textBoxContent, 1, 4);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 4;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(970, 199);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(970, 155);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
             // txtDocId
@@ -169,14 +165,15 @@
             this.txtFileName.TabIndex = 14;
             this.txtFileName.TextChanged += new System.EventHandler(this.textBoxFileName_TextChanged);
             // 
-            // txtFolderPath
+            // textBoxContent
             // 
-            this.txtFolderPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFolderPath.Location = new System.Drawing.Point(734, 40);
-            this.txtFolderPath.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.txtFolderPath.Name = "txtFolderPath";
-            this.txtFolderPath.Size = new System.Drawing.Size(228, 31);
-            this.txtFolderPath.TabIndex = 13;
+            this.textBoxContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxContent.Location = new System.Drawing.Point(734, 40);
+            this.textBoxContent.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.textBoxContent.Name = "textBoxContent";
+            this.textBoxContent.Size = new System.Drawing.Size(228, 31);
+            this.textBoxContent.TabIndex = 13;
+            this.textBoxContent.TextChanged += new System.EventHandler(this.textBoxContent_TextChanged_1);
             // 
             // txtMatter
             // 
@@ -220,7 +217,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(58, 11);
+            this.label2.Location = new System.Drawing.Point(58, 4);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 25);
@@ -241,7 +238,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 11);
+            this.label1.Location = new System.Drawing.Point(30, 3);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(104, 25);
@@ -262,7 +259,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(42, 11);
+            this.label3.Location = new System.Drawing.Point(42, 5);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(64, 25);
@@ -283,12 +280,12 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(42, 10);
+            this.label4.Location = new System.Drawing.Point(42, 5);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(101, 25);
+            this.label4.Size = new System.Drawing.Size(168, 25);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Folder Path";
+            this.label4.Text = "File Contents Match";
             // 
             // panel5
             // 
@@ -383,26 +380,6 @@
             this.txtOrgProject.Size = new System.Drawing.Size(234, 31);
             this.txtOrgProject.TabIndex = 17;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 160);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(163, 25);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "File Content Search";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBoxContent
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.textBoxContent, 2);
-            this.textBoxContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxContent.Location = new System.Drawing.Point(245, 163);
-            this.textBoxContent.Name = "textBoxContent";
-            this.textBoxContent.Size = new System.Drawing.Size(478, 31);
-            this.textBoxContent.TabIndex = 19;
-            this.textBoxContent.TextChanged += new System.EventHandler(this.textBoxContent_TextChanged);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -461,7 +438,7 @@
         private System.Windows.Forms.TextBox txtDocId;
         private System.Windows.Forms.TextBox txtEditor;
         private System.Windows.Forms.TextBox txtFileName;
-        private System.Windows.Forms.TextBox txtFolderPath;
+        private System.Windows.Forms.TextBox textBoxContent;
         private System.Windows.Forms.TextBox txtMatter;
         private System.Windows.Forms.TextBox txtClient;
         private System.Windows.Forms.TextBox txtKeyword;
@@ -483,7 +460,5 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtOrgProject;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBoxContent;
     }
 }

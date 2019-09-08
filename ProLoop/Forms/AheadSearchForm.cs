@@ -43,7 +43,7 @@ namespace ProLoop.WordAddin.Forms
             string url = string.Empty;
 
             if (string.IsNullOrEmpty(txtDocId.Text) && string.IsNullOrEmpty(txtFileName.Text) && string.IsNullOrEmpty(txtEditor.Text)
-                && string.IsNullOrEmpty(txtKeyword.Text))
+                && string.IsNullOrEmpty(txtKeyword.Text)&&string.IsNullOrEmpty(textBoxContent.Text))
             {
                 url = $"{AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid=223&body={textBoxContent.Text}";
             }
@@ -100,7 +100,7 @@ namespace ProLoop.WordAddin.Forms
                 if (!string.IsNullOrEmpty(_searchParameter.MatterName))
                     txtMatter.Text =  _searchParameter.MatterName;
                 if (!string.IsNullOrEmpty(_searchParameter.FolderName))
-                    txtFolderPath.Text =  _searchParameter.FolderName;
+                    textBoxContent.Text =  _searchParameter.FolderName;
                 if (!string.IsNullOrEmpty(_searchParameter.EditorName))
                     txtEditor.Text =  _searchParameter.EditorName;
                 if (!string.IsNullOrEmpty(_searchParameter.FileName))
@@ -260,6 +260,11 @@ namespace ProLoop.WordAddin.Forms
         }
 
         private void textBoxContent_TextChanged(object sender, EventArgs e)
+        {
+            ProcessAutoComplete();
+        }
+
+        private void textBoxContent_TextChanged_1(object sender, EventArgs e)
         {
             ProcessAutoComplete();
         }
