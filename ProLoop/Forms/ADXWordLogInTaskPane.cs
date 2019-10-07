@@ -25,6 +25,12 @@ namespace ProLoop.WordAddin.Forms
             this.txtUrl.Text = this.AddinModuleCurrentInstance.ProLoopUrl;
             this.txtUsername.Text = this.AddinModuleCurrentInstance.ProLoopUsername;
             this.txtPassword.Text = this.AddinModuleCurrentInstance.ProLoopPassword;
+            if (!string.IsNullOrEmpty(AddinModuleCurrentInstance.ProLoopUsername))
+            {
+                labelCurrentLoginUser.Text = $"Current Login User: {AddinModuleCurrentInstance.ProLoopUsername}";
+                labelCurrentLoginUser.Visible = true;
+            }
+            
             this.SetSaveButtonStatus();
             try
             {

@@ -45,15 +45,15 @@ namespace ProLoop.WordAddin.Forms
             searchParameter = new SearchParameter();
             rbOrganizations.Checked = Properties.Settings.Default.OpenOrganisation;
             rbProjects.Checked = Properties.Settings.Default.OpenProject;
-            if (string.IsNullOrEmpty(AddinCurrentInstance.ProLoopUsername))
-            {
-                label7.Visible = false;
-            }
-            else
-            {
-                label7.Visible = true;
-                label7.Text = $"Current user : {AddinCurrentInstance.ProLoopUsername}";
-            }
+            //if (string.IsNullOrEmpty(AddinCurrentInstance.ProLoopUsername))
+            //{
+            //    label7.Visible = false;
+            //}
+            //else
+            //{
+            //    label7.Visible = true;
+            //    label7.Text = $"Current user : {AddinCurrentInstance.ProLoopUsername}";
+            //}
         }
 
         private void rbOrganizations_CheckedChanged(object sender, EventArgs e)
