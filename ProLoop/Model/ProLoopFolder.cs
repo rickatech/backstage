@@ -24,6 +24,7 @@ namespace ProLoop.WordAddin
             get;
             set;
         }
+        [Newtonsoft.Json.JsonProperty("dir")]
         public bool isDirctory
         {
             get;set;

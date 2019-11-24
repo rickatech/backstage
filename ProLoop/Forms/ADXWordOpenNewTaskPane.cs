@@ -112,14 +112,26 @@ namespace ProLoop.WordAddin.Forms
             }
             else if (e.Node.Tag is Matter)
             {
+                var currentNode = e.Node;
+                if (currentNode != null)
+                {
+                    foreach(TreeNode node in currentNode.Nodes)
+                    {
+                        var folderItem = node.Tag as ProLoopFolder;
+                        var folders = APIHelper.GetFolders($"/api/files/{folderItem.Path}");
+                        if (folders != null)
+                            AddTreeNodeToItem(node, folders);
+                    }
+                    //currentNode.Nodes.Clear();
 
+                }
             }
             else if (e.Node.Tag is Client)
             {
                 Cursor.Current = Cursors.WaitCursor;                
                 foreach (TreeNode node in e.Node.Nodes)
                 {
-                    var tempFolder = APIHelper.GetFolderPath("", e.Node.Parent.Text, e.Node.Text, node.Text);
+                    var tempFolder = APIHelper.GetFolderPath("", e.Node.Parent.Text, node.Text, e.Node.Text);
                     var folders = APIHelper.GetFolders(tempFolder);
                     if (folders != null)
                         AddTreeNodeToItem(node, folders);
@@ -128,6 +140,19 @@ namespace ProLoop.WordAddin.Forms
             }
             else if (e.Node.Tag is ProLoopFolder)
             {
+                var currentNode = e.Node;
+                if (currentNode != null)
+                {
+                    foreach (TreeNode node in currentNode.Nodes)
+                    {
+                        var folderItem = node.Tag as ProLoopFolder;
+                        var folders = APIHelper.GetFolders($"/api/files/{folderItem.Path}");
+                        if (folders != null && folders.Count > 0)
+                            AddTreeNodeToItem(node, folders);
+                    }
+                    //currentNode.Nodes.Clear();
+
+                }
 
             }
         }
