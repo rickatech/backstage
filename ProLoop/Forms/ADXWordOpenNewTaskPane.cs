@@ -202,15 +202,65 @@ namespace ProLoop.WordAddin.Forms
                 txtOrgProject.Text = selectedNode.Parent.Parent.Text;
                 txtClient.Text = selectedNode.Parent.Text;
                 txtMatter.Text = selectedNode.Text;
-                ProcessAutoComplete();
+                var folderPath = string.Concat(new string[]
+                            {
+                                    "/api/files/Organizations/",
+                                    txtOrgProject.Text,
+                                    "/",
+                                    txtClient.Text,
+                                    "/",
+                                    txtMatter.Text = selectedNode.Text,
+                                    "/*?token="
+                            });
+                //ProcessAutoComplete();
+                GetFiles(folderPath);
             }
             else if(selectedNode.Tag is Project)
             {
                 txtClient.Enabled = false;
                 txtMatter.Enabled = false;
                 txtOrgProject.Text = selectedNode.Text;
-                ProcessAutoComplete();
+                string folderPath = "/api/files/Projects/" + txtOrgProject.Text + "/*?token=";
+                GetFiles(folderPath);
+                //ProcessAutoComplete();
             }
+            else if(selectedNode.Tag is ProLoopFolder)
+            {
+                string folderPath = (selectedNode.Tag as ProLoopFolder).Path;
+                var pathCollaction = folderPath.Split('/');
+                txtOrgProject.Text = pathCollaction[1];
+                if (folderPath.Contains("Projects"))
+                {
+                    txtClient.Enabled = false;
+                    txtMatter.Enabled = false;                  
+                }
+                else
+                {
+                    txtClient.Enabled = true;
+                    txtMatter.Enabled = true;
+                    txtClient.Text = pathCollaction[2];
+                    txtMatter.Text = pathCollaction[3];
+                }
+                folderPath = $"/api/files/{folderPath}/*?token=";
+                GetFiles(folderPath);
+            }
+        }
+        private void GetFiles(string folderPath)
+        {
+            pictureBox1.Visible = true;
+            pictureBox1.BringToFront();
+            var files = APIHelper.GetFiles(folderPath);
+            var objectList = new List<MetaDataInfo>();
+            foreach(var file in files)
+            {
+                if (!file.isDirctory)
+                    objectList.Add(new MetaDataInfo() { Name = file.Name, Path = file.Path, VersionId = file.VersionId });
+            }
+            dataGridView1.AllowUserToAddRows = true;
+            dataGridView1.DataSource = objectList;
+            dataGridView1.AllowUserToAddRows = false;
+            pictureBox1.Visible = false;
+            pictureBox1.SendToBack();
         }
         private void ProcessAutoComplete()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProLoop.WordAddin
 {
-   public class ProLoopFile
+    public class ProLoopFile
     {
         public string Path
         {
@@ -24,6 +24,16 @@ namespace ProLoop.WordAddin
             get;
             set;
         }
+        public string VersionId
+        {
+            get;
+            set;
+        }
         public string Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("dir")]
+        public bool isDirctory
+        {
+            get; set;
+        }
     }
 }
