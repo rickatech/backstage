@@ -37,7 +37,7 @@ namespace ProLoop.WordAddin.Forms
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewFileDetail = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtDocId = new System.Windows.Forms.TextBox();
             this.txtEditor = new System.Windows.Forms.TextBox();
@@ -68,7 +68,7 @@ namespace ProLoop.WordAddin.Forms
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -110,7 +110,7 @@ namespace ProLoop.WordAddin.Forms
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridViewFileDetail);
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(805, 590);
             this.splitContainer1.SplitterDistance = 240;
@@ -144,14 +144,14 @@ namespace ProLoop.WordAddin.Forms
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
-            // dataGridView1
+            // dataGridViewFileDetail
             // 
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFileDetail.AllowUserToDeleteRows = false;
+            this.dataGridViewFileDetail.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewFileDetail.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridViewFileDetail.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dataGridViewFileDetail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewFileDetail.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -159,17 +159,18 @@ namespace ProLoop.WordAddin.Forms
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 124);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(20, 4, 20, 4);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(561, 466);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridViewFileDetail.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewFileDetail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewFileDetail.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewFileDetail.Location = new System.Drawing.Point(0, 124);
+            this.dataGridViewFileDetail.Margin = new System.Windows.Forms.Padding(20, 4, 20, 4);
+            this.dataGridViewFileDetail.MultiSelect = false;
+            this.dataGridViewFileDetail.Name = "dataGridViewFileDetail";
+            this.dataGridViewFileDetail.RowHeadersVisible = false;
+            this.dataGridViewFileDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFileDetail.Size = new System.Drawing.Size(561, 466);
+            this.dataGridViewFileDetail.TabIndex = 5;
+            this.dataGridViewFileDetail.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFileDetail_CellClick);
             // 
             // tableLayoutPanel1
             // 
@@ -470,7 +471,7 @@ namespace ProLoop.WordAddin.Forms
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -523,7 +524,7 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtOrgProject;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewFileDetail;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

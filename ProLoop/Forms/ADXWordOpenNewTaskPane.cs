@@ -8,14 +8,21 @@ using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
 using ProLoop.WordAddin.Model;
+using AddinExpress.MSO;
+using Microsoft.Office.Interop.Word;
+using System.IO;
+using ProLoop.WordAddin.Utils;
 
 namespace ProLoop.WordAddin.Forms
 {
     public partial class ADXWordOpenNewTaskPane: AddinExpress.WD.ADXWordTaskPane
     {
+        private string searchPath = string.Empty;
+        private readonly AddinModule AddinCurrentInstance;
         public ADXWordOpenNewTaskPane()
         {
             InitializeComponent();
+            this.AddinCurrentInstance = (ADXAddinModule.CurrentInstance as AddinModule);
             this.Load += ADXWordOpenNewTaskPane_Load;
         }
 
@@ -195,7 +202,41 @@ namespace ProLoop.WordAddin.Forms
             TreeNode selectedNode = treeView1.SelectedNode;
             if (selectedNode == null || selectedNode.Tag == null)
                 return;
-            if(selectedNode.Tag is Matter)
+            ClearSearchText();
+            if (selectedNode.Tag is Organization)
+            {
+                txtClient.Enabled = true;
+                txtMatter.Enabled = true;
+                txtOrgProject.Text = selectedNode.Text;                
+                var folderPath = string.Concat(new string[]
+                            {
+                                    "/api/files/Organizations/",
+                                    txtOrgProject.Text,                                    
+                                    "/*?token="
+                            });
+                //ProcessAutoComplete();  
+                searchPath = $"Organizations/{txtOrgProject.Text}";
+                GetFiles(folderPath);
+            }
+            else if (selectedNode.Tag is Client)
+            {
+                txtClient.Enabled = true;
+                txtMatter.Enabled = true;
+                txtOrgProject.Text = selectedNode.Parent.Text;
+                txtClient.Text = selectedNode.Text;               
+                var folderPath = string.Concat(new string[]
+                            {
+                                    "/api/files/Organizations/",
+                                    txtOrgProject.Text,
+                                    "/",
+                                    txtClient.Text,                                    
+                                    "/*?token="
+                            });
+                //ProcessAutoComplete();  
+                searchPath = $"Organizations/{txtOrgProject.Text}";
+                GetFiles(folderPath);
+            }
+           else if (selectedNode.Tag is Matter)
             {
                 txtClient.Enabled = true;
                 txtMatter.Enabled = true;
@@ -212,7 +253,8 @@ namespace ProLoop.WordAddin.Forms
                                     txtMatter.Text = selectedNode.Text,
                                     "/*?token="
                             });
-                //ProcessAutoComplete();
+                //ProcessAutoComplete();  
+                searchPath = $"Organizations/{txtOrgProject.Text}";
                 GetFiles(folderPath);
             }
             else if(selectedNode.Tag is Project)
@@ -221,6 +263,7 @@ namespace ProLoop.WordAddin.Forms
                 txtMatter.Enabled = false;
                 txtOrgProject.Text = selectedNode.Text;
                 string folderPath = "/api/files/Projects/" + txtOrgProject.Text + "/*?token=";
+                searchPath = $"Projects/{txtOrgProject.Text}";
                 GetFiles(folderPath);
                 //ProcessAutoComplete();
             }
@@ -241,9 +284,25 @@ namespace ProLoop.WordAddin.Forms
                     txtClient.Text = pathCollaction[2];
                     txtMatter.Text = pathCollaction[3];
                 }
+                searchPath = folderPath;
                 folderPath = $"/api/files/{folderPath}/*?token=";
                 GetFiles(folderPath);
             }
+            else
+            {
+                txtClient.Text = string.Empty;
+                txtMatter.Text = string.Empty;
+                txtOrgProject.Text = string.Empty;
+            }
+        }
+        private void ClearSearchText()
+        {
+            dataGridViewFileDetail.Refresh();
+            txtKeyword.Text = string.Empty;
+            txtFileName.Text = string.Empty;
+            txtEditor.Text = string.Empty;
+            txtDocId.Text = string.Empty;
+            textBoxContent.Text = string.Empty;
         }
         private void GetFiles(string folderPath)
         {
@@ -256,9 +315,9 @@ namespace ProLoop.WordAddin.Forms
                 if (!file.isDirctory)
                     objectList.Add(new MetaDataInfo() { Name = file.Name, Path = file.Path, VersionId = file.VersionId });
             }
-            dataGridView1.AllowUserToAddRows = true;
-            dataGridView1.DataSource = objectList;
-            dataGridView1.AllowUserToAddRows = false;
+            dataGridViewFileDetail.AllowUserToAddRows = true;
+            dataGridViewFileDetail.DataSource = objectList;
+            dataGridViewFileDetail.AllowUserToAddRows = false;
             pictureBox1.Visible = false;
             pictureBox1.SendToBack();
         }
@@ -269,15 +328,15 @@ namespace ProLoop.WordAddin.Forms
             var client = new WebClient();
             string url = string.Empty;
 
-            if (string.IsNullOrEmpty(txtDocId.Text) && string.IsNullOrEmpty(txtFileName.Text) && string.IsNullOrEmpty(txtEditor.Text)
-                && string.IsNullOrEmpty(txtKeyword.Text) && string.IsNullOrEmpty(textBoxContent.Text))
-            {
-                url = $"{WordAddin.AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid=223&body={textBoxContent.Text}";
-            }
-            else
-            {
-                url = $"{WordAddin.AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid={txtDocId.Text}&body={textBoxContent.Text}";
-            }
+            //if (string.IsNullOrEmpty(txtDocId.Text) && string.IsNullOrEmpty(txtFileName.Text) && string.IsNullOrEmpty(txtEditor.Text)
+            //    && string.IsNullOrEmpty(txtKeyword.Text) && string.IsNullOrEmpty(textBoxContent.Text))
+            //{
+            //    url = $"{WordAddin.AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid=223&body={textBoxContent.Text}";
+            //}
+            //else
+            //{
+            url = $"{WordAddin.AddinModule.CurrentInstance.ProLoopUrl}/api/sayt/f/{searchPath}?keywords={txtKeyword.Text}&editor={txtEditor.Text}&s={txtFileName.Text}&fid={txtDocId.Text}&body={textBoxContent.Text}";
+            //}
 
             //Log.Debug($"Processing {url} in ProcessAutoComplete()");
             client.DownloadStringAsync(new Uri(url));
@@ -291,19 +350,21 @@ namespace ProLoop.WordAddin.Forms
                 var ObjectList = new List<MetaDataInfo>();
                 if (e == null)
                 {
-                    dataGridView1.DataSource = ObjectList;
-                    dataGridView1.AllowUserToAddRows = false;
+                    dataGridViewFileDetail.DataSource = ObjectList;
+                    dataGridViewFileDetail.AllowUserToAddRows = false;
                     pictureBox1.Visible = false;
                     return;
                 }
                 var jsonstring = e.Result;
                 if (!string.IsNullOrEmpty(jsonstring))
                     ObjectList = JsonConvert.DeserializeObject<List<MetaDataInfo>>(jsonstring);
-                dataGridView1.Invoke(new Action(() =>
+                dataGridViewFileDetail.Invoke(new Action(() =>
                 {
-                    dataGridView1.AllowUserToAddRows = true;
-                    dataGridView1.DataSource = ObjectList;
-                    dataGridView1.AllowUserToAddRows = false;
+                    dataGridViewFileDetail.AllowUserToAddRows = true;
+                    if (ObjectList != null && ObjectList.Count > 10)
+                        ObjectList = ObjectList.GetRange(0, 10);
+                    dataGridViewFileDetail.DataSource = ObjectList;
+                    dataGridViewFileDetail.AllowUserToAddRows = false;
                     pictureBox1.Visible = false;
                     pictureBox1.SendToBack();
                 }));
@@ -340,6 +401,75 @@ namespace ProLoop.WordAddin.Forms
         private void textBoxContent_TextChanged(object sender, EventArgs e)
         {
             ProcessAutoComplete();
+        }
+
+        private void dataGridViewFileDetail_CellClick(object sender, DataGridViewCellEventArgs e)
+        {            
+            if (dataGridViewFileDetail.SelectedRows != null)
+            {
+                string selectedFile = dataGridViewFileDetail.SelectedRows[0].Cells[1].Value as string;
+                OpenDocument(selectedFile);
+            }
+        }
+        private void OpenDocument(string currentFile)
+        {
+            if (string.IsNullOrEmpty(AddinCurrentInstance.WebDAVMappedDriveLetter))
+                AddinCurrentInstance.MapWebDAVFolderToDriveLetter();
+            string filePath = AddinCurrentInstance.WebDAVMappedDriveLetter;
+            filePath += "\\" + currentFile.Replace("/", "\\");
+            string extension = Path.GetExtension(filePath);
+            if (extension.ToLower() == ".doc" || extension.ToLower() == ".docx")
+            {
+                _Application WordApp = AddinCurrentInstance.WordApp;
+                WordApp.DisplayAlerts = WdAlertLevel.wdAlertsNone;
+                Documents documents = null;
+                Document document = null;
+                try
+                {
+                    documents = WordApp.Documents;
+
+                    // If a document is already open in the active Window, close it
+                    if (documents.Count > 0)
+                    {
+                        document = WordApp.ActiveDocument;
+                        document.Close();
+                    }
+
+                    // Open the selected document
+                    document = documents.Open(filePath, AddToRecentFiles: false, ReadOnly: false);
+                    string fileInfo = $"{AddinCurrentInstance.ProLoopUrl}/api/filetags/{currentFile}";
+                    var data = MetadataHandler.GetMetaDataInfo<MetaDataInfo>(fileInfo);
+                    if (data != null)
+                    {
+                        if (document != null)
+                        {
+                            foreach (Section wordSection in document.Sections)
+                            {
+                                Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+
+                                footerRange.Font.ColorIndex = WdColorIndex.wdBlack;
+                                footerRange.Bold = 1;
+                                footerRange.Text = $"Doc Id:{data[0].VersionId} \t\t Version:2.0.0";
+                            }
+                            FileInfo docinfo = new FileInfo(filePath);
+                            if (!docinfo.IsReadOnly)
+                            {
+                                document.Save();
+                            }
+                        }
+                    }
+
+                }
+                catch (Exception exception)
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("You can only Open Doc or Docx file.", "Proloop", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
         }
     }
 }
