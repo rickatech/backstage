@@ -404,10 +404,16 @@ namespace ProLoop.WordAddin.Forms
         }
 
         private void dataGridViewFileDetail_CellClick(object sender, DataGridViewCellEventArgs e)
-        {            
+        {
             if (dataGridViewFileDetail.SelectedRows != null)
             {
                 string selectedFile = dataGridViewFileDetail.SelectedRows[0].Cells[1].Value as string;
+                AddinCurrentInstance.fileMetadata = new FileMetadataInfo()
+                {
+                    ClientName = txtClient.Text,
+                    MatterName = txtMatter.Text,
+                    ProjectName = txtOrgProject.Text
+                };
                 OpenDocument(selectedFile);
             }
         }

@@ -195,11 +195,14 @@ namespace ProLoop.WordAddin.Forms
                     tempDocId = metaInfo[1];
                     tempDocversion = metaInfo[2];
                 }
-                lblorg.Text = $"Org: {AddinCurrentInstance.fileMetadata.ProjectName}";
-                lblClient.Text = $"Client: { AddinCurrentInstance.fileMetadata.ClientName}";
-                lblMatter.Text = $"Matter: { AddinCurrentInstance.fileMetadata.MatterName}";
-                lbDocId.Text = $"Doc Id: { RemovedZeroData(tempDocId)}";
-                lblVersion.Text = $"Version: {RemovedZeroData(tempDocversion)}";
+                if (AddinCurrentInstance.fileMetadata != null)
+                {
+                    lblorg.Text = $"Org: {AddinCurrentInstance.fileMetadata.ProjectName}";
+                    lblClient.Text = $"Client: { AddinCurrentInstance.fileMetadata.ClientName}";
+                    lblMatter.Text = $"Matter: { AddinCurrentInstance.fileMetadata.MatterName}";
+                    lbDocId.Text = $"Doc Id: { RemovedZeroData(tempDocId)}";
+                    lblVersion.Text = $"Version: {RemovedZeroData(tempDocversion)}";
+                }
             }
         }
         private string RemovedZeroData(string data)
