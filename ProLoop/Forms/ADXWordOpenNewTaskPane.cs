@@ -19,6 +19,10 @@ namespace ProLoop.WordAddin.Forms
     {
         private string searchPath = string.Empty;
         private readonly AddinModule AddinCurrentInstance;
+        private string orgProject, client, matter;
+        List<Organization> orgs = new List<Organization>();
+        List<Project> projects = new List<Project>();
+        private bool isActionbyTreeView = false;
         public ADXWordOpenNewTaskPane()
         {
             InitializeComponent();
@@ -28,7 +32,7 @@ namespace ProLoop.WordAddin.Forms
 
         private void ADXWordOpenNewTaskPane_Load(object sender, EventArgs e)
         {
-            List<Organization> orgs = APIHelper.GetOrganizations();
+            orgs = APIHelper.GetOrganizations();
             var treeNodeOrg = new TreeNode($"Organizations ({orgs.Count})");
             treeNodeOrg.Tag = "Organization";
             treeView1.Nodes[0].Nodes.Add(treeNodeOrg);
@@ -38,7 +42,7 @@ namespace ProLoop.WordAddin.Forms
                 node.Tag = org;
                 treeView1.Nodes[0].Nodes[0].Nodes.Add(node);
             }
-            List<Project> projects = APIHelper.GetProjects();
+            projects = APIHelper.GetProjects();
             var treenodeProject = new TreeNode($"Projects ({projects.Count})");
             treenodeProject.Tag = "project";
             treeView1.Nodes[0].Nodes.Add(treenodeProject);
@@ -48,6 +52,9 @@ namespace ProLoop.WordAddin.Forms
                 node.Tag = project;
                 treeView1.Nodes[0].Nodes[1].Nodes.Add(node);
             }
+            splitContainer1.Panel1Collapsed = !checkBoxFileTree.Checked;
+            ShowHidePath();
+            radioButtonOrganization.Checked = true;
         }
 
         private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
@@ -205,84 +212,107 @@ namespace ProLoop.WordAddin.Forms
             ClearSearchText();
             if (selectedNode.Tag is Organization)
             {
-                txtClient.Enabled = true;
-                txtMatter.Enabled = true;
-                txtOrgProject.Text = selectedNode.Text;                
+                //txtClient.Enabled = true;
+                //txtMatter.Enabled = true;
+                orgProject = selectedNode.Text;
+                //var selectOrg = orgs.Find(x => x.Title == orgProject);
+                //if (selectOrg != null)
+                //{
+                //    easyCompletionComboBoxOrgProj.SelectedItem = selectOrg;
+                //}
                 var folderPath = string.Concat(new string[]
                             {
                                     "/api/files/Organizations/",
-                                    txtOrgProject.Text,                                    
+                                    orgProject,
                                     "/*?token="
                             });
                 //ProcessAutoComplete();  
-                searchPath = $"Organizations/{txtOrgProject.Text}";
+                searchPath = $"Organizations/{orgProject}";
                 GetFiles(folderPath);
             }
             else if (selectedNode.Tag is Client)
             {
-                txtClient.Enabled = true;
-                txtMatter.Enabled = true;
-                txtOrgProject.Text = selectedNode.Parent.Text;
-                txtClient.Text = selectedNode.Text;               
+                //txtClient.Enabled = true;
+                //txtMatter.Enabled = true;
+                orgProject = selectedNode.Parent.Text;
+                client = selectedNode.Text;
                 var folderPath = string.Concat(new string[]
                             {
                                     "/api/files/Organizations/",
-                                    txtOrgProject.Text,
+                                    orgProject,
                                     "/",
-                                    txtClient.Text,                                    
+                                    client,
                                     "/*?token="
                             });
                 //ProcessAutoComplete();  
-                searchPath = $"Organizations/{txtOrgProject.Text}";
+                searchPath = $"Organizations/{orgProject}";
                 GetFiles(folderPath);
             }
-           else if (selectedNode.Tag is Matter)
+            else if (selectedNode.Tag is Matter)
             {
-                txtClient.Enabled = true;
-                txtMatter.Enabled = true;
-                txtOrgProject.Text = selectedNode.Parent.Parent.Text;
-                txtClient.Text = selectedNode.Parent.Text;
-                txtMatter.Text = selectedNode.Text;
-                var folderPath = string.Concat(new string[]
-                            {
-                                    "/api/files/Organizations/",
-                                    txtOrgProject.Text,
-                                    "/",
-                                    txtClient.Text,
-                                    "/",
-                                    txtMatter.Text = selectedNode.Text,
-                                    "/*?token="
-                            });
-                //ProcessAutoComplete();  
-                searchPath = $"Organizations/{txtOrgProject.Text}";
-                GetFiles(folderPath);
-            }
-            else if(selectedNode.Tag is Project)
-            {
-                txtClient.Enabled = false;
-                txtMatter.Enabled = false;
-                txtOrgProject.Text = selectedNode.Text;
-                string folderPath = "/api/files/Projects/" + txtOrgProject.Text + "/*?token=";
-                searchPath = $"Projects/{txtOrgProject.Text}";
-                GetFiles(folderPath);
-                //ProcessAutoComplete();
-            }
-            else if(selectedNode.Tag is ProLoopFolder)
-            {
-                string folderPath = (selectedNode.Tag as ProLoopFolder).Path;
-                var pathCollaction = folderPath.Split('/');
-                txtOrgProject.Text = pathCollaction[1];
-                if (folderPath.Contains("Projects"))
+                isActionbyTreeView = true;
+                orgProject = selectedNode.Parent.Parent.Text;
+                client = selectedNode.Parent.Text;
+                matter = selectedNode.Text;
+                if (radioButtonOrganization.Checked)
                 {
-                    txtClient.Enabled = false;
-                    txtMatter.Enabled = false;                  
+                    easyCompletionComboBoxOrgProj.Text = orgProject;
+                    easyCompletionComboxClient.Text = client;
+                    easyCompletionComboBoxMatter.Text = matter;
+                    var folderPath = string.Concat(new string[]
+                                {
+                                    "/api/files/Organizations/",
+                                    orgProject,
+                                    "/",
+                                    client,
+                                    "/",
+                                   matter = selectedNode.Text,
+                                    "/*?token="
+                                });
+                    //ProcessAutoComplete();  
+                    searchPath = $"Organizations/{orgProject}";
+                    GetFiles(folderPath);
+                    isActionbyTreeView = false;
                 }
                 else
                 {
-                    txtClient.Enabled = true;
-                    txtMatter.Enabled = true;
-                    txtClient.Text = pathCollaction[2];
-                    txtMatter.Text = pathCollaction[3];
+                    radioButtonOrganization.Checked = true;
+                }
+            }
+            else if (selectedNode.Tag is Project)
+            {
+                orgProject = selectedNode.Text;
+                string folderPath = "/api/files/Projects/" + orgProject + "/*?token=";
+                searchPath = $"Projects/{orgProject}";
+                if (radioButtonProject.Checked)
+                {
+                    easyCompletionComboBoxOrgProj.Text = orgProject;
+                    GetFiles(folderPath);
+                    isActionbyTreeView = false;
+                }
+                else
+                {
+                    radioButtonProject.Checked = true;
+                }
+               
+                //ProcessAutoComplete();
+            }
+            else if (selectedNode.Tag is ProLoopFolder)
+            {
+                string folderPath = (selectedNode.Tag as ProLoopFolder).Path;
+                var pathCollaction = folderPath.Split('/');
+                orgProject = pathCollaction[1];
+                if (folderPath.Contains("Projects"))
+                {
+                    // txtClient.Enabled = false;
+                    //txtMatter.Enabled = false;                  
+                }
+                else
+                {
+                    //txtClient.Enabled = true;
+                    //txtMatter.Enabled = true;
+                    client = pathCollaction[2];
+                    matter = pathCollaction[3];
                 }
                 searchPath = folderPath;
                 folderPath = $"/api/files/{folderPath}/*?token=";
@@ -290,9 +320,9 @@ namespace ProLoop.WordAddin.Forms
             }
             else
             {
-                txtClient.Text = string.Empty;
-                txtMatter.Text = string.Empty;
-                txtOrgProject.Text = string.Empty;
+                client = string.Empty;
+                matter = string.Empty;
+                orgProject = string.Empty;
             }
         }
         private void ClearSearchText()
@@ -317,6 +347,7 @@ namespace ProLoop.WordAddin.Forms
             }
             dataGridViewFileDetail.AllowUserToAddRows = true;
             dataGridViewFileDetail.DataSource = objectList;
+            ShowHidePath();
             dataGridViewFileDetail.AllowUserToAddRows = false;
             pictureBox1.Visible = false;
             pictureBox1.SendToBack();
@@ -352,6 +383,7 @@ namespace ProLoop.WordAddin.Forms
                 {
                     dataGridViewFileDetail.DataSource = ObjectList;
                     dataGridViewFileDetail.AllowUserToAddRows = false;
+                    ShowHidePath();
                     pictureBox1.Visible = false;
                     return;
                 }
@@ -366,6 +398,7 @@ namespace ProLoop.WordAddin.Forms
                     dataGridViewFileDetail.DataSource = ObjectList;
                     dataGridViewFileDetail.AllowUserToAddRows = false;
                     pictureBox1.Visible = false;
+                    ShowHidePath();
                     pictureBox1.SendToBack();
                 }));
                 
@@ -410,9 +443,9 @@ namespace ProLoop.WordAddin.Forms
                 string selectedFile = dataGridViewFileDetail.SelectedRows[0].Cells[1].Value as string;
                 AddinCurrentInstance.fileMetadata = new FileMetadataInfo()
                 {
-                    ClientName = txtClient.Text,
-                    MatterName = txtMatter.Text,
-                    ProjectName = txtOrgProject.Text
+                    ClientName = client,
+                    MatterName = matter,
+                    ProjectName = orgProject
                 };
                 OpenDocument(selectedFile);
             }
@@ -475,6 +508,195 @@ namespace ProLoop.WordAddin.Forms
             {
                 MessageBox.Show("You can only Open Doc or Docx file.", "Proloop", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
+        }
+
+        private void radioButtonProject_CheckedChanged(object sender, EventArgs e)
+        {
+           // LoadOrgProject();
+        }
+
+        private void radioButtonOrganization_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadOrgProject();
+        }
+
+        private void checkBoxShowPath_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowHidePath();
+        }
+
+        private void checkBoxFileTree_CheckedChanged(object sender, EventArgs e)
+        {
+            splitContainer1.Panel1Collapsed = !checkBoxFileTree.Checked;
+            isActionbyTreeView = false;
+        }
+
+        private void easyCompletionComboBoxOrgProj_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (radioButtonOrganization.Checked)
+            {
+                var selectedOrg = easyCompletionComboBoxOrgProj.SelectedItem as Organization;
+                if (selectedOrg != null)
+                {
+                    var clients = APIHelper.GetClients(selectedOrg.Id);
+                    if (clients.Count == 0)
+                    {
+                        easyCompletionComboxClient.DataSource = null;
+                        client = string.Empty;                        
+                    }
+                    orgProject = selectedOrg.Title;
+                    easyCompletionComboxClient.DataSource = clients;
+                    easyCompletionComboxClient.MatchingMethod = StringMatchingMethod.NoWildcards;
+                    easyCompletionComboxClient.DisplayMember = "Name";
+                    easyCompletionComboxClient.ValueMember = "id";
+                    if (isActionbyTreeView)
+                    {
+                        var item = clients.Find(x => x.Name == client);
+                        if (item != null)
+                        {
+                            easyCompletionComboxClient.SelectedItem = item;
+                        }
+                    }
+                }
+                else
+                {
+                    easyCompletionComboxClient.SelectedIndex = -1;
+                }
+            }
+            if (radioButtonProject.Checked)
+            {
+                client = string.Empty;
+                matter = string.Empty;
+                var selectedOrg = easyCompletionComboBoxOrgProj.SelectedItem as Project;
+                if (selectedOrg != null)
+                {
+                    orgProject = selectedOrg.Title;
+                    string folderPath = "/api/files/Projects/" + orgProject + "/*?token=";
+                    searchPath = $"Projects/{orgProject}";
+                    GetFiles(folderPath);
+                }
+            }           
+        }
+
+        private void easyCompletionComboBoxMatter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedMatter = easyCompletionComboBoxMatter.SelectedItem as Matter;
+            dataGridViewFileDetail.DataSource = null;
+            if (selectedMatter != null)
+            {
+                matter = selectedMatter.Name;
+                var folderPath = string.Concat(new string[]
+                            {
+                                    "/api/files/Organizations/",
+                                    orgProject,
+                                    "/",
+                                    client,
+                                    "/",
+                                   matter,
+                                    "/*?token="
+                            });
+                //ProcessAutoComplete();  
+                searchPath = $"Organizations/{orgProject}";
+                GetFiles(folderPath);                
+            }
+        }
+
+        private void easyCompletionComboxClient_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedClient = easyCompletionComboxClient.SelectedItem as Client;
+            var selectedOrg = easyCompletionComboBoxOrgProj.SelectedItem as Organization;
+            if (selectedClient != null && selectedOrg != null)
+            {
+                var matters = APIHelper.GetMatters(selectedOrg.Id, selectedClient.Id);
+                if (matters.Count==0)
+                {
+                    matter = string.Empty;                   
+                    easyCompletionComboBoxMatter.DataSource = null;
+                    return;
+                }
+                orgProject = selectedOrg.Title;
+                client = selectedClient.Name;
+                easyCompletionComboBoxMatter.DataSource = matters;
+                easyCompletionComboBoxMatter.MatchingMethod = StringMatchingMethod.NoWildcards;
+                easyCompletionComboBoxMatter.DisplayMember = "Name";
+                easyCompletionComboBoxMatter.ValueMember = "id";
+                if (isActionbyTreeView)
+                {
+                    var item = matters.Find(x => x.Name == client);
+                    if (item != null)
+                    {
+                        easyCompletionComboBoxMatter.SelectedItem = item;
+                    }
+                }
+            }
+            else
+            {
+                easyCompletionComboBoxMatter.SelectedIndex = -1;
+            }
+        }
+
+        private void ShowHidePath()
+        {
+            if (dataGridViewFileDetail.Columns.Count > 0)
+                dataGridViewFileDetail.Columns[1].Visible = checkBoxShowPath.Checked;
+        }
+        private void LoadOrgProject()
+        {
+            dataGridViewFileDetail.DataSource = null;
+            if (radioButtonOrganization.Checked)
+            {
+                if (orgs.Count == 0)
+                {
+                    easyCompletionComboBoxOrgProj.DataSource = null;
+                    return;
+                }
+                easyCompletionComboBoxOrgProj.DataSource = orgs;
+                easyCompletionComboBoxOrgProj.MatchingMethod = StringMatchingMethod.NoWildcards;
+                easyCompletionComboBoxOrgProj.DisplayMember = "title";
+                easyCompletionComboBoxOrgProj.ValueMember = "id";
+                if (isActionbyTreeView)
+                {
+                    var item = orgs.Find(x => x.Title == orgProject);
+                    if (item != null)
+                    {
+                        easyCompletionComboBoxOrgProj.SelectedItem = item;
+                    }
+                }
+                else
+                {
+                    easyCompletionComboBoxOrgProj.SelectedIndex = 0;
+                }
+                easyCompletionComboxClient.Enabled = true;
+                easyCompletionComboBoxMatter.Enabled = true;
+            }
+            else if (radioButtonProject.Checked)
+            {                
+                if (projects.Count == 0)
+                {
+                    easyCompletionComboBoxOrgProj.DataSource = null;
+                    return;
+                }
+                easyCompletionComboBoxOrgProj.DataSource = projects;
+                easyCompletionComboBoxOrgProj.MatchingMethod = StringMatchingMethod.NoWildcards;
+                easyCompletionComboBoxOrgProj.DisplayMember = "title";
+                easyCompletionComboBoxOrgProj.ValueMember = "id";
+                if (isActionbyTreeView)
+                {
+                    var item = projects.Find(x => x.Title == orgProject);
+                    if (item != null)
+                    {
+                        easyCompletionComboBoxOrgProj.SelectedItem = item;
+                    }
+                }
+                else
+                {
+                    easyCompletionComboBoxOrgProj.SelectedIndex = 0;
+                }
+                easyCompletionComboxClient.DataSource = null;
+                easyCompletionComboBoxMatter.DataSource = null;
+                easyCompletionComboxClient.Enabled = false;
+                easyCompletionComboBoxMatter.Enabled = false;
             }
         }
     }
