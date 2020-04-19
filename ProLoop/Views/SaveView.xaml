@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="ProLoop.Views.SaveView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProLoop.Views"
+             Background="White"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            </Style>
+            <Style TargetType="RadioButton" BasedOn="{StaticResource MetroRadioButton}">
+                <Setter Property="Margin" Value="0,0,20,0"></Setter>
+            </Style>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
+                <Setter Property="Margin" Value="10,2,10,2"></Setter>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="10,2,10,2"></Setter>
+            </Style>
+            <Style TargetType="CheckBox" BasedOn="{StaticResource MetroCheckBox}">
+                <Setter Property="Margin" Value="10,2,0,2"></Setter>
+            </Style>
+
+            <Style TargetType="Button" BasedOn="{StaticResource MetroButton}">
+                <Setter Property="Width"  Value="100"></Setter>
+                <Setter Property="Height"  Value="32"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>            
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0" Grid.Row="0">
+            <RadioButton Content="Organization" IsChecked="True"></RadioButton>
+            <RadioButton Content="Project"></RadioButton>
+        </DockPanel>
+        <DockPanel Grid.Column="0" Grid.Row="1">
+            <TextBlock Text="Org/Proj: "></TextBlock>
+            <ComboBox></ComboBox>
+        </DockPanel>
+
+        <DockPanel Grid.Column="0" Grid.Row="2">
+            <TextBlock Text="    Client: " TextAlignment="Right"></TextBlock>
+            <ComboBox></ComboBox>
+        </DockPanel>
+
+        <DockPanel Grid.Column="0" Grid.Row="3">
+            <TextBlock Text="   Matter: "></TextBlock>
+            <ComboBox></ComboBox>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="File Name: "></TextBlock>
+            <TextBox></TextBox>
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.Column="1">
+            <CheckBox Content="Show File Tree"></CheckBox>
+            <CheckBox Content="Show Path"></CheckBox>
+        </DockPanel>
+
+        <Button Grid.Column="1" Grid.Row="3" Content="Save As"></Button>
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TreeView> 
+                
+            </TreeView>
+            <DataGrid Grid.Column="1">
+                
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A18BF73B-9AE5-40C7-B091-500AA4F218D8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProLoop</RootNamespace>
+    <AssemblyName>ProLoop</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <StartupObject>
+    </StartupObject>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>ProLoop.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="AddinExpress.WD.2005, Version=9.4.4644.0, Culture=neutral, PublicKeyToken=e69a7e0f3592d2b8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Autofac, Version=4.9.4.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.9.4\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.4.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.4\lib\net45\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Prism, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.7.2.0.1422\lib\net45\Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Prism.Wpf, Version=7.2.0.1422, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.2.0.1422\lib\net45\Prism.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.9.1-dev-01154\lib\net45\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Wpf.7.2.0.1422\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="AddinExpress.MSO.2005">
+      <HintPath>C:\Program Files (x86)\Add-in Express\Add-in Express for .NET\Bin\AddinExpress.MSO.2005.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop.dll">
+      <HintPath>Interops\Microsoft.Vbe.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Office.dll">
+      <HintPath>Interops\Office.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word.dll">
+      <HintPath>Interops\Microsoft.Office.Interop.Word.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Loader\adxloader.dll.manifest" />
+    <None Include="packages.config" />
+    <!--<None Include="ProLoop.snk" /> -->
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Loader\adxloader.dll" />
+    <Content Include="Loader\adxloader64.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddinModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AddinModule.Designer.cs">
+      <DependentUpon>AddinModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MainEntry.cs" />
+    <Compile Include="Dashboard\ADXWordTaskPaneInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dashboard\ADXWordTaskPaneInfo.Designer.cs">
+      <DependentUpon>ADXWordTaskPaneInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\ADXWordTaskPaneLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dashboard\ADXWordTaskPaneLogin.Designer.cs">
+      <DependentUpon>ADXWordTaskPaneLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\ADXWordTaskPaneOpen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dashboard\ADXWordTaskPaneOpen.Designer.cs">
+      <DependentUpon>ADXWordTaskPaneOpen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\ADXWordTaskPaneSave.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dashboard\ADXWordTaskPaneSave.Designer.cs">
+      <DependentUpon>ADXWordTaskPaneSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup\Bootstrapper.cs" />
+    <Compile Include="Utility\ProploopUtility.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\OpenViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\InfoView.xaml.cs">
+      <DependentUpon>InfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenView.xaml.cs">
+      <DependentUpon>OpenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaveView.xaml.cs">
+      <DependentUpon>SaveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Win32.Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AddinModule.resx">
+      <DependentUpon>AddinModule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard\ADXWordTaskPaneInfo.resx">
+      <DependentUpon>ADXWordTaskPaneInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard\ADXWordTaskPaneLogin.resx">
+      <DependentUpon>ADXWordTaskPaneLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard\ADXWordTaskPaneOpen.resx">
+      <DependentUpon>ADXWordTaskPaneOpen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard\ADXWordTaskPaneSave.resx">
+      <DependentUpon>ADXWordTaskPaneSave.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\InfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OpenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SaveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProoLoop.Services\ProLoop.Services.csproj">
+      <Project>{851343db-30ab-4d22-a815-e65a075c5f6c}</Project>
+      <Name>ProLoop.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
