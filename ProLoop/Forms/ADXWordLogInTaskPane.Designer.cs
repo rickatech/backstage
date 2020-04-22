@@ -46,6 +46,7 @@ namespace ProLoop.WordAddin.Forms
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.checkBoxOldView = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -78,18 +79,20 @@ namespace ProLoop.WordAddin.Forms
             this.tableLayoutPanel1.Controls.Add(this.txtUsername, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtPassword, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.labelCurrentLoginUser, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.checkBoxOldView, 1, 6);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 83);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
+            this.tableLayoutPanel1.RowCount = 7;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(327, 209);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.01563F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.23438F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.625F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.125F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(327, 335);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel1
@@ -99,7 +102,7 @@ namespace ProLoop.WordAddin.Forms
             this.panel1.Location = new System.Drawing.Point(2, 81);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(93, 39);
+            this.panel1.Size = new System.Drawing.Size(93, 37);
             this.panel1.TabIndex = 0;
             // 
             // label2
@@ -120,10 +123,10 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.panel2.Controls.Add(this.label3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(2, 124);
+            this.panel2.Location = new System.Drawing.Point(2, 122);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(93, 39);
+            this.panel2.Size = new System.Drawing.Size(93, 35);
             this.panel2.TabIndex = 1;
             // 
             // label3
@@ -144,10 +147,10 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.panel3.Controls.Add(this.label4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(2, 167);
+            this.panel3.Location = new System.Drawing.Point(2, 161);
             this.panel3.Margin = new System.Windows.Forms.Padding(2);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(93, 40);
+            this.panel3.Size = new System.Drawing.Size(93, 36);
             this.panel3.TabIndex = 2;
             // 
             // label4
@@ -177,7 +180,7 @@ namespace ProLoop.WordAddin.Forms
             // txtUsername
             // 
             this.txtUsername.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtUsername.Location = new System.Drawing.Point(101, 126);
+            this.txtUsername.Location = new System.Drawing.Point(101, 124);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(4, 4, 12, 4);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(214, 30);
@@ -187,7 +190,7 @@ namespace ProLoop.WordAddin.Forms
             // txtPassword
             // 
             this.txtPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPassword.Location = new System.Drawing.Point(101, 169);
+            this.txtPassword.Location = new System.Drawing.Point(101, 163);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 12, 4);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(214, 30);
@@ -215,7 +218,7 @@ namespace ProLoop.WordAddin.Forms
             this.tableLayoutPanel2.Controls.Add(this.panel4, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnSave, 1, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 292);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 418);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
@@ -257,6 +260,17 @@ namespace ProLoop.WordAddin.Forms
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // checkBoxOldView
+            // 
+            this.checkBoxOldView.AutoSize = true;
+            this.checkBoxOldView.Location = new System.Drawing.Point(100, 202);
+            this.checkBoxOldView.Name = "checkBoxOldView";
+            this.checkBoxOldView.Size = new System.Drawing.Size(159, 27);
+            this.checkBoxOldView.TabIndex = 7;
+            this.checkBoxOldView.Text = "Display Old View";
+            this.checkBoxOldView.UseVisualStyleBackColor = true;
+            this.checkBoxOldView.CheckedChanged += new System.EventHandler(this.checkBoxOldView_CheckedChanged);
+            // 
             // ADXWordLogInTaskPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -269,7 +283,7 @@ namespace ProLoop.WordAddin.Forms
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ADXWordLogInTaskPane";
-            this.Text = "LogIn";
+            this.Text = "Settings";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -301,5 +315,6 @@ namespace ProLoop.WordAddin.Forms
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label labelCurrentLoginUser;
+        private System.Windows.Forms.CheckBox checkBoxOldView;
     }
 }

@@ -254,11 +254,18 @@ namespace ProLoop.WordAddin.Service
                 {
                     string jsonResp = result.Content.ReadAsStringAsync().Result;
                     var profile = JsonConvert.DeserializeObject<Profile>(jsonResp);
-                    AddinModule.CurrentInstance.CurrentUserId = profile.Id;
-                    AddinModule.CurrentInstance.profile = profile;
-                    AddinModule.CurrentInstance.ProLoopToken = profile.Token; //Extensions.Value<string>(jObject.SelectToken("token"));
-                    Log.Debug("Acquired ProLoop Token: {0}", AddinModule.CurrentInstance.ProLoopToken);
-                    return true;
+                    if (!string.IsNullOrEmpty(profile.Token))
+                    {
+                        AddinModule.CurrentInstance.CurrentUserId = profile.Id;
+                        AddinModule.CurrentInstance.profile = profile;
+                        AddinModule.CurrentInstance.ProLoopToken = profile.Token; //Extensions.Value<string>(jObject.SelectToken("token"));
+                        Log.Debug("Acquired ProLoop Token: {0}", AddinModule.CurrentInstance.ProLoopToken);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {

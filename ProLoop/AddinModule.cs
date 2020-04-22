@@ -15,6 +15,7 @@ using Win32;
 using Word = Microsoft.Office.Interop.Word;
 using ProLoop.WordAddin.Forms;
 using ProLoop.WordAddin.Model;
+using WD = AddinExpress.WD;
 
 #if NETFX45
 using System.Threading.Tasks;
@@ -682,6 +683,67 @@ namespace ProLoop.WordAddin
                 return true;
             else
                 return false;
+        }
+        public void DisplayOldView(bool isOldView)
+        {
+            var items = adxProloopWordTaskPanesManager.Items;
+            if (isOldView)
+            {
+                WD.ADXWordTaskPanesCollectionItem oldOpen = items[1];
+                if (oldOpen != null) 
+                {
+                    oldOpen.CurrentTaskPaneInstance.Visible = false;
+                }
+                WD.ADXWordTaskPanesCollectionItem newOpen = items[2];
+                if (newOpen != null) 
+                {
+                    newOpen.CurrentTaskPaneInstance.Visible = true;
+                }
+                WD.ADXWordTaskPanesCollectionItem saveNew = items[6];
+                if (saveNew != null)
+                {
+                    saveNew.CurrentTaskPaneInstance.Visible = false;
+                }
+                WD.ADXWordTaskPanesCollectionItem saveOld = items[4];
+                if (saveOld != null)
+                {
+                    saveOld.CurrentTaskPaneInstance.Visible = true;
+                }
+            }
+            else
+            {
+                WD.ADXWordTaskPanesCollectionItem oldOpen = items[1];
+                if (oldOpen != null) 
+                {
+                    oldOpen.CurrentTaskPaneInstance.Visible = true;
+                }
+                WD.ADXWordTaskPanesCollectionItem newOpen = items[2];
+                if (newOpen != null) 
+                {
+                    newOpen.CurrentTaskPaneInstance.Visible = false;
+                }
+                WD.ADXWordTaskPanesCollectionItem saveNew = items[6];
+                if (saveNew != null) 
+                {
+                    saveNew.CurrentTaskPaneInstance.Visible = true;
+                }
+                WD.ADXWordTaskPanesCollectionItem saveOld = items[4];
+                if (saveOld != null)
+                {
+                    saveOld.CurrentTaskPaneInstance.Visible = false;
+                }
+            }
+        }
+
+        private void AddinModule_AddinStartupComplete(object sender, EventArgs e)
+        {
+            //DisplayOldView(false);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            DisplayOldView(false);
+            timer1.Enabled = false;
         }
     }
     

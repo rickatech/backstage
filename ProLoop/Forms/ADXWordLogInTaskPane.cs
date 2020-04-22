@@ -39,6 +39,7 @@ namespace ProLoop.WordAddin.Forms
                 SendMessage(this.txtPassword.Handle, 5377, 0, "Password");
             }
             catch { }
+            
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
@@ -127,6 +128,11 @@ namespace ProLoop.WordAddin.Forms
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
             SetSaveButtonStatus();
+        }
+
+        private void checkBoxOldView_CheckedChanged(object sender, EventArgs e)
+        {
+            AddinModuleCurrentInstance.DisplayOldView(checkBoxOldView.Checked);
         }
     }
 }

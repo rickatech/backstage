@@ -70,6 +70,8 @@
             this.adxRibbonButtonSave = new AddinExpress.MSO.ADXRibbonButton(this.components);
             this.adxRibbonButtonSetting = new AddinExpress.MSO.ADXRibbonButton(this.components);
             this.adxRibbonButtonInfo = new AddinExpress.MSO.ADXRibbonButton(this.components);
+            this.adxWordTaskPanesCollectionItem7 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             // 
             // adxBackstageView1
             // 
@@ -303,6 +305,7 @@
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem3);
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem2);
             this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem4);
+            this.adxProloopWordTaskPanesManager.Items.Add(this.adxWordTaskPanesCollectionItem7);
             this.adxProloopWordTaskPanesManager.SetOwner(this);
             // 
             // adxWordTaskPanesCollectionItem5
@@ -416,11 +419,23 @@
             this.adxRibbonButtonInfo.Size = AddinExpress.MSO.ADXRibbonXControlSize.Large;
             this.adxRibbonButtonInfo.OnClick += new AddinExpress.MSO.ADXRibbonOnAction_EventHandler(this.adxRibbonButtonInfo_OnClick);
             // 
+            // adxWordTaskPanesCollectionItem7
+            // 
+            this.adxWordTaskPanesCollectionItem7.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
+            this.adxWordTaskPanesCollectionItem7.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordTaskPaneSaveNew";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 4000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // AddinModule
             // 
             this.AddinName = "ProLoop";
             this.RegisterForAllUsers = true;
             this.SupportedApps = AddinExpress.MSO.ADXOfficeHostApp.ohaWord;
+            this.AddinStartupComplete += new AddinExpress.MSO.ADXEvents_EventHandler(this.AddinModule_AddinStartupComplete);
 
         }
         #endregion
@@ -468,6 +483,8 @@
         private AddinExpress.MSO.ADXRibbonButton adxRibbonButtonInfo;
         private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem5;
         private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem6;
+        private AddinExpress.WD.ADXWordTaskPanesCollectionItem adxWordTaskPanesCollectionItem7;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

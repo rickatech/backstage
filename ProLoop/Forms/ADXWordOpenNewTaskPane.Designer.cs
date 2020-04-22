@@ -34,49 +34,43 @@ namespace ProLoop.WordAddin.Forms
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ADXWordOpenNewTaskPane));
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButtonProject = new System.Windows.Forms.RadioButton();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.easyCompletionComboBoxOrgProj = new ProLoop.EasyCompletionComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.easyCompletionComboxClient = new ProLoop.EasyCompletionComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.easyCompletionComboBoxMatter = new ProLoop.EasyCompletionComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.radioButtonOrganization = new System.Windows.Forms.RadioButton();
+            this.radioButtonProject = new System.Windows.Forms.RadioButton();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.textBoxContent = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.txtFileName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.txtKeyword = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.txtEditor = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.txtDocId = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.checkBoxShowPath = new System.Windows.Forms.CheckBox();
+            this.checkBoxFileTree = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridViewFileDetail = new System.Windows.Forms.DataGridView();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxContent = new System.Windows.Forms.TextBox();
-            this.txtKeyword = new System.Windows.Forms.TextBox();
-            this.txtDocId = new System.Windows.Forms.TextBox();
-            this.txtFileName = new System.Windows.Forms.TextBox();
-            this.txtEditor = new System.Windows.Forms.TextBox();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.checkBoxFileTree = new System.Windows.Forms.CheckBox();
-            this.checkBoxShowPath = new System.Windows.Forms.CheckBox();
-            this.easyCompletionComboBoxOrgProj = new ProLoop.EasyCompletionComboBox();
-            this.easyCompletionComboxClient = new ProLoop.EasyCompletionComboBox();
-            this.easyCompletionComboBoxMatter = new ProLoop.EasyCompletionComboBox();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -87,6 +81,12 @@ namespace ProLoop.WordAddin.Forms
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -126,18 +126,106 @@ namespace ProLoop.WordAddin.Forms
             this.tableLayoutPanel1.Size = new System.Drawing.Size(805, 150);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
-            // radioButtonProject
+            // panel2
             // 
-            this.radioButtonProject.AutoSize = true;
-            this.radioButtonProject.Dock = System.Windows.Forms.DockStyle.Right;
-            this.radioButtonProject.Location = new System.Drawing.Point(176, 0);
-            this.radioButtonProject.Name = "radioButtonProject";
-            this.radioButtonProject.Size = new System.Drawing.Size(83, 24);
-            this.radioButtonProject.TabIndex = 0;
-            this.radioButtonProject.TabStop = true;
-            this.radioButtonProject.Text = "Project";
-            this.radioButtonProject.UseVisualStyleBackColor = true;
-            this.radioButtonProject.CheckedChanged += new System.EventHandler(this.radioButtonProject_CheckedChanged);
+            this.panel2.Controls.Add(this.easyCompletionComboBoxOrgProj);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 33);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(259, 34);
+            this.panel2.TabIndex = 18;
+            // 
+            // easyCompletionComboBoxOrgProj
+            // 
+            this.easyCompletionComboBoxOrgProj.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.easyCompletionComboBoxOrgProj.FormattingEnabled = true;
+            this.easyCompletionComboBoxOrgProj.Location = new System.Drawing.Point(82, 0);
+            this.easyCompletionComboBoxOrgProj.Name = "easyCompletionComboBoxOrgProj";
+            this.easyCompletionComboBoxOrgProj.Size = new System.Drawing.Size(177, 28);
+            this.easyCompletionComboBoxOrgProj.TabIndex = 15;
+            this.easyCompletionComboBoxOrgProj.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxOrgProj_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Org/Proj :";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.easyCompletionComboxClient);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(3, 73);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(259, 31);
+            this.panel3.TabIndex = 19;
+            // 
+            // easyCompletionComboxClient
+            // 
+            this.easyCompletionComboxClient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.easyCompletionComboxClient.FormattingEnabled = true;
+            this.easyCompletionComboxClient.Location = new System.Drawing.Point(67, 0);
+            this.easyCompletionComboxClient.Name = "easyCompletionComboxClient";
+            this.easyCompletionComboxClient.Size = new System.Drawing.Size(192, 28);
+            this.easyCompletionComboxClient.TabIndex = 16;
+            this.easyCompletionComboxClient.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboxClient_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label2.Location = new System.Drawing.Point(0, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 20);
+            this.label2.TabIndex = 0;
+            this.label2.Text = " Client :";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.easyCompletionComboBoxMatter);
+            this.panel4.Controls.Add(this.label3);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 110);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(259, 30);
+            this.panel4.TabIndex = 20;
+            // 
+            // easyCompletionComboBoxMatter
+            // 
+            this.easyCompletionComboBoxMatter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.easyCompletionComboBoxMatter.FormattingEnabled = true;
+            this.easyCompletionComboBoxMatter.Location = new System.Drawing.Point(67, 0);
+            this.easyCompletionComboBoxMatter.Name = "easyCompletionComboBoxMatter";
+            this.easyCompletionComboBoxMatter.Size = new System.Drawing.Size(192, 28);
+            this.easyCompletionComboBoxMatter.TabIndex = 17;
+            this.easyCompletionComboBoxMatter.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxMatter_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 20);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Matter :";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.radioButtonOrganization);
+            this.panel5.Controls.Add(this.radioButtonProject);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(259, 24);
+            this.panel5.TabIndex = 21;
             // 
             // radioButtonOrganization
             // 
@@ -151,6 +239,197 @@ namespace ProLoop.WordAddin.Forms
             this.radioButtonOrganization.Text = "Organization";
             this.radioButtonOrganization.UseVisualStyleBackColor = true;
             this.radioButtonOrganization.CheckedChanged += new System.EventHandler(this.radioButtonOrganization_CheckedChanged);
+            // 
+            // radioButtonProject
+            // 
+            this.radioButtonProject.AutoSize = true;
+            this.radioButtonProject.Dock = System.Windows.Forms.DockStyle.Right;
+            this.radioButtonProject.Location = new System.Drawing.Point(176, 0);
+            this.radioButtonProject.Name = "radioButtonProject";
+            this.radioButtonProject.Size = new System.Drawing.Size(83, 24);
+            this.radioButtonProject.TabIndex = 0;
+            this.radioButtonProject.TabStop = true;
+            this.radioButtonProject.Text = "Project";
+            this.radioButtonProject.UseVisualStyleBackColor = true;
+            this.radioButtonProject.CheckedChanged += new System.EventHandler(this.radioButtonProject_CheckedChanged);
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.textBoxContent);
+            this.panel6.Controls.Add(this.label4);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(268, 33);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(259, 34);
+            this.panel6.TabIndex = 22;
+            // 
+            // textBoxContent
+            // 
+            this.textBoxContent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxContent.Location = new System.Drawing.Point(72, 0);
+            this.textBoxContent.Name = "textBoxContent";
+            this.textBoxContent.Size = new System.Drawing.Size(187, 27);
+            this.textBoxContent.TabIndex = 1;
+            this.textBoxContent.TextChanged += new System.EventHandler(this.textBoxContent_TextChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label4.Location = new System.Drawing.Point(0, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 20);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Content:";
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.txtFileName);
+            this.panel7.Controls.Add(this.label5);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel7.Location = new System.Drawing.Point(533, 33);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(269, 34);
+            this.panel7.TabIndex = 23;
+            // 
+            // txtFileName
+            // 
+            this.txtFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtFileName.Location = new System.Drawing.Point(90, 0);
+            this.txtFileName.Name = "txtFileName";
+            this.txtFileName.Size = new System.Drawing.Size(179, 27);
+            this.txtFileName.TabIndex = 1;
+            this.txtFileName.TextChanged += new System.EventHandler(this.txtFileName_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 20);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "File Name:";
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.txtKeyword);
+            this.panel8.Controls.Add(this.label6);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(268, 73);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(259, 31);
+            this.panel8.TabIndex = 24;
+            // 
+            // txtKeyword
+            // 
+            this.txtKeyword.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtKeyword.Location = new System.Drawing.Point(78, 0);
+            this.txtKeyword.Name = "txtKeyword";
+            this.txtKeyword.Size = new System.Drawing.Size(181, 27);
+            this.txtKeyword.TabIndex = 1;
+            this.txtKeyword.TextChanged += new System.EventHandler(this.txtKeyword_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label6.Location = new System.Drawing.Point(0, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(78, 20);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Keyword:";
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.txtEditor);
+            this.panel9.Controls.Add(this.label7);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(533, 73);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(269, 31);
+            this.panel9.TabIndex = 25;
+            // 
+            // txtEditor
+            // 
+            this.txtEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtEditor.Location = new System.Drawing.Point(58, 0);
+            this.txtEditor.Name = "txtEditor";
+            this.txtEditor.Size = new System.Drawing.Size(211, 27);
+            this.txtEditor.TabIndex = 1;
+            this.txtEditor.TextChanged += new System.EventHandler(this.txtEditor_TextChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(58, 20);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Editor:";
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.txtDocId);
+            this.panel10.Controls.Add(this.label8);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(268, 110);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(259, 30);
+            this.panel10.TabIndex = 26;
+            // 
+            // txtDocId
+            // 
+            this.txtDocId.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDocId.Location = new System.Drawing.Point(63, 0);
+            this.txtDocId.Name = "txtDocId";
+            this.txtDocId.Size = new System.Drawing.Size(196, 27);
+            this.txtDocId.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 20);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Doc Id:";
+            this.label8.TextChanged += new System.EventHandler(this.txtDocId_TextChanged);
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.checkBoxShowPath);
+            this.panel11.Controls.Add(this.checkBoxFileTree);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel11.Location = new System.Drawing.Point(533, 110);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(269, 30);
+            this.panel11.TabIndex = 27;
+            // 
+            // checkBoxShowPath
+            // 
+            this.checkBoxShowPath.AutoSize = true;
+            this.checkBoxShowPath.Location = new System.Drawing.Point(155, 3);
+            this.checkBoxShowPath.Name = "checkBoxShowPath";
+            this.checkBoxShowPath.Size = new System.Drawing.Size(111, 24);
+            this.checkBoxShowPath.TabIndex = 2;
+            this.checkBoxShowPath.Text = "Show Path";
+            this.checkBoxShowPath.UseVisualStyleBackColor = true;
+            this.checkBoxShowPath.CheckedChanged += new System.EventHandler(this.checkBoxShowPath_CheckedChanged);
+            // 
+            // checkBoxFileTree
+            // 
+            this.checkBoxFileTree.AutoSize = true;
+            this.checkBoxFileTree.Location = new System.Drawing.Point(4, 2);
+            this.checkBoxFileTree.Margin = new System.Windows.Forms.Padding(20, 3, 3, 3);
+            this.checkBoxFileTree.Name = "checkBoxFileTree";
+            this.checkBoxFileTree.Size = new System.Drawing.Size(143, 24);
+            this.checkBoxFileTree.TabIndex = 1;
+            this.checkBoxFileTree.Text = "Show File Tree";
+            this.checkBoxFileTree.UseVisualStyleBackColor = true;
+            this.checkBoxFileTree.CheckedChanged += new System.EventHandler(this.checkBoxFileTree_CheckedChanged);
             // 
             // flowLayoutPanel1
             // 
@@ -235,285 +514,6 @@ namespace ProLoop.WordAddin.Forms
             this.dataGridViewFileDetail.TabIndex = 5;
             this.dataGridViewFileDetail.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFileDetail_CellClick);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.easyCompletionComboBoxOrgProj);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 33);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(259, 34);
-            this.panel2.TabIndex = 18;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Org/Proj :";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.easyCompletionComboxClient);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 73);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(259, 31);
-            this.panel3.TabIndex = 19;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 20);
-            this.label2.TabIndex = 0;
-            this.label2.Text = " Client :";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.easyCompletionComboBoxMatter);
-            this.panel4.Controls.Add(this.label3);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 110);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(259, 30);
-            this.panel4.TabIndex = 20;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 20);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Matter :";
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.radioButtonOrganization);
-            this.panel5.Controls.Add(this.radioButtonProject);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(259, 24);
-            this.panel5.TabIndex = 21;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.textBoxContent);
-            this.panel6.Controls.Add(this.label4);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(268, 33);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(259, 34);
-            this.panel6.TabIndex = 22;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.txtFileName);
-            this.panel7.Controls.Add(this.label5);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(533, 33);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(269, 34);
-            this.panel7.TabIndex = 23;
-            // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.txtKeyword);
-            this.panel8.Controls.Add(this.label6);
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(268, 73);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(259, 31);
-            this.panel8.TabIndex = 24;
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.txtEditor);
-            this.panel9.Controls.Add(this.label7);
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(533, 73);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(269, 31);
-            this.panel9.TabIndex = 25;
-            // 
-            // panel10
-            // 
-            this.panel10.Controls.Add(this.txtDocId);
-            this.panel10.Controls.Add(this.label8);
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(268, 110);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(259, 30);
-            this.panel10.TabIndex = 26;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 20);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Content:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label5.Location = new System.Drawing.Point(0, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(90, 20);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "File Name:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label6.Location = new System.Drawing.Point(0, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(78, 20);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Keyword:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label7.Location = new System.Drawing.Point(0, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 20);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Editor:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label8.Location = new System.Drawing.Point(0, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 20);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Doc Id:";
-            this.label8.TextChanged += new System.EventHandler(this.txtDocId_TextChanged);
-            // 
-            // textBoxContent
-            // 
-            this.textBoxContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxContent.Location = new System.Drawing.Point(72, 0);
-            this.textBoxContent.Name = "textBoxContent";
-            this.textBoxContent.Size = new System.Drawing.Size(187, 27);
-            this.textBoxContent.TabIndex = 1;
-            this.textBoxContent.TextChanged += new System.EventHandler(this.textBoxContent_TextChanged);
-            // 
-            // txtKeyword
-            // 
-            this.txtKeyword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtKeyword.Location = new System.Drawing.Point(78, 0);
-            this.txtKeyword.Name = "txtKeyword";
-            this.txtKeyword.Size = new System.Drawing.Size(181, 27);
-            this.txtKeyword.TabIndex = 1;
-            this.txtKeyword.TextChanged += new System.EventHandler(this.txtKeyword_TextChanged);
-            // 
-            // txtDocId
-            // 
-            this.txtDocId.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDocId.Location = new System.Drawing.Point(63, 0);
-            this.txtDocId.Name = "txtDocId";
-            this.txtDocId.Size = new System.Drawing.Size(196, 27);
-            this.txtDocId.TabIndex = 1;
-            // 
-            // txtFileName
-            // 
-            this.txtFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFileName.Location = new System.Drawing.Point(90, 0);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(179, 27);
-            this.txtFileName.TabIndex = 1;
-            this.txtFileName.TextChanged += new System.EventHandler(this.txtFileName_TextChanged);
-            // 
-            // txtEditor
-            // 
-            this.txtEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtEditor.Location = new System.Drawing.Point(58, 0);
-            this.txtEditor.Name = "txtEditor";
-            this.txtEditor.Size = new System.Drawing.Size(211, 27);
-            this.txtEditor.TabIndex = 1;
-            this.txtEditor.TextChanged += new System.EventHandler(this.txtEditor_TextChanged);
-            // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.checkBoxShowPath);
-            this.panel11.Controls.Add(this.checkBoxFileTree);
-            this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(533, 110);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(269, 30);
-            this.panel11.TabIndex = 27;
-            // 
-            // checkBoxFileTree
-            // 
-            this.checkBoxFileTree.AutoSize = true;
-            this.checkBoxFileTree.Location = new System.Drawing.Point(4, 2);
-            this.checkBoxFileTree.Margin = new System.Windows.Forms.Padding(20, 3, 3, 3);
-            this.checkBoxFileTree.Name = "checkBoxFileTree";
-            this.checkBoxFileTree.Size = new System.Drawing.Size(143, 24);
-            this.checkBoxFileTree.TabIndex = 1;
-            this.checkBoxFileTree.Text = "Show File Tree";
-            this.checkBoxFileTree.UseVisualStyleBackColor = true;
-            this.checkBoxFileTree.CheckedChanged += new System.EventHandler(this.checkBoxFileTree_CheckedChanged);
-            // 
-            // checkBoxShowPath
-            // 
-            this.checkBoxShowPath.AutoSize = true;
-            this.checkBoxShowPath.Location = new System.Drawing.Point(155, 3);
-            this.checkBoxShowPath.Name = "checkBoxShowPath";
-            this.checkBoxShowPath.Size = new System.Drawing.Size(111, 24);
-            this.checkBoxShowPath.TabIndex = 2;
-            this.checkBoxShowPath.Text = "Show Path";
-            this.checkBoxShowPath.UseVisualStyleBackColor = true;
-            this.checkBoxShowPath.CheckedChanged += new System.EventHandler(this.checkBoxShowPath_CheckedChanged);
-            // 
-            // easyCompletionComboBoxOrgProj
-            // 
-            this.easyCompletionComboBoxOrgProj.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.easyCompletionComboBoxOrgProj.FormattingEnabled = true;
-            this.easyCompletionComboBoxOrgProj.Location = new System.Drawing.Point(82, 0);
-            this.easyCompletionComboBoxOrgProj.Name = "easyCompletionComboBoxOrgProj";
-            this.easyCompletionComboBoxOrgProj.Size = new System.Drawing.Size(177, 28);
-            this.easyCompletionComboBoxOrgProj.TabIndex = 15;
-            this.easyCompletionComboBoxOrgProj.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxOrgProj_SelectedIndexChanged);
-            // 
-            // easyCompletionComboxClient
-            // 
-            this.easyCompletionComboxClient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.easyCompletionComboxClient.FormattingEnabled = true;
-            this.easyCompletionComboxClient.Location = new System.Drawing.Point(67, 0);
-            this.easyCompletionComboxClient.Name = "easyCompletionComboxClient";
-            this.easyCompletionComboxClient.Size = new System.Drawing.Size(192, 28);
-            this.easyCompletionComboxClient.TabIndex = 16;
-            this.easyCompletionComboxClient.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboxClient_SelectedIndexChanged);
-            // 
-            // easyCompletionComboBoxMatter
-            // 
-            this.easyCompletionComboBoxMatter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.easyCompletionComboBoxMatter.FormattingEnabled = true;
-            this.easyCompletionComboBoxMatter.Location = new System.Drawing.Point(67, 0);
-            this.easyCompletionComboBoxMatter.Name = "easyCompletionComboBoxMatter";
-            this.easyCompletionComboBoxMatter.Size = new System.Drawing.Size(192, 28);
-            this.easyCompletionComboBoxMatter.TabIndex = 17;
-            this.easyCompletionComboBoxMatter.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxMatter_SelectedIndexChanged);
-            // 
             // ADXWordOpenNewTaskPane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -525,16 +525,9 @@ namespace ProLoop.WordAddin.Forms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "ADXWordOpenNewTaskPane";
-            this.Text = "Open2";
+            this.Text = "Open";
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -555,6 +548,13 @@ namespace ProLoop.WordAddin.Forms
             this.panel10.PerformLayout();
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).EndInit();
             this.ResumeLayout(false);
 
         }
