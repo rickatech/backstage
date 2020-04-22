@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-  <Product Id="*" Name="ProLoop" Language="1033" Version="5.4.0" Manufacturer="ZapTech" UpgradeCode="{4B264A8D-0722-4CCA-BD7A-4D893BDFA2A2}" Codepage="1252">
+  <Product Id="*" Name="ProLoop" Language="1033" Version="5.5.0" Manufacturer="ZapTech" UpgradeCode="{4B264A8D-0722-4CCA-BD7A-4D893BDFA2A2}" Codepage="1252">
     <Package AdminImage="no" Comments="ProLoop" Compressed="yes" Description="Adds the ProLooop MS Word Backstage entry to Open and Save As menu items" InstallerVersion="200" InstallScope="perMachine" Languages="1033" Manufacturer="LawLoop" Platform="x86" ReadOnly="no" ShortNames="no" SummaryCodepage="1252" />
     <Media Id="1" Cabinet="ProLoop.cab" EmbedCab="yes" DiskPrompt="CD-ROM #1" />
     <Property Id="DiskPrompt" Value="ProLoop Installation [1]" />
@@ -58,9 +58,9 @@
 				<Component Id="comp_A54CB9AF_3230_4862_BC6F_C7F143D0F025" Guid="3DF55516-446F-46A2-8734-09BE81E78F9D" Permanent="no" SharedDllRefCount="no" Transitive="no">
 				<File Id="_A54CB9AF_3230_4862_BC6F_C7F143D0F025" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Serilog.Sinks.RollingFile.dll" Source="$(var.ProLoop.TargetDir)Serilog.Sinks.RollingFile.dll" />
 			</Component>
-				<Component Id="comp_9C1A5AEE_3112_416F_A716_ACB5D44219CC" Guid="3309CE8F-24D0-4E1E-9F44-9FBE75FC3CE4" Permanent="no" SharedDllRefCount="no" Transitive="no">
+				<!--<Component Id="comp_9C1A5AEE_3112_416F_A716_ACB5D44219CC" Guid="3309CE8F-24D0-4E1E-9F44-9FBE75FC3CE4" Permanent="no" SharedDllRefCount="no" Transitive="no">
 				<File Id="_9C1A5AEE_3112_416F_A716_ACB5D44219CC" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="AddinExpress.ToolbarControls.2005.dll" Source="$(var.ProLoop.TargetDir)AddinExpress.ToolbarControls.2005.dll" />
-			</Component>
+			</Component>-->
 				<Component Id="comp_E3D21199_9A7B_45FF_B72C_B2EE9A078189" Guid="BDE342FA-4AB2-4CAD-A00D-3D99D67E3E7D" Permanent="no" SharedDllRefCount="no" Transitive="no">
 				<File Id="_E3D21199_9A7B_45FF_B72C_B2EE9A078189" DiskId="1" Hidden="no" ReadOnly="no" System="no" Vital="yes" Compressed="yes" Name="Microsoft.Vbe.Interop.dll" Source="$(var.ProLoop.TargetDir)Microsoft.Vbe.Interop.dll" />
 			</Component>
@@ -100,7 +100,7 @@
 			<ComponentRef Id="comp_A21E9BE9_F6C9_4290_B71C_8D1D59AE435F" />
 			<ComponentRef Id="comp_67DECD96_5099_4495_8E5A_718BC4BE1FC1" />
 			<ComponentRef Id="comp_A54CB9AF_3230_4862_BC6F_C7F143D0F025" />
-			<ComponentRef Id="comp_9C1A5AEE_3112_416F_A716_ACB5D44219CC" />
+			<!--<ComponentRef Id="comp_9C1A5AEE_3112_416F_A716_ACB5D44219CC" />-->
 			<ComponentRef Id="comp_E3D21199_9A7B_45FF_B72C_B2EE9A078189" />
 			<ComponentRef Id="comp_17D1C697_3558_48FD_B8A9_A414016B7B7B" />
 			<ComponentRef Id="comp_90B3852E_A84D_4F36_9071_7C4CBB9050AE" />

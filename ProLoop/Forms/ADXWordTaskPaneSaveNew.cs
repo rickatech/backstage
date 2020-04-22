@@ -533,6 +533,8 @@ namespace ProLoop.WordAddin.Forms
                 }              
                 GetFiles(folderPath);
                 ObjOrganization = null;
+                ObjMatter = null;
+                ObjClient = null;
                 //ProcessAutoComplete();
             }
             else if (selectedNode.Tag is ProLoopFolder)
@@ -561,8 +563,10 @@ namespace ProLoop.WordAddin.Forms
                     foreach(string data in pathList.Skip(2))
                     {
                         FolderPath = data + "\\";
-                    }
+                    }                   
                     ObjOrganization = null;
+                    ObjMatter = null;
+                    ObjClient = null;
                 }
                 else
                 {
