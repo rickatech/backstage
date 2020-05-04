@@ -388,6 +388,10 @@ namespace ProLoop.WordAddin.Forms
         }
         private void GetFiles(string folderPath)
         {
+            if (!AddinCurrentInstance.isOldViewEnable)
+            {
+                folderPath = folderPath.Replace("files", "dir");
+            }
             pictureBox1.Visible = true;
             pictureBox1.BringToFront();
             var files = APIHelper.GetFiles(folderPath);

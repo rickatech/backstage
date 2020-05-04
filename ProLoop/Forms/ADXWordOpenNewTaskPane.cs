@@ -336,6 +336,10 @@ namespace ProLoop.WordAddin.Forms
         }
         private void GetFiles(string folderPath)
         {
+            if (!AddinCurrentInstance.isOldViewEnable)
+            {
+                folderPath = folderPath.Replace("files", "dir");
+            }        
             pictureBox1.Visible = true;
             pictureBox1.BringToFront();
             var files = APIHelper.GetFiles(folderPath);
@@ -343,7 +347,7 @@ namespace ProLoop.WordAddin.Forms
             foreach(var file in files)
             {
                 if (!file.isDirctory)
-                    objectList.Add(new MetaDataInfo() { Name = file.Name, Path = file.Path, VersionId = file.VersionId });
+                    objectList.Add(new MetaDataInfo() { Name = file.Name, Path = file.Path + "/" + file.Name, VersionId = file.VersionId });
             }
             dataGridViewFileDetail.AllowUserToAddRows = true;
             dataGridViewFileDetail.DataSource = objectList;
@@ -393,8 +397,14 @@ namespace ProLoop.WordAddin.Forms
                 dataGridViewFileDetail.Invoke(new Action(() =>
                 {
                     dataGridViewFileDetail.AllowUserToAddRows = true;
-                    if (ObjectList != null && ObjectList.Count > 10)
-                        ObjectList = ObjectList.GetRange(0, 10);
+                    if (ObjectList != null)
+                    {
+                        if (ObjectList.Count > 10)
+                        {
+                            ObjectList = ObjectList.GetRange(0, 10);
+                        }
+                        ObjectList = ObjectList.FindAll(x => x.Path.Contains("."));
+                    }
                     dataGridViewFileDetail.DataSource = ObjectList;
                     dataGridViewFileDetail.AllowUserToAddRows = false;
                     pictureBox1.Visible = false;
@@ -457,7 +467,8 @@ namespace ProLoop.WordAddin.Forms
             string filePath = AddinCurrentInstance.WebDAVMappedDriveLetter;
             filePath += "\\" + currentFile.Replace("/", "\\");
             string extension = Path.GetExtension(filePath);
-            if (extension.ToLower() == ".doc" || extension.ToLower() == ".docx")
+            
+            if (AddinCurrentInstance.docExtension.Contains(extension))
             {
                 _Application WordApp = AddinCurrentInstance.WordApp;
                 WordApp.DisplayAlerts = WdAlertLevel.wdAlertsNone;

@@ -83,10 +83,11 @@ namespace ProLoop.WordAddin.Service
 
         public static string GetFolderPath(string projectName, string orgName, string matterName, string clientName)
         {
+            string apiPath = AddinModule.CurrentInstance.isOldViewEnable ? "files" : "dir";
             string text = null;
             if (!string.IsNullOrEmpty(projectName))
             {
-                text = "/api/files/Projects/" + projectName;
+                text = $"/api/{apiPath}/Projects/{projectName}";
                 //text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
             }
             else
@@ -96,7 +97,7 @@ namespace ProLoop.WordAddin.Service
                 {
                     text = string.Concat(new string[]
                     {
-                        "/api/files/Organizations/",
+                        $"/api/{apiPath}/Organizations/",
                         orgName,
                         "/",
                         clientName,
@@ -107,7 +108,7 @@ namespace ProLoop.WordAddin.Service
                 }
                 else
                 {
-                    text = "/api/files/Organizations/" + orgName + "/" + clientName;
+                    text = $"/api/{apiPath}/Organizations/" + orgName + "/" + clientName;
                    // text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
                 }
             }
@@ -117,6 +118,7 @@ namespace ProLoop.WordAddin.Service
 
         public static List<ProLoopFolder> GetFolders(string projectName,string orgName,string matterName, string clientName)
         {
+            string apiPath = AddinModule.CurrentInstance.isOldViewEnable ? "files" : "dir";
             Log.Debug("GetFolders() -- Begin");
             if (!IsTokenValid())
             {
@@ -127,7 +129,7 @@ namespace ProLoop.WordAddin.Service
             
             if (!string.IsNullOrEmpty(projectName))
             {
-                text = "/api/files/Projects/" + projectName;
+                text = $"/api/{apiPath}/Projects/" + projectName;
                 text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
             }
             else
@@ -137,7 +139,7 @@ namespace ProLoop.WordAddin.Service
                 {
                     text = string.Concat(new string[]
                     {
-                        "/api/files/Organizations/",
+                        $"/api/{apiPath}/Organizations/",
                         orgName,
                         "/",
                         clientName,
@@ -148,7 +150,7 @@ namespace ProLoop.WordAddin.Service
                 }
                 else
                 {
-                    text = "/api/files/Organizations/" +orgName + "/" + clientName;
+                    text = $"/api/{apiPath}/Organizations/" +orgName + "/" + clientName;
                     text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
                 }
             }

@@ -54,6 +54,8 @@ namespace ProLoop.WordAddin
         public bool IsProLoopDocument { get; set; }
         public string ProLoopToken { get; set; }
         public ProLoopFile SelectedFile { get; set; }
+        public bool isOldViewEnable = false;
+        public List<string> docExtension = new List<string>() {".doc",".docx",".rtf" };
 
         public AddinModule()
         {
@@ -686,16 +688,17 @@ namespace ProLoop.WordAddin
         }
         public void DisplayOldView(bool isOldView)
         {
+            isOldViewEnable = isOldView;
             var items = adxProloopWordTaskPanesManager.Items;
             if (isOldView)
             {
                 WD.ADXWordTaskPanesCollectionItem oldOpen = items[1];
-                if (oldOpen != null) 
+                if (oldOpen != null)
                 {
                     oldOpen.CurrentTaskPaneInstance.Visible = false;
                 }
                 WD.ADXWordTaskPanesCollectionItem newOpen = items[2];
-                if (newOpen != null) 
+                if (newOpen != null)
                 {
                     newOpen.CurrentTaskPaneInstance.Visible = true;
                 }
@@ -713,17 +716,17 @@ namespace ProLoop.WordAddin
             else
             {
                 WD.ADXWordTaskPanesCollectionItem oldOpen = items[1];
-                if (oldOpen != null) 
+                if (oldOpen != null)
                 {
                     oldOpen.CurrentTaskPaneInstance.Visible = true;
                 }
                 WD.ADXWordTaskPanesCollectionItem newOpen = items[2];
-                if (newOpen != null) 
+                if (newOpen != null)
                 {
                     newOpen.CurrentTaskPaneInstance.Visible = false;
                 }
                 WD.ADXWordTaskPanesCollectionItem saveNew = items[6];
-                if (saveNew != null) 
+                if (saveNew != null)
                 {
                     saveNew.CurrentTaskPaneInstance.Visible = true;
                 }
