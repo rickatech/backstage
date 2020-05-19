@@ -13,11 +13,11 @@ namespace ProLoop.WordAddin.Service
 {
     class APIHelper
     {
-        private static HttpClient localHttpClient =null;
-      public static List<Organization> GetOrganizations()
+        private static HttpClient localHttpClient = null;
+        public static List<Organization> GetOrganizations()
         {
             Log.Debug("GetOrganizations() -- Begin");
-           
+
             if (!IsTokenValid())
             {
                 GetSignInToken();
@@ -60,7 +60,7 @@ namespace ProLoop.WordAddin.Service
             return list;
         }
 
-        public static List<Matter> GetMatters(int orgId,int clientId)
+        public static List<Matter> GetMatters(int orgId, int clientId)
         {
             Log.Debug("GetMatters() -- Begin");
             if (!IsTokenValid())
@@ -109,14 +109,14 @@ namespace ProLoop.WordAddin.Service
                 else
                 {
                     text = $"/api/{apiPath}/Organizations/" + orgName + "/" + clientName;
-                   // text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
+                    // text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
                 }
             }
             return text;
 
         }
 
-        public static List<ProLoopFolder> GetFolders(string projectName,string orgName,string matterName, string clientName)
+        public static List<ProLoopFolder> GetFolders(string projectName, string orgName, string matterName, string clientName)
         {
             string apiPath = AddinModule.CurrentInstance.isOldViewEnable ? "files" : "dir";
             Log.Debug("GetFolders() -- Begin");
@@ -126,7 +126,7 @@ namespace ProLoop.WordAddin.Service
             }
             List<ProLoopFolder> list = new List<ProLoopFolder>();
             string text = string.Empty;
-            
+
             if (!string.IsNullOrEmpty(projectName))
             {
                 text = $"/api/{apiPath}/Projects/" + projectName;
@@ -134,7 +134,7 @@ namespace ProLoop.WordAddin.Service
             }
             else
             {
-                
+
                 if (!string.IsNullOrEmpty(matterName))
                 {
                     text = string.Concat(new string[]
@@ -150,7 +150,7 @@ namespace ProLoop.WordAddin.Service
                 }
                 else
                 {
-                    text = $"/api/{apiPath}/Organizations/" +orgName + "/" + clientName;
+                    text = $"/api/{apiPath}/Organizations/" + orgName + "/" + clientName;
                     text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
                 }
             }
@@ -167,7 +167,7 @@ namespace ProLoop.WordAddin.Service
                 GetSignInToken();
             }
             List<ProLoopFolder> list = new List<ProLoopFolder>();
-            string text = folderPath + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
+            string text = folderPath + "?token=" + AddinModule.CurrentInstance.ProLoopToken;
             Log.Debug<string>("URL: {0}", text);
             list = PerformGetOperation<ProLoopFolder>(text);
             Log.Debug("GetFolders() -- End");
@@ -250,7 +250,7 @@ namespace ProLoop.WordAddin.Service
             try
             {
                 string endPoint = "/api/authenticate";
-                HttpResponseMessage result = PerfomPostOperation(endPoint,content);
+                HttpResponseMessage result = PerfomPostOperation(endPoint, content);
                 bool isSuccessStatusCode = result.IsSuccessStatusCode;
                 if (isSuccessStatusCode)
                 {
@@ -271,13 +271,13 @@ namespace ProLoop.WordAddin.Service
                 }
                 else
                 {
-                   // MessageBox.Show("Unable to sign in to the ProLoop. Please check the username and password.", "Sign in error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    // MessageBox.Show("Unable to sign in to the ProLoop. Please check the username and password.", "Sign in error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 }
             }
             catch (AggregateException ex)
             {
                 Log.Error<string>("Aggregate Exception while calling the API: {0}", ex.Message);
-               
+
                 if (ex.InnerException != null)
                 {
                     Log.Error<string>("Inner Exception details: {0}", ex.InnerException.Message);
@@ -286,8 +286,8 @@ namespace ProLoop.WordAddin.Service
             catch (Exception ex2)
             {
                 Log.Error<string>("Exception while calling the API: {0}", ex2.Message);
-                
-                if (ex2.InnerException!=null)
+
+                if (ex2.InnerException != null)
                 {
                     Log.Error<string>("Inner Exception details: {0}", ex2.InnerException.Message);
                 }
@@ -307,16 +307,16 @@ namespace ProLoop.WordAddin.Service
                 bool isSuccessStatusCode = result.IsSuccessStatusCode;
                 if (isSuccessStatusCode)
                 {
-                   Log.Debug("IsTokenValid() -- End");
+                    Log.Debug("IsTokenValid() -- End");
                     result2 = true;
                     return result2;
                 }
-               Log.Debug<HttpStatusCode>("API Response Status Code: {0}", result.StatusCode);
-               Log.Debug<string>("API Response Phrase: {0}", result.ReasonPhrase);
+                Log.Debug<HttpStatusCode>("API Response Status Code: {0}", result.StatusCode);
+                Log.Debug<string>("API Response Phrase: {0}", result.ReasonPhrase);
                 bool flag = result.ReasonPhrase == "Unauthorized";
                 if (flag)
                 {
-                   Log.Debug("IsTokenValid() -- End");
+                    Log.Debug("IsTokenValid() -- End");
                     result2 = false;
                     return result2;
                 }
@@ -327,7 +327,7 @@ namespace ProLoop.WordAddin.Service
                 bool flag2 = ex.InnerException != null;
                 if (flag2)
                 {
-                   Log.Error<string>("Inner Exception details: {0}", ex.InnerException.Message);
+                    Log.Error<string>("Inner Exception details: {0}", ex.InnerException.Message);
                 }
             }
             catch (Exception ex2)
@@ -339,7 +339,7 @@ namespace ProLoop.WordAddin.Service
                     Log.Error<string>("Inner Exception details: {0}", ex2.InnerException.Message);
                 }
             }
-           // Log.Debug("IsTokenValid() -- End");
+            // Log.Debug("IsTokenValid() -- End");
             result2 = false;
             return result2;
 
@@ -373,5 +373,5 @@ namespace ProLoop.WordAddin.Service
             return result;
         }
     }
-    
+
 }

@@ -59,6 +59,7 @@ namespace ProLoop.WordAddin.Forms
 
         private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
         {
+            string apiPath = AddinCurrentInstance.isOldViewEnable ? "files" : "dir";
             if (e.Node.Tag is null)
                 return;
             else if (e.Node.Tag != null && e.Node.Tag is string)
@@ -132,7 +133,7 @@ namespace ProLoop.WordAddin.Forms
                     foreach(TreeNode node in currentNode.Nodes)
                     {
                         var folderItem = node.Tag as ProLoopFolder;
-                        var folders = APIHelper.GetFolders($"/api/files/{folderItem.Path}");
+                        var folders = APIHelper.GetFolders($"/api/{apiPath}/{folderItem.Path}/{folderItem.Name}");
                         if (folders != null)
                             AddTreeNodeToItem(node, folders);
                     }
@@ -160,7 +161,7 @@ namespace ProLoop.WordAddin.Forms
                     foreach (TreeNode node in currentNode.Nodes)
                     {
                         var folderItem = node.Tag as ProLoopFolder;
-                        var folders = APIHelper.GetFolders($"/api/files/{folderItem.Path}");
+                        var folders = APIHelper.GetFolders($"/api/{apiPath}/{folderItem.Path}/{folderItem.Name}");
                         if (folders != null && folders.Count > 0)
                             AddTreeNodeToItem(node, folders);
                     }
@@ -172,15 +173,15 @@ namespace ProLoop.WordAddin.Forms
         }
         private void AddTreeNodeToItem<T>(TreeNode node, List<T> items)
         {
-            node.Nodes.Clear();
-            foreach(var item in items)
+            node.Nodes.Clear();           
+            foreach (var item in items)
             {
                 string nameofItem = string.Empty;
-                if(item is Organization)
+                if (item is Organization)
                 {
                     nameofItem = (item as Organization).Title;
                 }
-                else if(item is Client)
+                else if (item is Client)
                 {
                     nameofItem = (item as Client).Name;
                 }
@@ -188,16 +189,19 @@ namespace ProLoop.WordAddin.Forms
                 {
                     nameofItem = (item as Matter).Name;
                 }
-                else if(item is ProLoopFolder)
+                else if (item is ProLoopFolder)
                 {
                     if (!(item as ProLoopFolder).isDirctory)
                         continue;
                     nameofItem = (item as ProLoopFolder).Name;
+
                 }
-                else if(item is ProLoopFile)
+                else if (item is ProLoopFile)
                 {
                     continue;
                 }
+                if (nameofItem.Length == 1)
+                    continue;
                 var treenode = new TreeNode(nameofItem);
                 treenode.Tag = item;
                 node.Nodes.Add(treenode);
@@ -315,7 +319,7 @@ namespace ProLoop.WordAddin.Forms
                     matter = pathCollaction[3];
                 }
                 searchPath = folderPath;
-                folderPath = $"/api/files/{folderPath}/*?token=";
+                folderPath = $"/api/files/{folderPath}/{selectedNode.Text}?token=";
                 GetFiles(folderPath);
             }
             else
@@ -344,7 +348,8 @@ namespace ProLoop.WordAddin.Forms
             pictureBox1.BringToFront();
             var files = APIHelper.GetFiles(folderPath);
             var objectList = new List<MetaDataInfo>();
-            foreach(var file in files)
+            dataGridViewFileDetail.DataSource = null;
+            foreach (var file in files)
             {
                 if (!file.isDirctory)
                     objectList.Add(new MetaDataInfo() { Name = file.Name, Path = file.Path + "/" + file.Name, VersionId = file.VersionId });
@@ -573,6 +578,7 @@ namespace ProLoop.WordAddin.Forms
                 else
                 {
                     easyCompletionComboxClient.SelectedIndex = -1;
+                    easyCompletionComboxClient.Text = "---Select Client---";
                 }
             }
             if (radioButtonProject.Checked)
@@ -644,6 +650,7 @@ namespace ProLoop.WordAddin.Forms
             else
             {
                 easyCompletionComboBoxMatter.SelectedIndex = -1;
+                easyCompletionComboBoxMatter.Text = "---Select Metter---";
             }
         }
 
@@ -676,7 +683,8 @@ namespace ProLoop.WordAddin.Forms
                 }
                 else
                 {
-                    easyCompletionComboBoxOrgProj.SelectedIndex = 0;
+                    easyCompletionComboBoxOrgProj.SelectedIndex = -1;
+                    easyCompletionComboBoxOrgProj.Text = "---Select Organization---";
                 }
                 easyCompletionComboxClient.Enabled = true;
                 easyCompletionComboBoxMatter.Enabled = true;
@@ -702,7 +710,8 @@ namespace ProLoop.WordAddin.Forms
                 }
                 else
                 {
-                    easyCompletionComboBoxOrgProj.SelectedIndex = 0;
+                    easyCompletionComboBoxOrgProj.SelectedIndex = -1;
+                    easyCompletionComboBoxOrgProj.Text = "---Select Project---";
                 }
                 easyCompletionComboxClient.DataSource = null;
                 easyCompletionComboBoxMatter.DataSource = null;

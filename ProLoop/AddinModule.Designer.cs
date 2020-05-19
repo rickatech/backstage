@@ -63,6 +63,7 @@
             this.adxWordTaskPanesCollectionItem3 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
             this.adxWordTaskPanesCollectionItem2 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
             this.adxWordTaskPanesCollectionItem4 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
+            this.adxWordTaskPanesCollectionItem7 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
             this.adxRibbonTab1 = new AddinExpress.MSO.ADXRibbonTab(this.components);
             this.adxRibbonGroup1 = new AddinExpress.MSO.ADXRibbonGroup(this.components);
             this.adxRibbonButtonNew = new AddinExpress.MSO.ADXRibbonButton(this.components);
@@ -70,7 +71,6 @@
             this.adxRibbonButtonSave = new AddinExpress.MSO.ADXRibbonButton(this.components);
             this.adxRibbonButtonSetting = new AddinExpress.MSO.ADXRibbonButton(this.components);
             this.adxRibbonButtonInfo = new AddinExpress.MSO.ADXRibbonButton(this.components);
-            this.adxWordTaskPanesCollectionItem7 = new AddinExpress.WD.ADXWordTaskPanesCollectionItem(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             // 
             // adxBackstageView1
@@ -320,7 +320,7 @@
             this.adxWordTaskPanesCollectionItem6.AlwaysShowHeader = true;
             this.adxWordTaskPanesCollectionItem6.IsHiddenStateAllowed = false;
             this.adxWordTaskPanesCollectionItem6.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
-            this.adxWordTaskPanesCollectionItem6.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordOpenNewTaskPane";
+            this.adxWordTaskPanesCollectionItem6.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordTaskPaneOpenDemand";
             // 
             // adxWordTaskPanesCollectionItem1
             // 
@@ -350,6 +350,11 @@
             this.adxWordTaskPanesCollectionItem4.IsHiddenStateAllowed = false;
             this.adxWordTaskPanesCollectionItem4.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
             this.adxWordTaskPanesCollectionItem4.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordAltTaskPane";
+            // 
+            // adxWordTaskPanesCollectionItem7
+            // 
+            this.adxWordTaskPanesCollectionItem7.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
+            this.adxWordTaskPanesCollectionItem7.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordTaskPaneSaveNew";
             // 
             // adxRibbonTab1
             // 
@@ -418,11 +423,6 @@
             this.adxRibbonButtonInfo.Ribbons = AddinExpress.MSO.ADXRibbons.msrWordDocument;
             this.adxRibbonButtonInfo.Size = AddinExpress.MSO.ADXRibbonXControlSize.Large;
             this.adxRibbonButtonInfo.OnClick += new AddinExpress.MSO.ADXRibbonOnAction_EventHandler(this.adxRibbonButtonInfo_OnClick);
-            // 
-            // adxWordTaskPanesCollectionItem7
-            // 
-            this.adxWordTaskPanesCollectionItem7.Position = AddinExpress.WD.ADXWordTaskPanePosition.Right;
-            this.adxWordTaskPanesCollectionItem7.TaskPaneClassName = "ProLoop.WordAddin.Forms.ADXWordTaskPaneSaveNew";
             // 
             // timer1
             // 
