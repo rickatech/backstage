@@ -131,7 +131,10 @@ namespace ProLoop.WordAddin.Forms
                     //ProcessAutoComplete();  
                     searchPath = $"Organizations/{currentOrganization.Title}";
                     GetFiles(folderPath);
-                    LoadTreeView(searchPath);
+                    lalSourceUrl.Text = $"Source Url : {currentMatter.Name}";
+                    //treeView1.SelectedNode = treeView1.Nodes.Find(currentMatter.Name, true)[0];
+                    //treeView1.SelectedNode.EnsureVisible();
+                    //LoadTreeView(searchPath);
                 }
             }
             else
@@ -153,14 +156,15 @@ namespace ProLoop.WordAddin.Forms
             lalSourceUrl.Text = "Source Url";
             currentProject = null;currentProject = null;currentClient = null;
             easyCompletionComboBoxClient.Enabled = rbOrganization.Checked;
-            easyCompletionComboBoxClient.DataSource = null;
+            easyCompletionComboBoxClient.Text = "";
             easyCompletionComboBoxMatter.Enabled = rbOrganization.Checked;
-            easyCompletionComboBoxMatter.DataSource = null;
+            easyCompletionComboBoxMatter.Text = "";
             easyCompletionComboBoxProject.Enabled = rbProject.Checked;
-            easyCompletionComboBoxProject.DataSource = null;
-            easyCompletionComboBoxOrg.DataSource = null;
+            easyCompletionComboBoxProject.Text = "";
+            easyCompletionComboBoxOrg.Text = "";
             easyCompletionComboBoxOrg.Enabled = rbOrganization.Checked;            
             pictureBox1.Location = new System.Drawing.Point(dataGridViewFileDetail.ClientSize.Width / 2, dataGridViewFileDetail.Height/2);
+            dataGridViewFileDetail.DataSource = null;
         }
         private void LoadData()
         {
@@ -176,7 +180,7 @@ namespace ProLoop.WordAddin.Forms
                 easyCompletionComboBoxOrg.DisplayMember = "title";
                 easyCompletionComboBoxOrg.ValueMember = "id";
                 easyCompletionComboBoxOrg.SelectedItem = null;
-                easyCompletionComboBoxOrg.Text = "---Select Organization---";
+                easyCompletionComboBoxOrg.Text = "---Select Organization---";                
             }
             else if (rbProject.Checked)
             {
@@ -191,6 +195,7 @@ namespace ProLoop.WordAddin.Forms
                 easyCompletionComboBoxProject.SelectedItem = null;
                 easyCompletionComboBoxProject.Text = "---Select Project---";
             }
+            LoadTreeView("");
         }
 
         private void easyCompletionComboBoxProject_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,36 +210,34 @@ namespace ProLoop.WordAddin.Forms
                 string folderPath = "/api/dir/Projects/" + currentProject.Title;
                 searchPath = $"Projects/{currentProject.Title}";
                 GetFiles(folderPath);
-                LoadTreeView(folderPath);
+                lalSourceUrl.Text = $"Source Url : {currentProject.Title}";
+                //treeView1.SelectedNode = treeView1.Nodes.Find(currentProject.Title, true)[0];
+                //treeView1.SelectedNode.EnsureVisible();
+                //treeView1.Focus();
             }
         }
         private void LoadTreeView(string currentPath)
         {
             treeView1.Nodes.Clear();
-            if (currentMatter != null)
+            if (rbOrganization.Checked)
             {
                 var treeNode = new TreeNode();
                 treeNode.Name = "Node0";
-                treeNode.Tag = currentMatter;
-                treeNode.Text = currentMatter.Name;
-                treeView1.Nodes.AddRange(new TreeNode[] { treeNode });
-                var tempFolder = APIHelper.GetFolderPath("", currentOrganization.Title, currentMatter.Name, currentClient.Name);
-                var folders = APIHelper.GetFolders(tempFolder);
-                if (folders != null)
-                    AddTreeNodeToItem(treeNode, folders);
+                treeNode.Tag = "Organization";
+                treeNode.Text = "Organizations";
+                treeView1.Nodes.AddRange(new TreeNode[] { treeNode });               
+                if (orgs != null)
+                    AddTreeNodeToItem(treeNode, orgs);
             }
-            else if (currentProject != null)
+            else if (rbProject.Checked)
             {
                 var treeNode = new TreeNode();
                 treeNode.Name = "Node0";
-                treeNode.Text = currentProject.Title;
-                treeNode.Tag = currentProject;
-                treeView1.Nodes.AddRange(new TreeNode[] { treeNode });
-                var tempFolder = APIHelper.GetFolderPath(currentProject.Title, "", "", "");
-                var folders = APIHelper.GetFolders(tempFolder);
-                if (folders != null)
-                    AddTreeNodeToItem(treeNode, folders);
-
+                treeNode.Text = "Projects";
+                treeNode.Tag = "Project";
+                treeView1.Nodes.AddRange(new TreeNode[] { treeNode });                
+                if (projects != null)
+                    AddTreeNodeToItem(treeNode, projects);
             }
             else
             {
@@ -259,6 +262,10 @@ namespace ProLoop.WordAddin.Forms
                 {
                     nameofItem = (item as Matter).Name;
                 }
+                else if (item is Project)
+                {
+                    nameofItem = (item as Project).Title;
+                }
                 else if (item is ProLoopFolder)
                 {
                     if (!(item as ProLoopFolder).isDirctory)
@@ -273,6 +280,7 @@ namespace ProLoop.WordAddin.Forms
                 if (nameofItem.Length == 1)
                     continue;
                 var treenode = new TreeNode(nameofItem);
+                treenode.Name = nameofItem;
                 treenode.Tag = item;
                 node.Nodes.Add(treenode);
             }
@@ -306,8 +314,7 @@ namespace ProLoop.WordAddin.Forms
                 dataGridViewFileDetail.Columns[1].Visible = ckbShowPath.Checked;
         }
         private void GetFiles(string folderPath)
-        {
-            lalSourceUrl.Text = $"Source Url : {folderPath.Replace("/api/dir/",string.Empty)}";
+        {          
             folderPath = ckbRecursive.Checked ? folderPath + "/*?token=" : folderPath + "?token=";
             if (!AddinCurrentInstance.isOldViewEnable)
             {
@@ -514,9 +521,60 @@ namespace ProLoop.WordAddin.Forms
 
         private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
         {
+            string apiPath = AddinCurrentInstance.isOldViewEnable ? "files" : "dir";
             if (e.Node.Tag is null)
-                return;           
-            
+                return;
+            else if (e.Node.Tag != null && e.Node.Tag is string)
+            {
+                if ((string)e.Node.Tag == "Organization")
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    // Application.DoEvents();
+                    foreach (TreeNode item in e.Node.Nodes)
+                    {
+                        if (item.Tag == null)
+                            continue;
+                        var org = item.Tag as Organization;
+                        var clients = APIHelper.GetClients(org.Id);
+                        if (clients == null || clients.Count == 0)
+                            continue;
+                        AddTreeNodeToItem(item, clients);
+                    }
+                    Cursor.Current = Cursors.Default;
+                }
+                else if ((string)e.Node.Tag == "Project")
+                {
+                    Cursor.Current = Cursors.WaitCursor;
+                    foreach (TreeNode item in e.Node.Nodes)
+                    {
+                        var tempFolder = APIHelper.GetFolderPath(item.Text, "", "", "");
+                        var folders = APIHelper.GetFolders(tempFolder);
+                        if (folders != null)
+                        {
+                            AddTreeNodeToItem(item, folders);
+                        }
+                    }
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+            else if (e.Node.Tag is Organization)
+            {
+                if (e.Node.Tag == null)
+                    return;
+                Cursor.Current = Cursors.WaitCursor;
+                var org = e.Node.Tag as Organization;
+                foreach (TreeNode item in e.Node.Nodes)
+                {
+                    if (item.Tag == null)
+                        continue;
+                    var client = item.Tag as Client;
+                    var matters = APIHelper.GetMatters(org.Id, client.Id);
+                    if (matters == null || matters.Count == 0)
+                        continue;
+                    AddTreeNodeToItem(item, matters);
+                }
+                Cursor.Current = Cursors.Default;
+            }
             else if (e.Node.Tag is Project)
             {
                 Cursor.Current = Cursors.WaitCursor;
@@ -537,7 +595,7 @@ namespace ProLoop.WordAddin.Forms
                     foreach (TreeNode node in currentNode.Nodes)
                     {
                         var folderItem = node.Tag as ProLoopFolder;
-                        var folders = APIHelper.GetFolders($"/api/dir/{folderItem.Path}/{folderItem.Name}");
+                        var folders = APIHelper.GetFolders($"/api/{apiPath}/{folderItem.Path}/{folderItem.Name}");
                         if (folders != null)
                             AddTreeNodeToItem(node, folders);
                     }
@@ -564,12 +622,11 @@ namespace ProLoop.WordAddin.Forms
                     foreach (TreeNode node in currentNode.Nodes)
                     {
                         var folderItem = node.Tag as ProLoopFolder;
-                        var folders = APIHelper.GetFolders($"/api/dir/{folderItem.Path}/{folderItem.Name}");
+                        var folders = APIHelper.GetFolders($"/api/{apiPath}/{folderItem.Path}/{folderItem.Name}");
                         if (folders != null && folders.Count > 0)
                             AddTreeNodeToItem(node, folders);
                     }
-                    //currentNode.Nodes.Clear();
-
+                   
                 }
 
             }
@@ -583,6 +640,12 @@ namespace ProLoop.WordAddin.Forms
 
             else if (selectedNode.Tag is Matter)
             {
+                currentMatter = selectedNode.Tag as Matter;
+                currentClient = selectedNode.Parent.Tag as Client;
+                currentOrganization = selectedNode.Parent.Parent.Tag as Organization;
+                easyCompletionComboBoxOrg.Text = currentOrganization.Title;
+                easyCompletionComboBoxClient.Text = currentClient.Name;
+                easyCompletionComboBoxMatter.Text = currentMatter.Name;
                 var folderPath = string.Concat(new string[]
                             {
                                     "/api/dir/Organizations/",
@@ -593,18 +656,25 @@ namespace ProLoop.WordAddin.Forms
                                    currentMatter.Name,                                    
                             });
                 GetFiles(folderPath);
+                lalSourceUrl.Text = $"Source Url : {currentMatter.Name}";
+                searchPath = $"Organizations/{currentOrganization.Title}/{currentClient.Name}/{currentMatter.Name}";
             }
             else if (selectedNode.Tag is Project)
             {
+                currentProject = selectedNode.Tag as Project;
                 string folderPath = "/api/dir/Projects/" + currentProject.Title;
+                lalSourceUrl.Text = $"Source Url : {currentProject.Title}";
+                easyCompletionComboBoxProject.Text = currentProject.Title;
                 GetFiles(folderPath);
             }
             else if (selectedNode.Tag is ProLoopFolder)
             {
                 string folderPath = (selectedNode.Tag as ProLoopFolder).Path;                  
                 searchPath = folderPath;
+                lalSourceUrl.Text = $"Source Url : {folderPath}/{selectedNode.Text}";
                 folderPath = $"/api/dir/{folderPath}/{selectedNode.Text}";
                 GetFiles(folderPath);
+               
             }
             
         }

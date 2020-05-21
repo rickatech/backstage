@@ -35,14 +35,8 @@ namespace ProLoop.WordAddin.Forms
             this.rbOrganization = new System.Windows.Forms.RadioButton();
             this.rbProject = new System.Windows.Forms.RadioButton();
             this.scTreeViewInformation = new System.Windows.Forms.SplitContainer();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lalSourceUrl = new System.Windows.Forms.Label();
-            this.ckbFileTree = new System.Windows.Forms.CheckBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.scFileList = new System.Windows.Forms.SplitContainer();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ckbRecursive = new System.Windows.Forms.CheckBox();
-            this.ckbShowPath = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridViewFileDetail = new System.Windows.Forms.DataGridView();
             this.txtboxEditors = new System.Windows.Forms.TextBox();
@@ -51,6 +45,12 @@ namespace ProLoop.WordAddin.Forms
             this.txtboxDocumentId = new System.Windows.Forms.TextBox();
             this.txtboxTitle = new System.Windows.Forms.TextBox();
             this.ckbAllversion = new System.Windows.Forms.CheckBox();
+            this.ckbShowPath = new System.Windows.Forms.CheckBox();
+            this.ckbRecursive = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lalSourceUrl = new System.Windows.Forms.Label();
+            this.ckbFileTree = new System.Windows.Forms.CheckBox();
             this.easyCompletionComboBoxOrg = new ProLoop.EasyCompletionComboBox();
             this.easyCompletionComboBoxProject = new ProLoop.EasyCompletionComboBox();
             this.easyCompletionComboBoxClient = new ProLoop.EasyCompletionComboBox();
@@ -60,21 +60,21 @@ namespace ProLoop.WordAddin.Forms
             this.scTreeViewInformation.Panel1.SuspendLayout();
             this.scTreeViewInformation.Panel2.SuspendLayout();
             this.scTreeViewInformation.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scFileList)).BeginInit();
             this.scFileList.Panel1.SuspendLayout();
             this.scFileList.Panel2.SuspendLayout();
             this.scFileList.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.01355F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.98645F));
             this.tableLayoutPanel1.Controls.Add(this.rbOrganization, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.rbProject, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.easyCompletionComboBoxOrg, 0, 2);
@@ -93,14 +93,14 @@ namespace ProLoop.WordAddin.Forms
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 9;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 9F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(369, 660);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -108,9 +108,9 @@ namespace ProLoop.WordAddin.Forms
             // rbOrganization
             // 
             this.rbOrganization.Dock = System.Windows.Forms.DockStyle.Right;
-            this.rbOrganization.Location = new System.Drawing.Point(51, 23);
+            this.rbOrganization.Location = new System.Drawing.Point(69, 12);
             this.rbOrganization.Name = "rbOrganization";
-            this.rbOrganization.Size = new System.Drawing.Size(130, 34);
+            this.rbOrganization.Size = new System.Drawing.Size(130, 22);
             this.rbOrganization.TabIndex = 0;
             this.rbOrganization.TabStop = true;
             this.rbOrganization.Text = "Organization";
@@ -122,9 +122,9 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.rbProject.AutoSize = true;
             this.rbProject.Dock = System.Windows.Forms.DockStyle.Left;
-            this.rbProject.Location = new System.Drawing.Point(187, 23);
+            this.rbProject.Location = new System.Drawing.Point(205, 12);
             this.rbProject.Name = "rbProject";
-            this.rbProject.Size = new System.Drawing.Size(84, 34);
+            this.rbProject.Size = new System.Drawing.Size(84, 22);
             this.rbProject.TabIndex = 1;
             this.rbProject.TabStop = true;
             this.rbProject.Text = "Project";
@@ -136,54 +136,24 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.scTreeViewInformation, 2);
             this.scTreeViewInformation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scTreeViewInformation.Location = new System.Drawing.Point(3, 142);
+            this.scTreeViewInformation.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.scTreeViewInformation.IsSplitterFixed = true;
+            this.scTreeViewInformation.Location = new System.Drawing.Point(3, 115);
             this.scTreeViewInformation.Name = "scTreeViewInformation";
             this.scTreeViewInformation.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // scTreeViewInformation.Panel1
             // 
-            this.scTreeViewInformation.Panel1.Controls.Add(this.groupBox1);
+            this.scTreeViewInformation.Panel1.Controls.Add(this.panel1);
             // 
             // scTreeViewInformation.Panel2
             // 
             this.scTreeViewInformation.Panel2.Controls.Add(this.treeView1);
             this.scTreeViewInformation.Panel2Collapsed = true;
             this.scTreeViewInformation.Panel2MinSize = 0;
-            this.scTreeViewInformation.Size = new System.Drawing.Size(363, 66);
+            this.scTreeViewInformation.Size = new System.Drawing.Size(363, 35);
             this.scTreeViewInformation.SplitterDistance = 25;
             this.scTreeViewInformation.TabIndex = 6;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.lalSourceUrl);
-            this.groupBox1.Controls.Add(this.ckbFileTree);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(363, 66);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Folder Tree";
-            // 
-            // lalSourceUrl
-            // 
-            this.lalSourceUrl.AutoSize = true;
-            this.lalSourceUrl.Location = new System.Drawing.Point(6, 42);
-            this.lalSourceUrl.Name = "lalSourceUrl";
-            this.lalSourceUrl.Size = new System.Drawing.Size(84, 23);
-            this.lalSourceUrl.TabIndex = 1;
-            this.lalSourceUrl.Text = "SourceUrl";
-            // 
-            // ckbFileTree
-            // 
-            this.ckbFileTree.AutoSize = true;
-            this.ckbFileTree.Location = new System.Drawing.Point(10, 19);
-            this.ckbFileTree.Name = "ckbFileTree";
-            this.ckbFileTree.Size = new System.Drawing.Size(92, 27);
-            this.ckbFileTree.TabIndex = 0;
-            this.ckbFileTree.Text = "File tree";
-            this.ckbFileTree.UseVisualStyleBackColor = true;
-            this.ckbFileTree.CheckedChanged += new System.EventHandler(this.ckbFileTree_CheckedChanged);
             // 
             // treeView1
             // 
@@ -200,59 +170,28 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.scFileList, 2);
             this.scFileList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scFileList.Location = new System.Drawing.Point(3, 319);
+            this.scFileList.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.scFileList.IsSplitterFixed = true;
+            this.scFileList.Location = new System.Drawing.Point(3, 272);
             this.scFileList.Name = "scFileList";
             this.scFileList.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // scFileList.Panel1
             // 
-            this.scFileList.Panel1.Controls.Add(this.groupBox2);
+            this.scFileList.Panel1.Controls.Add(this.flowLayoutPanel1);
             // 
             // scFileList.Panel2
             // 
             this.scFileList.Panel2.Controls.Add(this.pictureBox1);
             this.scFileList.Panel2.Controls.Add(this.dataGridViewFileDetail);
-            this.scFileList.Size = new System.Drawing.Size(363, 338);
-            this.scFileList.SplitterDistance = 81;
+            this.scFileList.Size = new System.Drawing.Size(363, 385);
             this.scFileList.TabIndex = 7;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.ckbRecursive);
-            this.groupBox2.Controls.Add(this.ckbShowPath);
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(363, 59);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "File Path";
-            // 
-            // ckbRecursive
-            // 
-            this.ckbRecursive.AutoSize = true;
-            this.ckbRecursive.Location = new System.Drawing.Point(123, 21);
-            this.ckbRecursive.Name = "ckbRecursive";
-            this.ckbRecursive.Size = new System.Drawing.Size(103, 27);
-            this.ckbRecursive.TabIndex = 1;
-            this.ckbRecursive.Text = "Recursive";
-            this.ckbRecursive.UseVisualStyleBackColor = true;
-            // 
-            // ckbShowPath
-            // 
-            this.ckbShowPath.AutoSize = true;
-            this.ckbShowPath.Location = new System.Drawing.Point(10, 23);
-            this.ckbShowPath.Name = "ckbShowPath";
-            this.ckbShowPath.Size = new System.Drawing.Size(107, 27);
-            this.ckbShowPath.TabIndex = 0;
-            this.ckbShowPath.Text = "ShowPath";
-            this.ckbShowPath.UseVisualStyleBackColor = true;
-            this.ckbShowPath.CheckedChanged += new System.EventHandler(this.ckbShowPath_CheckedChanged);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::ProLoop.WordAddin.Properties.Resources.Gear;
-            this.pictureBox1.Location = new System.Drawing.Point(129, 61);
+            this.pictureBox1.Location = new System.Drawing.Point(161, 68);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(49, 49);
@@ -285,72 +224,135 @@ namespace ProLoop.WordAddin.Forms
             this.dataGridViewFileDetail.Name = "dataGridViewFileDetail";
             this.dataGridViewFileDetail.RowHeadersVisible = false;
             this.dataGridViewFileDetail.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFileDetail.Size = new System.Drawing.Size(363, 253);
+            this.dataGridViewFileDetail.Size = new System.Drawing.Size(363, 331);
             this.dataGridViewFileDetail.TabIndex = 6;
             this.dataGridViewFileDetail.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFileDetail_CellClick);
             // 
             // txtboxEditors
             // 
             this.txtboxEditors.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtboxEditors.Location = new System.Drawing.Point(3, 214);
+            this.txtboxEditors.Location = new System.Drawing.Point(3, 156);
             this.txtboxEditors.Name = "txtboxEditors";
-            this.txtboxEditors.Size = new System.Drawing.Size(178, 30);
+            this.txtboxEditors.Size = new System.Drawing.Size(196, 30);
             this.txtboxEditors.TabIndex = 8;
             this.txtboxEditors.TextChanged += new System.EventHandler(this.txtboxEditors_TextChanged);
             // 
             // txtboxContent
             // 
             this.txtboxContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtboxContent.Location = new System.Drawing.Point(187, 214);
+            this.txtboxContent.Location = new System.Drawing.Point(205, 156);
             this.txtboxContent.Name = "txtboxContent";
-            this.txtboxContent.Size = new System.Drawing.Size(179, 30);
+            this.txtboxContent.Size = new System.Drawing.Size(161, 30);
             this.txtboxContent.TabIndex = 9;
             this.txtboxContent.TextChanged += new System.EventHandler(this.txtboxContent_TextChanged);
             // 
             // txtboxTags
             // 
             this.txtboxTags.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtboxTags.Location = new System.Drawing.Point(3, 249);
+            this.txtboxTags.Location = new System.Drawing.Point(3, 195);
             this.txtboxTags.Name = "txtboxTags";
-            this.txtboxTags.Size = new System.Drawing.Size(178, 30);
+            this.txtboxTags.Size = new System.Drawing.Size(196, 30);
             this.txtboxTags.TabIndex = 10;
             this.txtboxTags.TextChanged += new System.EventHandler(this.txtboxTags_TextChanged);
             // 
             // txtboxDocumentId
             // 
             this.txtboxDocumentId.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtboxDocumentId.Location = new System.Drawing.Point(187, 249);
+            this.txtboxDocumentId.Location = new System.Drawing.Point(205, 195);
             this.txtboxDocumentId.Name = "txtboxDocumentId";
-            this.txtboxDocumentId.Size = new System.Drawing.Size(179, 30);
+            this.txtboxDocumentId.Size = new System.Drawing.Size(161, 30);
             this.txtboxDocumentId.TabIndex = 11;
             this.txtboxDocumentId.TextChanged += new System.EventHandler(this.txtboxDocumentId_TextChanged);
             // 
             // txtboxTitle
             // 
             this.txtboxTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtboxTitle.Location = new System.Drawing.Point(3, 284);
+            this.txtboxTitle.Location = new System.Drawing.Point(3, 235);
             this.txtboxTitle.Name = "txtboxTitle";
-            this.txtboxTitle.Size = new System.Drawing.Size(178, 30);
+            this.txtboxTitle.Size = new System.Drawing.Size(196, 30);
             this.txtboxTitle.TabIndex = 12;
             this.txtboxTitle.TextChanged += new System.EventHandler(this.txtboxTitle_TextChanged);
             // 
             // ckbAllversion
             // 
             this.ckbAllversion.AutoSize = true;
-            this.ckbAllversion.Location = new System.Drawing.Point(187, 284);
+            this.ckbAllversion.Location = new System.Drawing.Point(205, 235);
             this.ckbAllversion.Name = "ckbAllversion";
             this.ckbAllversion.Size = new System.Drawing.Size(115, 27);
             this.ckbAllversion.TabIndex = 13;
             this.ckbAllversion.Text = "all versions";
             this.ckbAllversion.UseVisualStyleBackColor = true;
             // 
+            // ckbShowPath
+            // 
+            this.ckbShowPath.AutoSize = true;
+            this.ckbShowPath.Location = new System.Drawing.Point(112, 3);
+            this.ckbShowPath.Name = "ckbShowPath";
+            this.ckbShowPath.Size = new System.Drawing.Size(107, 27);
+            this.ckbShowPath.TabIndex = 2;
+            this.ckbShowPath.Text = "ShowPath";
+            this.ckbShowPath.UseVisualStyleBackColor = true;
+            this.ckbShowPath.CheckedChanged += new System.EventHandler(this.ckbShowPath_CheckedChanged);
+            // 
+            // ckbRecursive
+            // 
+            this.ckbRecursive.AutoSize = true;
+            this.ckbRecursive.Location = new System.Drawing.Point(3, 3);
+            this.ckbRecursive.Name = "ckbRecursive";
+            this.ckbRecursive.Size = new System.Drawing.Size(103, 27);
+            this.ckbRecursive.TabIndex = 3;
+            this.ckbRecursive.Text = "Recursive";
+            this.ckbRecursive.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.ckbRecursive);
+            this.flowLayoutPanel1.Controls.Add(this.ckbShowPath);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(363, 40);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lalSourceUrl);
+            this.panel1.Controls.Add(this.ckbFileTree);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(363, 26);
+            this.panel1.TabIndex = 0;
+            // 
+            // lalSourceUrl
+            // 
+            this.lalSourceUrl.AutoSize = true;
+            this.lalSourceUrl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lalSourceUrl.Location = new System.Drawing.Point(0, 0);
+            this.lalSourceUrl.Name = "lalSourceUrl";
+            this.lalSourceUrl.Size = new System.Drawing.Size(84, 23);
+            this.lalSourceUrl.TabIndex = 3;
+            this.lalSourceUrl.Text = "SourceUrl";
+            // 
+            // ckbFileTree
+            // 
+            this.ckbFileTree.AutoSize = true;
+            this.ckbFileTree.Dock = System.Windows.Forms.DockStyle.Right;
+            this.ckbFileTree.Location = new System.Drawing.Point(252, 0);
+            this.ckbFileTree.Name = "ckbFileTree";
+            this.ckbFileTree.Size = new System.Drawing.Size(111, 26);
+            this.ckbFileTree.TabIndex = 2;
+            this.ckbFileTree.Text = "folder tree";
+            this.ckbFileTree.UseVisualStyleBackColor = true;
+            this.ckbFileTree.CheckedChanged += new System.EventHandler(this.ckbFileTree_CheckedChanged);
+            // 
             // easyCompletionComboBoxOrg
             // 
             this.easyCompletionComboBoxOrg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.easyCompletionComboBoxOrg.FormattingEnabled = true;
-            this.easyCompletionComboBoxOrg.Location = new System.Drawing.Point(3, 63);
+            this.easyCompletionComboBoxOrg.Location = new System.Drawing.Point(3, 40);
             this.easyCompletionComboBoxOrg.Name = "easyCompletionComboBoxOrg";
-            this.easyCompletionComboBoxOrg.Size = new System.Drawing.Size(178, 31);
+            this.easyCompletionComboBoxOrg.Size = new System.Drawing.Size(196, 31);
             this.easyCompletionComboBoxOrg.TabIndex = 2;
             this.easyCompletionComboBoxOrg.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxOrg_SelectedIndexChanged);
             // 
@@ -358,9 +360,9 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.easyCompletionComboBoxProject.Dock = System.Windows.Forms.DockStyle.Fill;
             this.easyCompletionComboBoxProject.FormattingEnabled = true;
-            this.easyCompletionComboBoxProject.Location = new System.Drawing.Point(187, 63);
+            this.easyCompletionComboBoxProject.Location = new System.Drawing.Point(205, 40);
             this.easyCompletionComboBoxProject.Name = "easyCompletionComboBoxProject";
-            this.easyCompletionComboBoxProject.Size = new System.Drawing.Size(179, 31);
+            this.easyCompletionComboBoxProject.Size = new System.Drawing.Size(161, 31);
             this.easyCompletionComboBoxProject.TabIndex = 3;
             this.easyCompletionComboBoxProject.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxProject_SelectedIndexChanged);
             // 
@@ -368,9 +370,9 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.easyCompletionComboBoxClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.easyCompletionComboBoxClient.FormattingEnabled = true;
-            this.easyCompletionComboBoxClient.Location = new System.Drawing.Point(3, 103);
+            this.easyCompletionComboBoxClient.Location = new System.Drawing.Point(3, 77);
             this.easyCompletionComboBoxClient.Name = "easyCompletionComboBoxClient";
-            this.easyCompletionComboBoxClient.Size = new System.Drawing.Size(178, 31);
+            this.easyCompletionComboBoxClient.Size = new System.Drawing.Size(196, 31);
             this.easyCompletionComboBoxClient.TabIndex = 4;
             this.easyCompletionComboBoxClient.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxClient_SelectedIndexChanged);
             // 
@@ -378,9 +380,9 @@ namespace ProLoop.WordAddin.Forms
             // 
             this.easyCompletionComboBoxMatter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.easyCompletionComboBoxMatter.FormattingEnabled = true;
-            this.easyCompletionComboBoxMatter.Location = new System.Drawing.Point(187, 103);
+            this.easyCompletionComboBoxMatter.Location = new System.Drawing.Point(205, 77);
             this.easyCompletionComboBoxMatter.Name = "easyCompletionComboBoxMatter";
-            this.easyCompletionComboBoxMatter.Size = new System.Drawing.Size(179, 31);
+            this.easyCompletionComboBoxMatter.Size = new System.Drawing.Size(161, 31);
             this.easyCompletionComboBoxMatter.TabIndex = 5;
             this.easyCompletionComboBoxMatter.SelectedIndexChanged += new System.EventHandler(this.easyCompletionComboBoxMatter_SelectedIndexChanged);
             // 
@@ -401,17 +403,17 @@ namespace ProLoop.WordAddin.Forms
             this.scTreeViewInformation.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scTreeViewInformation)).EndInit();
             this.scTreeViewInformation.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.scFileList.Panel1.ResumeLayout(false);
             this.scFileList.Panel2.ResumeLayout(false);
             this.scFileList.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scFileList)).EndInit();
             this.scFileList.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFileDetail)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -425,21 +427,21 @@ namespace ProLoop.WordAddin.Forms
         private EasyCompletionComboBox easyCompletionComboBoxClient;
         private EasyCompletionComboBox easyCompletionComboBoxMatter;
         private System.Windows.Forms.SplitContainer scTreeViewInformation;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.SplitContainer scFileList;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox ckbRecursive;
-        private System.Windows.Forms.CheckBox ckbShowPath;
         private System.Windows.Forms.TextBox txtboxEditors;
         private System.Windows.Forms.TextBox txtboxContent;
         private System.Windows.Forms.TextBox txtboxTags;
         private System.Windows.Forms.TextBox txtboxDocumentId;
         private System.Windows.Forms.TextBox txtboxTitle;
         private System.Windows.Forms.CheckBox ckbAllversion;
-        private System.Windows.Forms.Label lalSourceUrl;
-        private System.Windows.Forms.CheckBox ckbFileTree;
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.DataGridView dataGridViewFileDetail;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lalSourceUrl;
+        private System.Windows.Forms.CheckBox ckbFileTree;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.CheckBox ckbRecursive;
+        private System.Windows.Forms.CheckBox ckbShowPath;
     }
 }
