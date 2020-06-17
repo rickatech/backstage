@@ -185,12 +185,12 @@ namespace ProLoop.WordAddin
                 Log.Error("Exception while loading the WebDAV settings from registry.");
                 Log.Error(ex.Message);
             }
-            Log.Debug("LoadValuesFromRegistry() -- End");
+            Log.Information("LoadValuesFromRegistry() -- End");
         }
 
         public bool SaveValuesToRegistry(string webDavFolderUrl, string webDavUsername, string webDavPassword)
         {
-            Log.Debug("SaveValuesToRegistry() -- Begin");
+            Log.Information("SaveValuesToRegistry() -- Begin");
             bool result = false;
             try
             {

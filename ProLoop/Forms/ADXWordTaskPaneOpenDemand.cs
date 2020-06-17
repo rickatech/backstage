@@ -311,7 +311,7 @@ namespace ProLoop.WordAddin.Forms
         private void ShowHidePath()
         {
             if (dataGridViewFileDetail.Columns.Count > 0)
-                dataGridViewFileDetail.Columns[1].Visible = ckbShowPath.Checked;
+                dataGridViewFileDetail.Columns[4].Visible = ckbShowPath.Checked;
         }
         private void GetFiles(string folderPath)
         {          
@@ -347,7 +347,7 @@ namespace ProLoop.WordAddin.Forms
         {
             if (dataGridViewFileDetail.SelectedRows != null)
             {
-                string selectedFile = dataGridViewFileDetail.SelectedRows[0].Cells[1].Value as string;
+                string selectedFile = dataGridViewFileDetail.SelectedRows[0].Cells[4].Value as string;
                 AddinCurrentInstance.fileMetadata = new FileMetadataInfo();
                 if (currentProject != null)
                 {
@@ -405,8 +405,8 @@ namespace ProLoop.WordAddin.Forms
                                 Range footerRange = wordSection.Footers[WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
 
                                 footerRange.Font.ColorIndex = WdColorIndex.wdBlack;
-                                footerRange.Bold = 1;
-                                footerRange.Text = $"Doc Id:{data[0].VersionId} \t\t Version:2.0.0";
+                                footerRange.Bold = 1;                               
+                                footerRange.Text = GetVersionDetail(data[0].VersionId);
                             }
                             FileInfo docinfo = new FileInfo(filePath);
                             if (!docinfo.IsReadOnly)
@@ -424,9 +424,31 @@ namespace ProLoop.WordAddin.Forms
             }
             else
             {
-                MessageBox.Show("You can only Open Doc or Docx file.", "Proloop", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("You can only Open Doc or Docx or RTF file.", "Proloop", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+        }
+
+        private string GetVersionDetail(string docId)
+        {
+            var versionData = docId.Split('-');
+            string docversionId = string.Empty;
+            for(int i = 0; i < versionData.Length; i++)
+            {
+                string currentPart = versionData[i];
+                if (i == versionData.Length - 2)
+                {
+                    string finalPart = versionData[i + 1];
+                    docversionId += currentPart.Substring(currentPart.Length - 3) + "." + finalPart.Substring(finalPart.Length - 2);
+                    break;
+                }
+                else
+                {
+                    docversionId += currentPart.Substring(currentPart.Length-3) + "-";
+                }
+
+            }
+            return docversionId;
         }
 
         private void txtboxEditors_TextChanged(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +24,20 @@ namespace ProLoop.WordAddin.Model
     class MetaDataInfo
     {
         public string Name { get; set; }
-        public string Path { get; set; }
+
+        [DisplayName("#-Version")]
+        [JsonProperty(PropertyName = "versionId")]
+        public string VersionId { get; set; }
+
+        //[JsonProperty(PropertyName = "username")]
+        //public string EditorName { get; set; }
+
+        [DisplayName("Check Out By")]
+        public string CheckoutBy { get; set; }
+
         public string Keywords { get; set; }
 
-        [JsonProperty(PropertyName = "username")]
-        public string EditorName { get; set; }
-
-        [JsonProperty(PropertyName="versionId")]
-        public string VersionId { get; set; }
+        public string Path { get; set; }
 
     }
     class History

@@ -83,6 +83,7 @@ namespace ProLoop.WordAddin.Service
 
         public static string GetFolderPath(string projectName, string orgName, string matterName, string clientName)
         {
+            Log.Debug("GetFolderPath() -- Begin");
             string apiPath = AddinModule.CurrentInstance.isOldViewEnable ? "files" : "dir";
             string text = null;
             if (!string.IsNullOrEmpty(projectName))
@@ -112,6 +113,7 @@ namespace ProLoop.WordAddin.Service
                     // text = text + "/*?token=" + AddinModule.CurrentInstance.ProLoopToken;
                 }
             }
+            Log.Debug("GetFolderPath() -- end");
             return text;
 
         }
