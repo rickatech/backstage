@@ -108,7 +108,7 @@ namespace ProLoop.WordAddin.Forms
                     foreach (TreeNode node in currentNode.Nodes)
                     {
                         var folderItem = node.Tag as ProLoopFolder;
-                        var folders = APIHelper.GetFolders($"/api/files/{folderItem.Path}");
+                        var folders = APIHelper.GetFolders($"/api/dir/{folderItem.Path}/{folderItem.Name}");
                         if (folders != null)
                             AddTreeNodeToItem(node, folders);
                     }
@@ -136,7 +136,7 @@ namespace ProLoop.WordAddin.Forms
                     foreach (TreeNode node in currentNode.Nodes)
                     {
                         var folderItem = node.Tag as ProLoopFolder;
-                        var folders = APIHelper.GetFolders($"/api/files/{folderItem.Path}");
+                        var folders = APIHelper.GetFolders($"/api/dir/{folderItem.Path}/{folderItem.Name}");
                         if (folders != null && folders.Count > 0)
                             AddTreeNodeToItem(node, folders);
                     }
@@ -175,6 +175,8 @@ namespace ProLoop.WordAddin.Forms
                 {
                     continue;
                 }
+                if (nameofItem.Length == 1)
+                    continue;
                 var treenode = new TreeNode(nameofItem);
                 treenode.Tag = item;
                 node.Nodes.Add(treenode);
@@ -345,7 +347,7 @@ namespace ProLoop.WordAddin.Forms
         private void ShowHidePath()
         {
             if (dataGridViewFileDetail.Columns.Count > 0)
-                dataGridViewFileDetail.Columns[1].Visible = checkBoxShowPath.Checked;
+                dataGridViewFileDetail.Columns[4].Visible = checkBoxShowPath.Checked;
         }
 
         private void easyCompletionComboxClient_SelectedIndexChanged(object sender, EventArgs e)
@@ -412,6 +414,7 @@ namespace ProLoop.WordAddin.Forms
 
         private void treeView1_DoubleClick(object sender, EventArgs e)
         {
+            FolderPath = string.Empty;
             TreeNode selectedNode = treeView1.SelectedNode;
             if (selectedNode == null || selectedNode.Tag == null)
                 return;
@@ -519,7 +522,7 @@ namespace ProLoop.WordAddin.Forms
             else if (selectedNode.Tag is Project)
             {
                 orgProject = selectedNode.Text;
-                string folderPath = "/api/files/Projects/" + orgProject + "/*?token=";
+                string folderPath = "/api/dir/Projects/" + orgProject + "/*?token=";
                 //searchPath = $"Projects/{orgProject}";
                 if (radioButtonProject.Checked)
                 {
@@ -542,8 +545,8 @@ namespace ProLoop.WordAddin.Forms
                 //ProcessAutoComplete();
             }
             else if (selectedNode.Tag is ProLoopFolder)
-            {
-                string folderPath = (selectedNode.Tag as ProLoopFolder).Path;
+            {                
+                string folderPath = (selectedNode.Tag as ProLoopFolder).Path+"/"+selectedNode.Text;
                 var pathCollaction = folderPath.Split('/');
                 orgProject = pathCollaction[1];
                 List<string> pathList = pathCollaction.ToList();
@@ -566,7 +569,7 @@ namespace ProLoop.WordAddin.Forms
                     
                     foreach(string data in pathList.Skip(2))
                     {
-                        FolderPath = data + "\\";
+                        FolderPath += data + "\\";
                     }                   
                     ObjOrganization = null;
                     ObjMatter = null;
@@ -576,8 +579,8 @@ namespace ProLoop.WordAddin.Forms
                 {
                     foreach (string data in pathList.Skip(4))
                     {
-                        FolderPath = data + "\\";
-                    }
+                        FolderPath += data + "\\";
+                    }                   
                     //txtClient.Enabled = true;
                     //txtMatter.Enabled = true;
                     client = pathCollaction[2];
@@ -599,7 +602,7 @@ namespace ProLoop.WordAddin.Forms
                     ObjProject = null;
                 }
                 //searchPath = folderPath;
-                folderPath = $"/api/files/{folderPath}/*?token=";
+                folderPath = $"/api/dir/{folderPath}/*?token=";
                 GetFiles(folderPath);
                 FolderPath = FolderPath.TrimEnd(new char[] { '\\' });
             }
@@ -653,7 +656,7 @@ namespace ProLoop.WordAddin.Forms
                 if (!string.IsNullOrEmpty(FolderPath))
                 {
                     filePath += "\\Projects\\" + ObjProject.Title + "\\" + FolderPath + "\\" + txtFileName.Text; // + "?token=" + AddinCurrentInstance.ProLoopToken;
-                    localFolderPath += $"/Projects/{ObjProject.Title}/{FolderPath}";
+                    localFolderPath += $"/Projects/{ObjProject.Title}/{FolderPath.Replace("\\","/")}";
                 }
                 else
                 {
@@ -669,7 +672,7 @@ namespace ProLoop.WordAddin.Forms
                     {
                         filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + ObjMatter.Name + "\\" +
                                     FolderPath + "\\" + txtFileName.Text;
-                        localFolderPath += $"/Organizations/{ObjOrganization.Title}/{ObjClient.Name}/{ObjMatter.Name}";
+                        localFolderPath += $"/Organizations/{ObjOrganization.Title}/{ObjClient.Name}/{ObjMatter.Name}/{FolderPath.Replace("\\", "/")}";
                     }
                     else
                     {
@@ -684,7 +687,7 @@ namespace ProLoop.WordAddin.Forms
                     {
                         filePath += "\\Organizations\\" + ObjOrganization.Title + "\\" + ObjClient.Name + "\\" + FolderPath + "\\" +
                                     txtFileName.Text; // + "?token=" + AddinCurrentInstance.ProLoopToken;
-                        localFolderPath += $"/Organizations/{ObjOrganization.Title}/{ObjClient.Name}/{FolderPath}";
+                        localFolderPath += $"/Organizations/{ObjOrganization.Title}/{ObjClient.Name}/{FolderPath}/{FolderPath.Replace("\\", "/")}";
                     }
                     else
                     {
